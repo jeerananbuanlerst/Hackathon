@@ -617,3 +617,49 @@ footer{
   }
 
 }
+
+.ov-card{
+    background: linear-gradient(
+        180deg,
+        rgba(15,15,31,0.95),
+        rgba(11,11,24,0.95)
+    );
+
+    border:1px solid rgba(167,139,250,0.15);
+    border-radius:16px;
+
+    padding:28px;
+
+    transition:0.3s;
+}
+
+.ov-card:hover{
+    transform:translateY(-6px);
+
+    border-color:rgba(167,139,250,0.45);
+
+    box-shadow:
+      0 0 25px rgba(124,95,245,0.15);
+}
+
+.ov-desc ul{
+    margin-top:10px;
+    margin-bottom:15px;
+    padding-left:18px;
+}
+
+.ov-desc li{
+    margin-bottom:6px;
+    color:#94a3b8;
+}
+
+.ov-title{
+    font-size:16px;
+    margin-bottom:14px;
+}
+
+.ov-icon{
+    font-size:34px;
+    margin-bottom:16px;
+    display:block;
+}
