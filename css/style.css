@@ -652,4 +652,19 @@ footer{
   .team-grid{
     grid-template-columns:1fr;
   }
-}
+
+.ov-card{
+    background: linear-gradient(
+        180deg,
+        rgba(15,15,31,0.95),
+        rgba(11,11,24,0.95)
+    );
+
+    border:1px solid rgba(167,139,250,0.15);
+    border-radius:16px;
+
+    padding:28px;
+
+    transition:0.3s;
+ }
+  }
