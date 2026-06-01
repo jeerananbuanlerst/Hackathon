@@ -120,48 +120,28 @@ nav{
 
 /* ===== Hero ===== */
 
-#hero{
-  min-height:100vh;
-
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-
-  text-align:center;
-
-  position:relative;
-
-  padding:120px 20px;
+/* ค้นหาส่วน #hero ใน CSS ของคุณแล้วแก้เป็นแบบนี้ */
+#hero > *:not(.hero-orb) {
+  position: relative;
+  z-index: 2;
 }
 
-.hero-grid-bg{
-  position:absolute;
-  inset:0;
 
-  background-image:
-  linear-gradient(rgba(124,95,245,.08) 1px, transparent 1px),
-  linear-gradient(90deg, rgba(124,95,245,.08) 1px, transparent 1px);
-
-  background-size:60px 60px;
+.hero-orb {
+  position: absolute;
+  width: 500px;
+  height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle,
+    rgba(124,95,245,.25) 0%,
+    transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); /* ตรึง orb ไว้กึ่งกลางจริงๆ */
+  pointer-events: none;
 }
-
-.hero-orb{
-  position:absolute;
-
-  width:500px;
-  height:500px;
-
-  border-radius:50%;
-
-  background:
-  radial-gradient(circle,
-  rgba(124,95,245,.25) 0%,
-  transparent 70%);
-}
-
 .hero-badge{
-  margin-bottom:20px;
+  margin: 0; /* ลบ margin เดิมออก */
 
   color:var(--accent2);
 
@@ -174,11 +154,13 @@ nav{
   font-size:12px;
 }
 
-h1{
-  font-family:'Orbitron',monospace;
-  font-size:72px;
-  line-height:1.1;
-  margin-bottom:20px;
+h1 {
+  font-family: 'Orbitron', monospace;
+  /* ใช้ line-height น้อยกว่า 1 เพื่อให้บรรทัดบนกับล่างชิดกันเหมือนในรูป */
+  line-height: 0.85; 
+  font-size: 80px;
+  margin: 0; /* ลบ margin ออกให้หมดเพื่อให้ gap ของ #hero ทำหน้าที่แทน */
+  text-transform: uppercase;
 }
 
 .accent{
@@ -187,29 +169,26 @@ h1{
 
 .hero-tagline{
   color:var(--muted);
-  max-width:600px;
-  margin-bottom:40px;
+  margin: 0; /* ลบ margin เดิมออก */
+  max-width: 600px;
 }
 
 /* ===== Stats ===== */
 
-.hero-stats{
-  display:flex;
-  gap:15px;
-  flex-wrap:wrap;
-  justify-content:center;
-
-  margin-bottom:40px;
+.hero-stats {
+  display: flex;
+  gap: 10px;       /* ลด gap */
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0;       /* เอา margin ออก */
 }
 
-.stat-item{
-  background:var(--bg2);
-  border:1px solid var(--border2);
-
-  border-radius:12px;
-
-  padding:20px;
-  min-width:130px;
+.stat-item {
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: 12px;
+  padding: 14px 18px;  /* ลด padding */
+  min-width: 120px;
 }
 
 .stat-val{
@@ -370,14 +349,9 @@ section{
 }
 
 .slides-embed{
-  height:800px;
-  position:relative;
+  min-height:500px;
 }
-.slides-embed iframe{
-  width:100%;
-  height:100%;
-  border:none;
-}
+
 .slides-placeholder{
   min-height:500px;
 
@@ -508,30 +482,18 @@ section{
 
 .team-grid{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:24px;
-  width:100%;
-  margin-top:30px;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:16px;
 }
 
-.member-name{
-  font-weight:600;
-  font-size:20px;
-  margin-bottom:10px;
-  line-height:1.4;
-}
 .member-card{
   background:var(--bg2);
   border:1px solid var(--border2);
+
   border-radius:12px;
   padding:24px;
+
   text-align:center;
-
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-
-  min-height:220px;
 }
 
 .member-avatar{
@@ -621,9 +583,13 @@ footer{
     display:none;
   }
 
-  h1{
-    font-size:42px;
-  }
+  h1 {
+  font-family: 'Orbitron', monospace;
+  line-height: 0.9;
+  font-size: 80px;
+  margin: 0;
+  text-transform: uppercase;
+}
 
   .game-wrapper{
     grid-template-columns:1fr;
@@ -634,22 +600,6 @@ footer{
   }
 
 }
-@media(max-width:1200px){
-  .team-grid{
-    grid-template-columns:repeat(3,1fr);
-  }
-}
-
-@media(max-width:900px){
-  .team-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
-}
-
-@media(max-width:768px){
-  .team-grid{
-    grid-template-columns:1fr;
-  }
 
 .ov-card{
     background: linear-gradient(
@@ -664,5 +614,79 @@ footer{
     padding:28px;
 
     transition:0.3s;
- }
-  }
+}
+
+.ov-card:hover{
+    transform:translateY(-6px);
+
+    border-color:rgba(167,139,250,0.45);
+
+    box-shadow:
+      0 0 25px rgba(124,95,245,0.15);
+}
+
+.ov-desc ul{
+    margin-top:10px;
+    margin-bottom:15px;
+    padding-left:18px;
+}
+
+.ov-desc li{
+    margin-bottom:6px;
+    color:#94a3b8;
+}
+
+.ov-title{
+    font-size:16px;
+    margin-bottom:14px;
+}
+
+.ov-icon{
+    font-size:34px;
+    margin-bottom:16px;
+    display:block;
+}
+#hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  position: relative;
+  padding: 80px 20px 40px;
+  gap: 16px;
+}
+
+#hero > *{
+    position:relative;
+    z-index:2;
+}
+
+.hero-actions{
+    position:relative;
+    z-index:999;
+}
+
+.btn-primary,
+.btn-ghost{
+    position:relative;
+    z-index:999;
+    cursor:pointer;
+}
+
+/* เพิ่ม override นี้ ต่อท้าย CSS ไฟล์ */
+.hero-orb {
+  position: absolute !important;
+  top: 50% !important;
+  left: 50% !important;
+  transform: translate(-50%, -50%) !important;
+  pointer-events: none;
+  z-index: 1 !important;  /* ต่ำกว่า content */
+}
+
+/* บังคับให้ #hero > * ยกเว้น orb อยู่เหนือ */
+#hero > *:not(.hero-orb) {
+  position: relative;
+  z-index: 2;
+}
