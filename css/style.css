@@ -1,18 +1,19 @@
 :root {
-  --bg: #06060f;
-  --bg2: #0b0b18;
-  --bg3: #0f0f1f;
+--bg: #06060f;
+--bg2: #0b0b18;
+--bg3: #0f0f1f;
 
-  --border: #1a1a2e;
-  --border2: #252540;
+--border: #2d2414;
+--border2: #3f3218;
 
-  --accent: #7c5ff5;
-  --accent2: #a78bfa;
+--accent: #d4a017;
+--accent2: #f4c542;
 
-  --text: #e2e8f0;
-  --muted: #94a3b8;
-  --muted2: #64748b;
+--text: #e2e8f0;
+--muted: #94a3b8;
+--muted2: #64748b;
 }
+
 
 *{
   margin:0;
@@ -349,7 +350,13 @@ section{
 }
 
 .slides-embed{
-  min-height:500px;
+  width:100%;
+  height:85vh;
+}
+.slides-embed iframe{
+  width:100%;
+  height:100%;
+  border:none;
 }
 
 .slides-placeholder{
@@ -482,8 +489,9 @@ section{
 
 .team-grid{
   display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:16px;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+  margin-top:30px;
 }
 
 .member-card{
@@ -528,6 +536,20 @@ section{
 
 .member-id{
   color:var(--muted);
+}
+
+.member-card{
+  transition:.3s ease;
+}
+
+.member-card:hover{
+  transform:translateY(-8px);
+
+  border-color:var(--accent2);
+
+  box-shadow:
+    0 0 20px rgba(124,95,245,.20),
+    0 0 40px rgba(124,95,245,.10);
 }
 
 .tech-grid{
@@ -689,4 +711,252 @@ footer{
 #hero > *:not(.hero-orb) {
   position: relative;
   z-index: 2;
+}
+/* ===== Muay Korat Pages ===== */
+
+.page-wrap{
+max-width:1200px;
+margin:auto;
+padding:40px 30px;
+}
+
+.breadcrumb{
+max-width:1200px;
+margin:90px auto 20px;
+padding:0 30px;
+color:var(--muted);
+}
+
+.breadcrumb a{
+color:var(--muted);
+text-decoration:none;
+}
+
+.breadcrumb .sep{
+margin:0 10px;
+}
+
+.breadcrumb .cur{
+color:var(--accent2);
+}
+
+.sec-header{
+display:flex;
+align-items:center;
+gap:15px;
+margin-bottom:20px;
+}
+
+.sec-tag{
+color:var(--accent2);
+border:1px solid var(--border2);
+padding:6px 12px;
+border-radius:20px;
+font-size:12px;
+}
+
+.sec-rule{
+flex:1;
+height:1px;
+background:var(--border2);
+}
+
+.sec-title{
+font-family:'Orbitron',monospace;
+font-size:42px;
+margin-bottom:15px;
+}
+
+.sec-sub{
+color:var(--muted);
+margin-bottom:40px;
+}
+
+.cards-grid,
+.detail-grid,
+.appear-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+gap:24px;
+margin-top:30px;
+}
+
+.card,
+.detail-card,
+.appear-card{
+background:var(--bg2);
+border:1px solid var(--border2);
+border-radius:16px;
+padding:24px;
+transition:.3s;
+}
+
+.card:hover,
+.detail-card:hover,
+.appear-card:hover{
+transform:translateY(-6px);
+border-color:var(--accent2);
+}
+
+.card-icon,
+.appear-icon{
+font-size:34px;
+display:block;
+margin-bottom:12px;
+}
+
+.card-title,
+.appear-title{
+font-weight:700;
+margin-bottom:10px;
+}
+
+.card-body,
+.appear-desc{
+color:var(--muted);
+}
+
+.highlight-box,
+.sig-card,
+.trivia-box{
+position:relative;
+overflow:hidden;
+background:var(--bg2);
+border:1px solid var(--border2);
+border-radius:18px;
+padding:32px;
+margin:35px 0;
+}
+
+.highlight-tag,
+.sig-tag,
+.trivia-label{
+color:var(--accent2);
+font-size:12px;
+}
+
+.highlight-title,
+.sig-title{
+font-size:28px;
+font-weight:700;
+margin:15px 0;
+}
+
+.highlight-body,
+.sig-body,
+.trivia-text{
+color:var(--muted);
+}
+
+.highlight-wm,
+.sig-watermark{
+position:absolute;
+right:20px;
+top:15px;
+font-size:70px;
+opacity:.08;
+}
+
+.detail-label{
+color:var(--accent2);
+font-size:13px;
+margin-bottom:8px;
+}
+
+.detail-value{
+font-weight:700;
+margin-bottom:10px;
+}
+
+.detail-desc{
+color:var(--muted);
+}
+
+.appear-list{
+padding-left:18px;
+color:var(--muted);
+}
+
+.appear-list li{
+margin-bottom:10px;
+}
+
+.training-steps{
+display:flex;
+flex-direction:column;
+gap:20px;
+}
+
+.training-step{
+display:flex;
+gap:20px;
+background:var(--bg2);
+border:1px solid var(--border2);
+border-radius:16px;
+padding:24px;
+}
+
+.step-num{
+font-family:'Orbitron',monospace;
+color:var(--accent2);
+font-size:26px;
+min-width:60px;
+}
+
+.step-title{
+font-weight:700;
+margin-bottom:8px;
+}
+
+.step-desc{
+color:var(--muted);
+}
+
+.trivia-source{
+margin-top:20px;
+font-size:14px;
+}
+
+.trivia-source a{
+color:var(--accent2);
+}
+
+.bottom-nav{
+max-width:1200px;
+margin:40px auto;
+padding:0 30px;
+
+display:flex;
+justify-content:space-between;
+gap:20px;
+}
+
+.bnav-btn{
+text-decoration:none;
+color:var(--accent2);
+
+border:1px solid var(--border2);
+border-radius:12px;
+
+padding:14px 20px;
+}
+
+.bnav-btn:hover{
+border-color:var(--accent2);
+}
+
+@media(max-width:768px){
+
+.sec-title{
+font-size:32px;
+}
+
+.bottom-nav{
+flex-direction:column;
+}
+
+.training-step{
+flex-direction:column;
+}
+
 }
