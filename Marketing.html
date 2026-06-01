@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Marketing Analysis</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">◈ <span>PROJECT</span></a>
+
+  <ul class="nav-links">
+    <li class="dropdown">
+      <a href="#">Overview ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="overview.html">Overview</a></li>
+        <li><a href="marketing.html">Marketing</a></li>
+      </ul>
+    </li>
+    <li><a href="slides.html">Slides</a></li>
+    <li><a href="game.html">Play</a></li>
+    <li><a href="team.html">Team</a></li>
+  </ul>
+
+  <a href="game.html" class="nav-cta">▶ PLAY</a>
+</nav>
+
+<script>
+  document.querySelectorAll('.dropdown > a').forEach(trigger => {
+    trigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      const menu = this.nextElementSibling;
+      const isOpen = menu.style.opacity === '1';
+      menu.style.opacity = isOpen ? '0' : '1';
+      menu.style.visibility = isOpen ? 'hidden' : 'visible';
+      menu.style.transform = isOpen ? 'translateY(10px)' : 'translateY(0)';
+    });
+  });
+</script>
+
+<section style="padding-top:120px;">
+
+<div class="section-header">
+<span class="section-tag">02 — MARKETING ANALYSIS</span>
+<div class="section-line"></div>
+</div>
+
+<h2 class="section-title">
+Marketing Analysis of Muay Korat Digital Game
+</h2>
+
+<p class="section-sub">
+การวิเคราะห์ตลาด กลุ่มเป้าหมาย ปัญหาของผู้ใช้งาน
+แนวโน้มอุตสาหกรรม คู่แข่งทางธุรกิจ และจุดเด่นของโครงการ
+เพื่อแสดงศักยภาพของเกมมวยโคราชในการเป็นสื่อการเรียนรู้
+และ Soft Power ด้านวัฒนธรรมไทยบนแพลตฟอร์มดิจิทัล
+</p>
+
+<div class="marketing-grid">
+
+<!-- Target -->
+
+<div class="market-card">
+
+<div class="market-icon">🎯</div>
+
+<h3>Target Customers</h3>
+
+<p>
+กลุ่มลูกค้าเป้าหมายหลักของโครงการคือ
+เยาวชน นักศึกษา และผู้ที่สนใจเกมเชิงวัฒนธรรม
+ซึ่งเป็นกลุ่มที่มีการใช้งานสื่อดิจิทัลเป็นประจำ
+และเปิดรับการเรียนรู้รูปแบบใหม่ผ่านเกม
+</p>
+
+<ul>
+<li>เยาวชนอายุ 15–25 ปี</li>
+<li>นักศึกษาและผู้เรียน</li>
+<li>ผู้สนใจเกม Turn-Based</li>
+<li>ผู้สนใจศิลปวัฒนธรรมไทย</li>
+<li>สถานศึกษาและหน่วยงานวัฒนธรรม</li>
+</ul>
+
+</div>
+
+<!-- Pain Points -->
+
+<div class="market-card">
+
+<div class="market-icon">⚠️</div>
+
+<h3>Customer Pain Points</h3>
+
+<p>
+ปัจจุบันมวยโคราชยังเป็นองค์ความรู้ที่คนทั่วไปรู้จักน้อย
+และขาดสื่อการเรียนรู้ที่สามารถดึงดูดคนรุ่นใหม่ได้
+</p>
+
+<ul>
+<li>ไม่รู้จักมวยโคราช</li>
+<li>ข้อมูลเข้าถึงยาก</li>
+<li>สื่อแบบเดิมไม่น่าสนใจ</li>
+<li>ไม่มีสื่อ Interactive</li>
+<li>ขาดสื่อแสดงท่วงท่ามวยโคราช</li>
+</ul>
+
+</div>
+
+<!-- Trend -->
+
+<div class="market-card">
+
+<div class="market-icon">📈</div>
+
+<h3>Market Trends</h3>
+
+<p>
+อุตสาหกรรมเกมและสื่อดิจิทัลยังคงเติบโตอย่างต่อเนื่อง
+โดยเฉพาะเกมเพื่อการศึกษาและการอนุรักษ์วัฒนธรรม
+ผ่านเทคโนโลยีสมัยใหม่
+</p>
+
+<ul>
+<li>เกมมือถือเติบโตสูง</li>
+<li>Educational Game ได้รับความนิยม</li>
+<li>Digital Learning ขยายตัวต่อเนื่อง</li>
+<li>Soft Power ไทยได้รับการส่งเสริม</li>
+<li>สื่อ Interactive เป็นที่ต้องการ</li>
+</ul>
+
+</div>
+
+<!-- Competitor -->
+
+<div class="market-card">
+
+<div class="market-icon">🏆</div>
+
+<h3>Competitors</h3>
+
+<p>
+โครงการมีทั้งคู่แข่งทางตรงและทางอ้อม
+ซึ่งส่วนใหญ่เน้นด้านความบันเทิงหรือข้อมูลทั่วไป
+แต่ยังไม่มีสื่อที่เน้นมวยโคราชโดยเฉพาะ
+</p>
+
+<ul>
+<li>เกมเกี่ยวกับมวยไทย</li>
+<li>แอปสอนศิลปะการต่อสู้</li>
+<li>เกม Turn-Based ทั่วไป</li>
+<li>YouTube ด้านมวยไทย</li>
+<li>เว็บไซต์ความรู้ทั่วไป</li>
+</ul>
+
+</div>
+
+<!-- USP -->
+
+<div class="market-card market-highlight">
+
+<div class="market-icon">🚀</div>
+
+<h3>Unique Selling Point (USP)</h3>
+
+<p>
+จุดเด่นสำคัญของโครงการคือการนำภูมิปัญญาท้องถิ่น
+อย่าง "มวยโคราช" มาพัฒนาเป็นเกมเชิงการเรียนรู้
+ที่ผสมผสานวัฒนธรรมไทยกับเทคโนโลยีดิจิทัล
+</p>
+
+<ul>
+<li>เน้นมวยโคราชโดยเฉพาะ</li>
+<li>เกมช่วยให้เรียนรู้ได้สนุก</li>
+<li>แสดงแม่ไม้มวยโคราชแบบ 3 มิติ</li>
+<li>มีภาพ เสียง และการโต้ตอบ</li>
+<li>รวมข้อมูลและเกมไว้ในเว็บไซต์เดียว</li>
+</ul>
+
+</div>
+
+</div>
+
+</section>
+
+<footer>
+<span class="footer-logo">◈ PROJECT NAME</span>
+<span class="footer-text">
+Senior Project · 2025
+</span>
+</footer>
+
+</body>
+</html>

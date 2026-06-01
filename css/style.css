@@ -690,3 +690,144 @@ footer{
   position: relative;
   z-index: 2;
 }
+
+/* =========================
+   MARKETING PAGE
+========================= */
+
+.marketing-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:20px;
+}
+
+.market-card{
+    background:linear-gradient(
+        180deg,
+        rgba(15,15,31,.95),
+        rgba(11,11,24,.95)
+    );
+
+    border:1px solid rgba(167,139,250,.15);
+
+    border-radius:18px;
+
+    padding:28px;
+
+    transition:.3s;
+}
+
+.market-card:hover{
+    transform:translateY(-8px);
+
+    border-color:rgba(167,139,250,.45);
+
+    box-shadow:
+    0 0 30px rgba(124,95,245,.18);
+}
+
+.market-icon{
+    font-size:40px;
+    margin-bottom:18px;
+}
+
+.market-card h3{
+    color:var(--accent2);
+    margin-bottom:14px;
+    font-size:20px;
+}
+
+.market-card p{
+    color:var(--muted);
+    margin-bottom:16px;
+}
+
+.market-card ul{
+    padding-left:20px;
+}
+
+.market-card li{
+    margin-bottom:8px;
+    color:#cbd5e1;
+}
+
+.market-highlight{
+    border:1px solid rgba(124,95,245,.4);
+
+    background:
+    linear-gradient(
+      180deg,
+      rgba(124,95,245,.12),
+      rgba(11,11,24,.95)
+    );
+}
+
+/* =========================
+   DROPDOWN MENU
+========================= */
+
+.dropdown{
+    position:relative;
+}
+
+.dropdown-menu{
+    position:absolute;
+    top:100%;
+    left:0;
+
+    min-width:180px;
+
+    background:rgba(11,11,24,.98);
+
+    border:1px solid var(--border2);
+
+    border-radius:12px;
+
+    padding:10px 0;
+
+    list-style:none;
+
+    opacity:0;
+    visibility:hidden;
+
+    transform:translateY(10px);
+
+    transition:.3s;
+
+    z-index:1000;
+}
+
+.dropdown:hover .dropdown-menu{
+    opacity:1;
+    visibility:visible;
+    transform:translateY(0);
+}
+
+.dropdown-menu li{
+    width:100%;
+}
+
+.dropdown-menu a{
+    display:block;
+
+    padding:12px 18px;
+
+    color:var(--text);
+
+    text-decoration:none;
+
+    transition:.3s;
+}
+
+.dropdown-menu a:hover{
+    background:rgba(124,95,245,.15);
+    color:var(--accent2);
+}
+
+nav {
+  overflow: visible; /* เพิ่มบรรทัดนี้ */
+}
+
+.nav-links {
+  overflow: visible; /* เพิ่มบรรทัดนี้ */
+}
