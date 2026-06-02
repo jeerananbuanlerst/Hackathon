@@ -3,20 +3,98 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PROJECT NAME — Senior Project 2025</title>
+  <title>MUAY KORAT — Interactive Learning Game 2026</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Sora:wght@300;400;500;600&family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="./css/style.css">
 
-  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* =========================================
+       1. SPLASH SCREEN (PRELOADER) STYLE
+       ========================================= */
+    #custom-preloader {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: #04040c;
+      z-index: 99999;
+      display: flex; align-items: center; justify-content: center;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
 
- <link rel="stylesheet" href="./css/style.css">
+    .preloader-content { text-align: center; position: relative; }
+
+    .preloader-orb {
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: 250px; height: 250px;
+      background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, rgba(0,0,0,0) 70%);
+      filter: blur(15px); animation: pulse 2s infinite ease-in-out;
+    }
+
+    .preloader-tagline {
+      font-family: 'Kanit', sans-serif; color: #d4af37;
+      font-size: 42px; font-weight: 700; margin: 10px 0 25px 0;
+      text-shadow: 0 0 30px rgba(212, 175, 55, 0.5);
+      animation: scaleUp 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .preloader-bar {
+      width: 280px; height: 2px; background: rgba(212, 175, 55, 0.1);
+      margin: 0 auto 15px; border-radius: 2px; overflow: hidden;
+    }
+
+    .preloader-progress {
+      width: 0%; height: 100%; background: #d4af37;
+      box-shadow: 0 0 15px #d4af37;
+      animation: loadProcess 2.5s cubic-bezier(0.1, 0.8, 0.2, 1) forwards;
+    }
+
+    @keyframes pulse { 0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; } 50% { transform: translate(-50%, -50%) scale(1.2); opacity: 0.8; } }
+    @keyframes loadProcess { 0% { width: 0%; } 100% { width: 100%; } }
+    @keyframes scaleUp { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+
+    /* =========================================
+       2. NARRATIVE SECTION STYLE
+       ========================================= */
+    .narrative-section {
+      background: linear-gradient(180deg, #04040c 0%, #0d0d21 50%, #04040c 100%);
+      padding: 120px 24px;
+      text-align: center;
+      border-top: 1px solid rgba(212, 175, 55, 0.1);
+    }
+
+    .narrative-container {
+      max-width: 900px; margin: 40px auto 0;
+      background: rgba(255, 255, 255, 0.02);
+      border-left: 4px solid #d4af37;
+      padding: 40px; border-radius: 0 20px 20px 0;
+      text-align: left;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+    }
+
+    .narrative-tagline-main {
+      font-family: 'Kanit', sans-serif; color: #d4af37;
+      font-size: 38px; font-weight: 700; margin-bottom: 10px;
+    }
+
+    .accent-gold { color: #d4af37; font-weight: 600; }
+  </style>
 </head>
 
 <body>
 
-<nav>
-  <a href="index.html" class="nav-logo">◈ <span>PROJECT</span></a>
+  <div id="custom-preloader">
+    <div class="preloader-content">
+      <div class="preloader-orb"></div>
+      <span style="font-family:'Orbitron'; color:#666; letter-spacing:5px; font-size:12px;">MUAY KORAT DIGITAL</span>
+      <h2 class="preloader-tagline">“โคราชเมืองมวย นักปราชญ์อุบล”</h2>
+      <div class="preloader-bar"><div class="preloader-progress"></div></div>
+      <span style="font-family:'Orbitron'; color:#444; letter-spacing:2px; font-size:10px;">ESTABLISHING DEFENSE LINE...</span>
+    </div>
+  </div>
 
   <ul class="nav-links">
 
@@ -64,69 +142,99 @@
 </ul>
   <a href="game.html" class="nav-cta">▶ PLAY</a>
 </nav>
+  <nav>
+    <a href="index.html" class="nav-logo">◈ MUAY<span>KORAT</span></a>
+    <ul class="nav-links">
+      <li class="dropdown">
+        <a href="#">Overview ▾</a>
+        <ul class="dropdown-menu">
+          <li><a href="overview.html">Overview</a></li>
+          <li><a href="marketing.html">Marketing</a></li>
+        </ul>
+      </li>
+      <li><a href="slides.html">Slides</a></li>
+      <li><a href="game.html">Play</a></li>
+      <li><a href="team.html">Team</a></li>
+    </ul>
+    <a href="game.html" class="nav-cta">▶ PLAY</a>
+  </nav>
 
-<section id="hero">
+  <section id="hero">
+    <div class="hero-grid-bg"></div>
+    <div class="hero-orb"></div>
 
-  <div class="hero-grid-bg"></div>
-  <div class="hero-orb"></div>
-
-  <div class="hero-badge">
-    SENIOR PROJECT · 2025
-  </div>
-
-  <h1>
-    GAME<br>
-    <span class="accent">PROJECT</span>
-  </h1>
-
-  <p class="hero-tagline">
-    คำอธิบายเกมสั้นๆ ที่น่าสนใจ · แนวคิดหลัก · เทคโนโลยีที่ใช้พัฒนา
-  </p>
-
-  <div class="hero-stats">
-
-    <div class="stat-item">
-      <span class="stat-val">4</span>
-      <span class="stat-lbl">Members</span>
+    <div class="hero-badge">
+      <i class="fa-solid fa-shield-halved"></i> SENIOR PROJECT · 2026
     </div>
 
-    <div class="stat-item">
-      <span class="stat-val">2025</span>
-      <span class="stat-lbl">Year</span>
+    <h1 style="font-family: 'Orbitron', sans-serif; font-weight: 900;">
+      MUAY<br><span class="accent">KORAT</span>
+    </h1>
+
+    <p class="hero-tagline" style="font-family: 'Kanit', sans-serif; max-width: 750px;">
+      ศาสตร์แห่งการเอาชีวิตรอดของนักรบเมืองด่านหน้า สู่ประสบการณ์การเรียนรู้เชิงโต้ตอบในรูปแบบ Digital Interactive Learning
+    </p>
+
+    <div class="hero-stats">
+      <div class="stat-item"><span class="stat-val">3</span><span class="stat-lbl">Core Stances</span></div>
+      <div class="stat-item"><span class="stat-val">2026</span><span class="stat-lbl">Year</span></div>
+      <div class="stat-item"><span class="stat-val">SUT</span><span class="stat-lbl">University</span></div>
+      <div class="stat-item"><span class="stat-val">4</span><span class="stat-lbl">Devs</span></div>
     </div>
 
-    <div class="stat-item">
-      <span class="stat-val">v1.0</span>
-      <span class="stat-lbl">Version</span>
+    <div class="hero-actions">
+      <a href="game.html" class="btn-primary">▶ PLAY DEMO</a>
+      <a href="slides.html" class="btn-ghost">VIEW PROJECT DETAILS →</a>
     </div>
+  </section>
 
-    <div class="stat-item">
-      <span class="stat-val">CS</span>
-      <span class="stat-lbl">Faculty</span>
+  <section class="narrative-section">
+    <span style="color: #555; font-family: 'Orbitron'; letter-spacing: 3px; font-size: 13px;">TRANSMEDIA CONCEPT</span>
+    <h2 class="narrative-tagline-main">“ศิลปะแห่งการเอาชีวิตรอด”</h2>
+    
+    <div class="narrative-container">
+      <h3 style="color:#fff; font-family:'Kanit'; margin-bottom:15px; display:flex; align-items:center; gap:12px;">
+        <i class="fa-solid fa-mountain-city" style="color:#d4af37;"></i>
+        มวยแห่งเมืองด่าน (The Survival Art of Frontier)
+      </h3>
+      <p style="font-family:'Kanit'; color:#aaa; font-size:17px; line-height:1.8;">
+        ทำไมต้อง <span class="accent-gold">"มวยโคราช"</span>? เพราะนี่คือมวยที่ไม่ได้เกิดมาเพื่อการกีฬา แต่คือศาสตร์การต่อสู้ของ <span class="accent-gold">"เมืองด่านหน้า"</span> 
+        ในยามที่บ้านเมืองมีศึกสงคราม ทุกท่วงท่าถูกออกแบบมาเพื่อการเอาชีวิตรอดที่เด็ดขาดและจริงจัง 
+        เราจึงนำ Narrative นี้มาสร้างเป็น <span class="accent-gold">Digital IP</span> ที่ให้ความรู้สึกที่หนักแน่นกว่ามวยไทยทั่วไป 
+        มุ่งเน้นการส่งต่อคุณค่าทางวัฒนธรรมผ่านเทคโนโลยีที่คนรุ่นใหม่เข้าถึงได้จริง
+      </p>
     </div>
+  </section>
 
-  </div>
+  <footer>
+    <span class="footer-logo">◈ MUAY KORAT</span>
+    <span class="footer-text">
+      Digital Arts and Sciences · Suranaree University of Technology · 2026
+    </span>
+  </footer>
 
-  <div class="hero-actions">
+  <script>
+    // 1. ระบบปิด Splash Screen
+    window.addEventListener('DOMContentLoaded', () => {
+      const preloader = document.getElementById('custom-preloader');
+      setTimeout(() => {
+        preloader.style.opacity = '0';
+        setTimeout(() => { preloader.style.visibility = 'hidden'; }, 800);
+      }, 2500); // แสดงจอโหลด 2.5 วินาที
+    });
 
-    <a href="game.html" class="btn-primary">
-      ▶ PLAY DEMO
-    </a>
-
-    <a href="slides.html" class="btn-ghost">
-      VIEW SLIDES →
-    </a>
-
-  </div>
-
-</section>
-
-<footer>
-  <span class="footer-logo">◈ PROJECT NAME</span>
-  <span class="footer-text">
-    Muay Korat Project · สำนักวิชาศาสตร์และศิลป์ดิจิทัล · มหาวิทยาลัยเทคโนโลยีสุรนารี · 2026
-  </span>
-</footer>
+    // 2. ระบบ Navbar Dropdown
+    document.querySelectorAll('.dropdown > a').forEach(trigger => {
+      trigger.addEventListener('click', function(e) {
+        e.preventDefault();
+        const menu = this.nextElementSibling;
+        const isOpen = menu.style.opacity === '1';
+        menu.style.opacity = isOpen ? '0' : '1';
+        menu.style.visibility = isOpen ? 'hidden' : 'visible';
+        menu.style.transform = isOpen ? 'translateY(10px)' : 'translateY(0)';
+      });
+    });
+  </script>
 
 </body>
 </html>

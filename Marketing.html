@@ -3,25 +3,89 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Marketing Analysis</title>
+<title>Marketing Analysis - MUAY KORAT</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Sora:wght@300;400;500;600&family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<!-- เชื่อมต่อ FontAwesome สำหรับไอคอนสไตล์พรีเมียม -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="./css/style.css">
+
+<style>
+  /* --- CSS พิเศษยกระดับหน้านำเสนอแผนการตลาด --- */
+  .marketing-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 140px 20px 60px;
+  }
+  
+  /* ปรับแต่ง Grid ให้สแกนสายตาง่ายขึ้น */
+  .marketing-custom-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    margin-bottom: 40px;
+  }
+  
+  @media (max-width: 768px) {
+    .marketing-custom-grid { grid-template-columns: 1fr; }
+  }
+
+  /* กล่อง USP ไฮไลต์พิเศษให้เด่นกระแทกตากรรมการ */
+  .market-highlight-box {
+    grid-column: span 2;
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(8, 8, 22, 0.6) 100%);
+    border: 1px solid var(--thai-gold-base, #d4af37) !important;
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.15);
+  }
+  
+  @media (max-width: 768px) {
+    .market-highlight-box { grid-column: span 1; }
+  }
+
+  .market-card h3 {
+    font-family: 'Orbitron', 'Kanit', sans-serif;
+    font-size: 20px;
+    color: #fff;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-weight: 600;
+  }
+
+  .market-icon i {
+    font-size: 30px;
+    color: var(--thai-gold-base, #d4af37);
+    text-shadow: 0 0 15px rgba(212,175,55,0.4);
+  }
+
+  .market-card ul {
+    margin-top: 15px;
+    padding-left: 20px;
+  }
+
+  .market-card ul li {
+    margin-bottom: 8px;
+    color: #ccc;
+    font-size: 14px;
+    list-style-type: square;
+  }
+  
+  .market-card ul li strong {
+    color: var(--thai-gold-base, #d4af37);
+  }
+</style>
 </head>
 
 <body>
 
+<!-- NAVBAR -->
 <nav>
-  <a href="index.html" class="nav-logo">◈ <span>PROJECT</span></a>
+  <a href="index.html" class="nav-logo">◈ MUAY<span>KORAT</span></a>
 
   <ul class="nav-links">
     <li class="dropdown">
-      <a href="#">Overview ▾</a>
+      <a href="#" class="gold-text">Overview ▾</a>
       <ul class="dropdown-menu">
         <li><a href="overview.html">Overview</a></li>
         <li><a href="marketing.html">Marketing</a></li>
@@ -32,9 +96,119 @@
     <li><a href="team.html">Team</a></li>
   </ul>
 
-  <a href="game.html" class="nav-cta">▶ PLAY</a>
+  <a href="game.html" class="nav-cta">▶ PLAY GAME</a>
 </nav>
 
+<!-- MAIN CONTENT SECTION -->
+<section class="marketing-container">
+
+  <div class="section-header">
+    <span class="section-tag">02 — MARKETING ANALYSIS</span>
+    <div class="section-line"></div>
+  </div>
+
+  <h2 class="section-title">Marketing Analysis of Muay Korat Digital Game</h2>
+
+  <p class="section-sub" style="max-width: 800px; margin-bottom: 50px;">
+    การวิเคราะห์ตลาด กลุ่มเป้าหมาย ปัญหาของผู้ใช้งาน แนวโน้มอุตสาหกรรม คู่แข่งทางธุรกิจ และจุดเด่นของโครงการ 
+    เพื่อแสดงศักยภาพของเกมมวยโคราชในการเป็นสื่อการเรียนรู้และ Soft Power ด้านวัฒนธรรมไทยบนแพลตฟอร์มดิจิทัล
+  </p>
+
+  <div class="marketing-custom-grid">
+
+    <!-- 1. TARGET CUSTOMERS -->
+    <div class="market-card">
+      <div class="market-icon"><i class="fa-solid fa-bullseye"></i></div>
+      <h3>Target Customers</h3>
+      <p style="color: #aaa; font-size: 14px; line-height: 1.6;">
+        กลุ่มลูกค้าเป้าหมายหลักของโครงการคือ เยาวชน นักศึกษา และผู้ที่สนใจเกมเชิงวัฒนธรรม 
+        ซึ่งเป็นกลุ่มที่มีการใช้งานสื่อดิจิทัลเป็นประจำ และเปิดรับการเรียนรู้รูปแบบใหม่ผ่านเทคโนโลยีสร้างสรรค์
+      </p>
+      <ul>
+        <li><strong>เยาวชนอายุ 15–25 ปี:</strong> เปิดรับเทคโนโลยีและสื่อเกมได้ง่าย</li>
+        <li><strong>นักศึกษาและผู้เรียน:</strong> ค้นหาแหล่งเรียนรู้นอกห้องเรียนที่สนุกสนาน</li>
+        <li><strong>ผู้สนใจเกมเดโมเชิงวัฒนธรรม:</strong> ชอบทดลองระบบเกมที่มีกลิ่นอายประวัติศาสตร์</li>
+        <li><strong>สถานศึกษาและหน่วยงานวัฒนธรรม:</strong> สื่อการสอนยุคใหม่สำหรับยุคดิจิทัล</li>
+      </ul>
+    </div>
+
+    <!-- 2. CUSTOMER PAIN POINTS -->
+    <div class="market-card" style="border-left: 4px solid #ff4a4a;">
+      <div class="market-icon"><i class="fa-solid fa-triangle-exclamation" style="color: #ff4a4a; text-shadow: 0 0 15px rgba(255,74,74,0.3);"></i></div>
+      <h3 style="color: #ff9999;">Customer Pain Points</h3>
+      <p style="color: #aaa; font-size: 14px; line-height: 1.6;">
+        ปัจจุบันองค์ความรู้มวยโคราชยังเข้าถึงยากสำหรับคนรุ่นใหม่ และขาดแคลนเครื่องมือดึงดูดความสนใจที่มีประสิทธิภาพ
+      </p>
+      <ul>
+        <li><strong>ไม่รู้จักมวยโคราช:</strong> คนส่วนใหญ่รู้จักแค่มวยไทยกระแสหลัก</li>
+        <li><strong>ข้อมูลเข้าถึงยาก:</strong> ตำราดั้งเดิมหนาและเข้าใจยากเกินไป</li>
+        <li><strong>สื่อแบบเดิมไม่น่าสนใจ:</strong> วิดีโอสารคดีทั่วไปไม่กระตุ้นการมีส่วนร่วม</li>
+        <li><strong>ขาดสื่อ Interactive:</strong> ไม่มีพื้นที่ให้ทดลองคลิกหรือควบคุมท่วงท่า</li>
+      </ul>
+    </div>
+
+    <!-- 3. MARKET TRENDS -->
+    <div class="market-card">
+      <div class="market-icon"><i class="fa-solid fa-arrow-trend-up"></i></div>
+      <h3>Market Trends</h3>
+      <p style="color: #aaa; font-size: 14px; line-height: 1.6;">
+        อุตสาหกรรมดิจิทัลคอนเทนต์ยังคงเติบโตอย่างต่อเนื่อง โดยเฉพาะการแปลงทุนทางวัฒนธรรมมาเป็นมูลค่าเศรษฐกิจสร้างสรรค์
+      </p>
+      <ul>
+        <li><strong>Digital Learning ขยายตัว:</strong> ผู้บริโภคคุ้นชินกับการเรียนรู้ผ่านหน้าจอ</li>
+        <li><strong>Educational Game กำลังมาแรง:</strong> เกมที่ได้ทั้งความรู้และความสนุกได้รับความนิยมสูง</li>
+        <li><strong>Soft Power ภาครัฐสนับสนุน:</strong> มีงบประมาณและนโยบายผลักดันมรดกไทยสู่ระดับสากล</li>
+        <li><strong>ความต้องการสื่อ 3D/Interactive:</strong> เว็บไซต์ยุคใหม่ต้องโต้ตอบกับผู้ใช้งานได้</li>
+      </ul>
+    </div>
+
+    <!-- 4. COMPETITORS -->
+    <div class="market-card">
+      <div class="market-icon"><i class="fa-solid fa-trophy"></i></div>
+      <h3>Competitors & Gaps</h3>
+      <p style="color: #aaa; font-size: 14px; line-height: 1.6;">
+        โครงการมีทั้งคู่แข่งทางตรงและทางอ้อม ซึ่งเน้นด้านความบันเทิงทั่วไป แต่ยังขาดการเจาะลึกเฉพาะทางวัฒนธรรมท้องถิ่น
+      </p>
+      <ul>
+        <li><strong>เกมมวยไทยกระแสหลัก:</strong> เน้นความมันสะใจ แต่ไม่ได้สอดแทรกประวัติศาสตร์สายมวย</li>
+        <li><strong>YouTube & สื่อบันเทิงทั่วไป:</strong> มีข้อมูลเยอะแต่ผู้ดูเป็นเพียงฝ่ายรับชม (Passive)</li>
+        <li><strong>ช่องว่างทางการตลาด (Market Gap):</strong> ยังไม่มีสื่อ Interactive หรือเว็บเกมเจ้าไหนที่นำเสนออัตลักษณ์เจาะลึกของ <strong>"มวยโคราช"</strong> โดยเฉพาะ</li>
+      </ul>
+    </div>
+
+    <!-- 5. UNIQUE SELLING POINT (USP) - HIGHLIGHT BOX -->
+    <div class="market-card market-highlight-box">
+      <div class="market-icon"><i class="fa-solid fa-rocket"></i></div>
+      <h3 style="color: var(--thai-gold-base, #d4af37);">Unique Selling Point (USP)</h3>
+      <p style="color: #eee; font-size: 15px; line-height: 1.7;">
+        จุดเด่นที่ทำให้โครงการของเราแตกต่างและโดดเด่นจากสื่อทั่วไป คือการสร้างจุดเชื่อมโยงระหว่าง 
+        <span style="color: var(--thai-gold-base, #d4af37); font-weight: 600;">"คุณค่าโบราณ"</span> กับ <span style="color: var(--thai-gold-base, #d4af37); font-weight: 600;">"เทคโนโลยีร่วมสมัย"</span> ไว้ในที่เดียว
+      </p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; margin-top: 15px;">
+        <ul>
+          <li><strong>Authentic Muay Korat Focus:</strong> มุ่งเน้นถ่ายทอดสายมวยโคราชที่หาดูยากโดยเฉพาะ</li>
+          <li><strong>3D Motion Core Skills:</strong> นำเสนอ 3 ท่าเดโมสำคัญ (ย่างสามขุม, หมัดเหวี่ยงควาย, สาดแข้งหน้า) ด้วยแอนิเมชันเข้าใจง่าย</li>
+        </ul>
+        <ul>
+          <li><strong>Interactive Popup Experience:</strong> มีหน้าต่างวิดีโอป๊อปอัปโต้ตอบอธิบายชัดเจน</li>
+          <li><strong>All-in-One Web Platform:</strong> รวบรวมข้อมูลสรุปการตลาด สไลด์นำเสนอ และตัวเล่นเกมไว้บนระบบเว็บเดียว สะดวกต่อการขยายผล</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">◈ MUAY KORAT</span>
+  <span class="footer-text">
+   Muay Korat Project · สำนักวิชาศาสตร์และศิลป์ดิจิทัล · มหาวิทยาลัยเทคโนโลยีสุรนารี · 2026
+  </span>
+</footer>
+
+<!-- DROPDOWN SCRIPT -->
 <script>
   document.querySelectorAll('.dropdown > a').forEach(trigger => {
     trigger.addEventListener('click', function(e) {
@@ -47,157 +221,6 @@
     });
   });
 </script>
-
-<section style="padding-top:120px;">
-
-<div class="section-header">
-<span class="section-tag">02 — MARKETING ANALYSIS</span>
-<div class="section-line"></div>
-</div>
-
-<h2 class="section-title">
-Marketing Analysis of Muay Korat Digital Game
-</h2>
-
-<p class="section-sub">
-การวิเคราะห์ตลาด กลุ่มเป้าหมาย ปัญหาของผู้ใช้งาน
-แนวโน้มอุตสาหกรรม คู่แข่งทางธุรกิจ และจุดเด่นของโครงการ
-เพื่อแสดงศักยภาพของเกมมวยโคราชในการเป็นสื่อการเรียนรู้
-และ Soft Power ด้านวัฒนธรรมไทยบนแพลตฟอร์มดิจิทัล
-</p>
-
-<div class="marketing-grid">
-
-<!-- Target -->
-
-<div class="market-card">
-
-<div class="market-icon">🎯</div>
-
-<h3>Target Customers</h3>
-
-<p>
-กลุ่มลูกค้าเป้าหมายหลักของโครงการคือ
-เยาวชน นักศึกษา และผู้ที่สนใจเกมเชิงวัฒนธรรม
-ซึ่งเป็นกลุ่มที่มีการใช้งานสื่อดิจิทัลเป็นประจำ
-และเปิดรับการเรียนรู้รูปแบบใหม่ผ่านเกม
-</p>
-
-<ul>
-<li>เยาวชนอายุ 15–25 ปี</li>
-<li>นักศึกษาและผู้เรียน</li>
-<li>ผู้สนใจเกม Turn-Based</li>
-<li>ผู้สนใจศิลปวัฒนธรรมไทย</li>
-<li>สถานศึกษาและหน่วยงานวัฒนธรรม</li>
-</ul>
-
-</div>
-
-<!-- Pain Points -->
-
-<div class="market-card">
-
-<div class="market-icon">⚠️</div>
-
-<h3>Customer Pain Points</h3>
-
-<p>
-ปัจจุบันมวยโคราชยังเป็นองค์ความรู้ที่คนทั่วไปรู้จักน้อย
-และขาดสื่อการเรียนรู้ที่สามารถดึงดูดคนรุ่นใหม่ได้
-</p>
-
-<ul>
-<li>ไม่รู้จักมวยโคราช</li>
-<li>ข้อมูลเข้าถึงยาก</li>
-<li>สื่อแบบเดิมไม่น่าสนใจ</li>
-<li>ไม่มีสื่อ Interactive</li>
-<li>ขาดสื่อแสดงท่วงท่ามวยโคราช</li>
-</ul>
-
-</div>
-
-<!-- Trend -->
-
-<div class="market-card">
-
-<div class="market-icon">📈</div>
-
-<h3>Market Trends</h3>
-
-<p>
-อุตสาหกรรมเกมและสื่อดิจิทัลยังคงเติบโตอย่างต่อเนื่อง
-โดยเฉพาะเกมเพื่อการศึกษาและการอนุรักษ์วัฒนธรรม
-ผ่านเทคโนโลยีสมัยใหม่
-</p>
-
-<ul>
-<li>เกมมือถือเติบโตสูง</li>
-<li>Educational Game ได้รับความนิยม</li>
-<li>Digital Learning ขยายตัวต่อเนื่อง</li>
-<li>Soft Power ไทยได้รับการส่งเสริม</li>
-<li>สื่อ Interactive เป็นที่ต้องการ</li>
-</ul>
-
-</div>
-
-<!-- Competitor -->
-
-<div class="market-card">
-
-<div class="market-icon">🏆</div>
-
-<h3>Competitors</h3>
-
-<p>
-โครงการมีทั้งคู่แข่งทางตรงและทางอ้อม
-ซึ่งส่วนใหญ่เน้นด้านความบันเทิงหรือข้อมูลทั่วไป
-แต่ยังไม่มีสื่อที่เน้นมวยโคราชโดยเฉพาะ
-</p>
-
-<ul>
-<li>เกมเกี่ยวกับมวยไทย</li>
-<li>แอปสอนศิลปะการต่อสู้</li>
-<li>เกม Turn-Based ทั่วไป</li>
-<li>YouTube ด้านมวยไทย</li>
-<li>เว็บไซต์ความรู้ทั่วไป</li>
-</ul>
-
-</div>
-
-<!-- USP -->
-
-<div class="market-card market-highlight">
-
-<div class="market-icon">🚀</div>
-
-<h3>Unique Selling Point (USP)</h3>
-
-<p>
-จุดเด่นสำคัญของโครงการคือการนำภูมิปัญญาท้องถิ่น
-อย่าง "มวยโคราช" มาพัฒนาเป็นเกมเชิงการเรียนรู้
-ที่ผสมผสานวัฒนธรรมไทยกับเทคโนโลยีดิจิทัล
-</p>
-
-<ul>
-<li>เน้นมวยโคราชโดยเฉพาะ</li>
-<li>เกมช่วยให้เรียนรู้ได้สนุก</li>
-<li>แสดงแม่ไม้มวยโคราชแบบ 3 มิติ</li>
-<li>มีภาพ เสียง และการโต้ตอบ</li>
-<li>รวมข้อมูลและเกมไว้ในเว็บไซต์เดียว</li>
-</ul>
-
-</div>
-
-</div>
-
-</section>
-
-<footer>
-<span class="footer-logo">◈ PROJECT NAME</span>
-<span class="footer-text">
-Senior Project · 2025
-</span>
-</footer>
 
 </body>
 </html>
