@@ -3,16 +3,97 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Muay Korat Game</title>
+<title>Muay Korat Interactive Learning Game</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet">
+<!-- Fonts & FontAwesome Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Sora:wght@300;400;500;600&family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="css/style.css">
+
+<style>
+  /* --- ส่วนเสริมสไตล์พิเศษเพื่อความสวยงามในหน้าพรีเซนต์ --- */
+  .hero-container {
+    position: relative;
+    padding: 180px 24px 100px;
+    background: linear-gradient(180deg, rgba(8, 8, 22, 0.4) 0%, #04040c 100%), 
+                url('/Users/aumaum/Desktop/Hackathon/image/IMG_5678.PNG') no-repeat center 20%/cover;
+    background-attachment: fixed;
+    text-align: center;
+  }
+  
+  /* ตัวเลือกคลิกสำหรับท่ามวยในหน้าพรีเซนต์ */
+  .clickable-card {
+    cursor: pointer;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    position: relative;
+    transition: all 0.3s ease;
+  }
+  .clickable-card:hover {
+    border-color: var(--thai-gold-base);
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3) !important;
+  }
+  .click-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 11px;
+    background: rgba(212, 175, 55, 0.2);
+    color: var(--thai-gold-light);
+    padding: 2px 8px;
+    border-radius: 4px;
+    border: 1px solid rgba(212, 175, 55, 0.3);
+  }
+
+  /* --- ระบบ POPUP VIDEO MODAL STYLE --- */
+  .motion-modal {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(4, 4, 12, 0.9);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 10000;
+    opacity: 0; visibility: hidden;
+    transition: all 0.3s ease;
+  }
+  .motion-modal.active {
+    opacity: 1; visibility: visible;
+  }
+  .modal-content {
+    background: var(--bg-surface-l1);
+    border: 1px solid var(--thai-gold-base);
+    box-shadow: 0 0 50px rgba(212, 175, 55, 0.15);
+    width: 90%; max-width: 800px;
+    border-radius: 16px; overflow: hidden;
+    position: relative;
+    transform: scale(0.85); transition: all 0.3s ease;
+  }
+  .motion-modal.active .modal-content {
+    transform: scale(1);
+  }
+  .modal-close {
+    position: absolute; top: 15px; right: 20px;
+    font-size: 28px; color: var(--text-secondary);
+    cursor: pointer; transition: 0.2s; z-index: 10;
+  }
+  .modal-close:hover { color: var(--thai-red-base); }
+  .modal-video-wrapper {
+    position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
+    background: #000;
+  }
+  .modal-video-wrapper iframe {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;
+  }
+  .modal-info { padding: 25px 30px; }
+  .modal-title { color: var(--thai-gold-base); font-size: 24px; margin-bottom: 10px; font-weight: 600; }
+  .modal-desc { color: var(--text-secondary); font-size: 15px; line-height: 1.7; }
+</style>
 </head>
 <body>
 
 <!-- NAVBAR -->
 <nav>
-  <a href="index.html" class="nav-logo">◈ <span>PROJECT</span></a>
+  <a href="index.html" class="nav-logo">◈ MUAY<span>KORAT</span></a>
   <ul class="nav-links">
     <li class="dropdown">
       <a href="#">Overview ▾</a>
@@ -22,99 +103,238 @@
       </ul>
     </li>
     <li><a href="slides.html">Slides</a></li>
-    <li><a href="game.html">Play</a></li>
+    <li><a href="game.html" class="gold-text">Play</a></li>
     <li><a href="team.html">Team</a></li>
   </ul>
-  <a href="game.html" class="nav-cta">▶ PLAY</a>
+  <a href="#playgame" class="nav-cta">▶ PLAY GAME</a>
 </nav>
 
-<!-- HERO -->
-<section style="padding-top:120px;">
-  <div class="section-header">
-    <span class="section-tag">03 — PLAY EXPERIENCE</span>
-    <div class="section-line"></div>
-  </div>
-  <h2 class="section-title">Muay Korat Interactive Learning Game</h2>
-  <p class="section-sub">
-    เกมเพื่อการเรียนรู้มวยโคราชผ่านระบบ Interactive Learning
-    ที่ผสมผสานองค์ความรู้ด้านศิลปวัฒนธรรมไทย
-    เข้ากับเทคโนโลยีดิจิทัลและการเล่นเกม
-    เพื่อให้ผู้ใช้งานได้เรียนรู้แม่ไม้มวยโคราช
-    อย่างสนุก เข้าใจง่าย และมีส่วนร่วม
+<!-- HERO PRESENTATION HEADER -->
+<div class="hero-container">
+  <div class="hero-orb"></div>
+  <span class="hero-badge"><i class="fa-solid fa-gamepad"></i> 03 — PLAY EXPERIENCE</span>
+  <h1 class="mt-4 mb-4"><span class="thai-gradient-text">Muay Korat</span><br>Interactive Learning Game</h1>
+  <p class="hero-tagline" style="margin: 0 auto 30px;">
+    เกมเพื่อการเรียนรู้มวยโคราชผ่านระบบ Interactive Learning ที่ผสมผสานองค์ความรู้ด้านศิลปวัฒนธรรมไทย 
+    เข้ากับเทคโนโลยีดิจิทัลสมัยใหม่ เพื่อให้ผู้ใช้งานได้เรียนรู้และสืบสานแม่ไม้มวยโคราชอย่างมีส่วนร่วมและสร้างสรรค์
   </p>
-</section>
-
-<!-- SKILL TREE -->
-<section>
-  <div class="section-header">
-    <span class="section-tag">SKILL TREE</span>
-    <div class="section-line"></div>
+  <div class="hero-actions justify-center">
+    <a href="#playgame" class="btn-primary"><i class="fa-brands fa-itch-io"></i> ลองเล่นเกมเวอร์ชันเดโม</a>
+    <a href="#gameplay" class="btn-ghost"><i class="fa-solid fa-play"></i> ชมวิดีโอแนะนำเกม</a>
   </div>
-  <h2 class="section-title">47 Muay Korat Techniques</h2>
-  <p class="section-sub">
-    ระบบปลดล็อกทักษะตามลำดับ ผู้เล่นจะเรียนรู้จากท่าพื้นฐานสู่ท่าชั้นสูงและท่าพิเศษ
-  </p>
-  <div class="skill-grid">
-    <div class="skill-box">Basic Punches</div>
-    <div class="skill-box">Elbow Attack</div>
-    <div class="skill-box">Knee Attack</div>
-  </div>
-</section>
+</div>
 
-<!-- GAMEPLAY PREVIEW -->
-<section>
+<!-- GAMEPLAY DEMONSTRATION (ย้ายขึ้นมาให้กรรมการเห็นง่ายขึ้น) -->
+<section id="gameplay" style="background: var(--bg-thai-indigo);">
   <div class="section-header">
     <span class="section-tag">GAME PREVIEW</span>
     <div class="section-line"></div>
   </div>
   <h2 class="section-title">Gameplay Demonstration</h2>
-  <div class="video-box">
-    <iframe width="100%" height="500" src="https://www.youtube.com/embed/YOUR_VIDEO_ID" allowfullscreen></iframe>
+  <p class="section-sub">รับชมวิดีโอตัวอย่างเกมเพลย์ ระบบการเล่น และบรรยากาศภายในเกมเพื่อสัมผัสประสบการณ์ดิจิทัลวัฒนธรรมไทย</p>
+  
+  <div class="slides-container">
+    <div class="slides-header">
+      <div class="slides-dots">
+        <div class="dot dot-r"></div>
+        <div class="dot dot-y"></div>
+        <div class="dot dot-g"></div>
+      </div>
+      <div class="slides-title"><i class="fa-solid fa-video"></i> MUAY_KORAT_TRAILER.MP4</div>
+    </div>
+    <div class="video-box">
+      <!-- ⚠️ เปลี่ยน YOUR_VIDEO_ID เป็นไอดีของวิดีโอ YouTube ของคุณ เช่น dQw4w9WgXcQ -->
+<iframe width="560" height="315" src="https://www.youtube.com/embed/-E8ZHeKInZc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
   </div>
 </section>
 
-<!-- PLAY GAME -->
+<!-- PLAY GAME (CONNECT TO ITCH.IO) -->
 <section id="playgame">
-  <div class="game-hero-card">
-    <h2>🎮 PLAY THE GAME</h2>
-    <p>คลิกปุ่มด้านล่างเพื่อเข้าสู่เกมมวยโคราช</p>
-    <a href="YOUR_GAME_LINK" target="_blank" class="btn-primary">▶ ENTER GAME</a>
+  <div class="game-hero-card text-center glass-effect">
+    <h2 class="thai-gradient-text mb-3" style="font-size: 36px;"><i class="fa-brands fa-itch-io"></i> PLAY THE GAME ON ITCH.IO</h2>
+    <p class="mb-6" style="max-width: 600px; margin: 0 auto 30px; color: var(--text-secondary);">
+      ร่วมทดสอบและเปิดประสบการณ์การฝึกฝนศิลปะการต่อสู้โบราณในรูปแบบเกมจำลองสตรีมมิ่งบนแพลตฟอร์ม Itch.io ได้แล้ววันนี้ รองรับการเล่นผ่านเว็บเบราว์เซอร์
+    </p>
+    <!-- ⚠️ เปลี่ยน YOUR_GAME_LINK เป็นลิงก์หน้านิยายหรือหน้าเกมบน itch.io ของคุณ -->
+    <a href="https://yourusername.itch.io/your-game-name" target="_blank" class="btn-primary" style="font-size: 18px; padding: 18px 45px;">
+      <i class="fa-solid fa-circle-play"></i> ENTER GAMEPLAY EXPERIENCE
+    </a>
   </div>
 </section>
 
-<!-- FEATURES -->
+<!-- STANCE SYSTEM & INTERACTIVE POPUP (ไฮไลต์สำคัญของการโชว์กรรมการ) -->
+<section>
+  <div class="section-header">
+    <span class="section-tag">STANCE & TECHNIQUES</span>
+    <div class="section-line"></div>
+  </div>
+  <h2 class="section-title">Muay Korat Core Techniques</h2>
+  <p class="section-sub">ตัวอย่างทำเนียบท่ามวยและเอกลักษณ์อัตลักษณ์มวยโคราช <span class="gold-text">**คลิกที่กล่องเพื่อรับชมวิดีโอตัวอย่างท่าและคำอธิบายประยุกต์**</span></p>
+  
+  <div class="overview-grid">
+  <!-- ท่าที่ 1: ย่างสามขุม (เปลี่ยนเป็นไอคอนรอยเท้าสไตล์เหลี่ยมโมเดิร์น) -->
+  <div class="ov-card clickable-card" onclick="openVideoModal('ย่างสามขุม (Three-Step Stance)', 'ท่าครูที่เป็นพื้นหลังสำคัญที่สุดของมวยโคราช การเดินมวยขยับเท้าเป็นรูปสามเหลี่ยมอย่างมั่นคง ใช้ในการตั้งรับ พลางหลบหลีก และหาจังหวะบุกโจมตีอย่างเด็ดขาด คล่องแคล่วดั่งเสือร้าย', 'https://www.youtube.com/embed/YOUR_VIDEO_ID_1')">
+    <span class="click-badge"><i class="fa-solid fa-video"></i> คลิกดูท่ามวย</span>
+    <div class="ov-icon">
+      <i class="fa-solid fa-shoe-prints" style="color: var(--thai-gold-base); text-shadow: 0 0 15px rgba(212,175,55,0.5); transform: rotate(-45deg); display: inline-block;"></i>
+    </div>
+    <div class="ov-title">ย่างสามขุม</div>
+    <div class="ov-desc">ท่าพื้นฐานสำคัญของมวยโคราช ใช้สำหรับเคลื่อนที่อย่างมั่นคง หลอกล่อ เข้าประชิดและสร้างจังหวะโจมตีคู่ต่อสู้</div>
+  </div>
+
+  <!-- ท่าที่ 2: หมัดเหวี่ยงควาย (เปลี่ยนเป็นไอคอนหมัดเหล็กพุ่งทะยานสุดทรงพลัง) -->
+  <div class="ov-card clickable-card" onclick="openVideoModal('หมัดเหวี่ยงควาย (Buffalo Punch)', 'หมัดเหวี่ยงยาววงกว้างอันเป็นเอกลักษณ์เด่นชัดของมวยโคราช ออกแรงเหวี่ยงจากหัวไหล่และสะโพกทะลวงเข้าด้านข้างศีรษะหรือต้นคอคู่ต่อสู้ มีพลังทำลายล้างสูงราวกับควายขวิด', 'https://www.youtube.com/embed/YOUR_VIDEO_ID_2')">
+    <span class="click-badge"><i class="fa-solid fa-video"></i> คลิกดูท่ามวย</span>
+    <div class="ov-icon">
+      <i class="fa-solid fa-hand-fist" style="color: var(--thai-gold-base); text-shadow: 0 0 15px rgba(212,175,55,0.5);"></i>
+    </div>
+    <div class="ov-title">หมัดเหวี่ยงควาย</div>
+    <div class="ov-desc">ท่าโจมตีอันเลื่องชื่อของสายมวยภาคอีสาน เน้นการเหวี่ยงวงกว้างที่ทรงพลังและหนักหน่วงเด็ดขาด</div>
+  </div>
+
+  <!-- ท่าที่ 3: สาดแข้งหน้า (เปลี่ยนเป็นไอคอนนักสู้กำลังเตะ/ป้องกันเวทมนตร์) -->
+  <div class="ov-card clickable-card" onclick="openVideoModal('สาดแข้งหน้า (Front Kick Counter)', 'การตวัดแข้งเตะสกัดเข้าบริเวณชายโครงหรือลำตัวอย่างรวดเร็ว ใช้จังหวะที่คู่ต่อสู้ถลันเข้ามาบุก เพื่อทำลายสมดุลและตัดกำลังอย่างมีศิลปะ', 'https://www.youtube.com/embed/YOUR_VIDEO_ID_3')">
+    <span class="click-badge"><i class="fa-solid fa-video"></i> คลิกดูท่ามวย</span>
+    <div class="ov-icon">
+      <i class="fa-solid fa-child-combatant" style="color: var(--thai-gold-base); text-shadow: 0 0 15px rgba(212,175,55,0.5);"></i>
+    </div>
+    <div class="ov-title">สาดแข้งหน้า</div>
+    <div class="ov-desc">กลยุทธ์การป้องกันและโต้กลับในเวลาเดียวกัน รวดเร็ว แม่นยำ และสร้างความเสียหายได้อย่างรุนแรง</div>
+  </div>
+</div>
+<!-- SKILL TREE PROGRESSION -->
+<section style="background: rgba(14, 14, 36, 0.5); border-radius: 24px; margin-bottom: 50px;">
+  <div class="section-header">
+    <span class="section-tag">SKILL TREE PROGRESSION</span>
+    <div class="section-line"></div>
+  </div>
+  <h2 class="section-title">47 Muay Korat Techniques</h2>
+  <p class="section-sub">ระบบพัฒนาและปลดล็อกทักษะตามลำดับสไตล์ RPG ผู้เล่นจะได้ฝึกฝนตั้งแต่ระดับรากฐานก้าวไปสู่แม่ไม้ครูชั้นสูง</p>
+  
+ <div class="skill-grid">
+  <!-- กล่องที่ 1: Basic Punches -->
+  <div class="skill-box">
+    <i class="fa-solid fa-hand-fist" style="color: var(--thai-gold-base); font-size: 28px; display: block; margin-bottom: 12px; text-shadow: 0 0 10px rgba(212,175,55,0.3);"></i>
+    Basic Punches
+  </div>
+  
+  <!-- กล่องที่ 2: Elbow Attack -->
+  <div class="skill-box">
+    <i class="fa-solid fa-bolt" style="color: var(--thai-gold-base); font-size: 28px; display: block; margin-bottom: 12px; text-shadow: 0 0 10px rgba(212,175,55,0.3);"></i>
+    Elbow Attack
+  </div>
+  
+  <!-- กล่องที่ 3: Knee Attack (เปลี่ยนไอคอนจากรูปคนธรรมดา เป็นรูปคนกำลังเคลื่อนไหวต่อสู้ให้แอคทีฟขึ้น) -->
+  <div class="skill-box">
+    <i class="fa-solid fa-person-running" style="color: var(--thai-gold-base); font-size: 28px; display: block; margin-bottom: 12px; text-shadow: 0 0 10px rgba(212,175,55,0.3);"></i>
+    Knee Attack
+  </div>
+</div>
+
+<!-- CORE FEATURES -->
 <section>
   <div class="section-header">
     <span class="section-tag">CORE FEATURES</span>
     <div class="section-line"></div>
   </div>
   <div class="overview-grid">
-    <div class="ov-card"><div class="ov-icon">🥊</div><div class="ov-title">47 Muay Korat Skills</div><div class="ov-desc">เรียนรู้แม่ไม้มวยโคราชทั้ง 47 ท่า พร้อมภาพเคลื่อนไหว 3 มิติ และคำอธิบายทีละขั้นตอน</div></div>
-    <div class="ov-card"><div class="ov-icon">⚔️</div><div class="ov-title">Special Techniques</div><div class="ov-desc">ท่าแม่ไม้ครูและท่าโบราณ ถูกออกแบบเป็นท่าพิเศษในเกม เพื่อสร้างเอกลักษณ์เฉพาะของมวยโคราช</div></div>
-    <div class="ov-card"><div class="ov-icon">🎯</div><div class="ov-title">Interactive Learning</div><div class="ov-desc">เรียนรู้ผ่านการเล่น ช่วยให้จดจำท่วงท่า และประวัติศาสตร์ได้ง่ายกว่าสื่อแบบเดิม</div></div>
-    <div class="ov-card"><div class="ov-icon">🏆</div><div class="ov-title">Knowledge Challenge</div><div class="ov-desc">มีภารกิจและแบบทดสอบ เพื่อประเมินความเข้าใจของผู้เล่น หลังจากเรียนรู้แต่ละบท</div></div>
+  <!-- กล่องที่ 1: ระบบเดโม 3 ท่าหลัก (เปลี่ยนไอคอนเป็นหมัดชก) -->
+  <div class="ov-card">
+    <div class="ov-icon">
+      <i class="fa-solid fa-hand-fist" style="color: var(--thai-gold-base); text-shadow: 0 0 15px rgba(212,175,55,0.4);"></i>
+    </div>
+    <div class="ov-title">3 Core Muay Korat Skills</div>
+    <div class="ov-desc">ระบบเดโมคัดสรร 3 ท่าเอกลักษณ์สำคัญของมวยโคราช มาให้เรียนรู้ผ่านภาพเคลื่อนไหว 3 มิติ และคำอธิบายที่เข้าใจง่าย</div>
   </div>
-</section>
+  
+  <!-- กล่องที่ 2: อัตลักษณ์แม่ไม้ครู (เปลี่ยนไอคอนเป็นโล่ป้องกัน/ศิลปะการต่อสู้) -->
+  <div class="ov-card">
+    <div class="ov-icon">
+      <i class="fa-solid fa-shield-halved" style="color: var(--thai-gold-base); text-shadow: 0 0 15px rgba(212,175,55,0.4);"></i>
+    </div>
+    <div class="ov-title">Special Master Techniques</div>
+    <div class="ov-desc">นำท่าไม้ครูโบราณ เช่น ย่างสามขุม และหมัดเหวี่ยงควาย มาจำลองเป็นท่าต่อสู้พิเศษ เพื่อชูอัตลักษณ์มวยภาคอีสาน</div>
+  </div>
+  
+  <!-- กล่องที่ 3: ระบบ Interactive (เปลี่ยนไอคอนเป็นจอยเกมคอนโทรลเลอร์) -->
+  <div class="ov-card">
+    <div class="ov-icon">
+      <i class="fa-solid fa-gamepad" style="color: var(--thai-gold-base); text-shadow: 0 0 15px rgba(212,175,55,0.4);"></i>
+    </div>
+    <div class="ov-title">Interactive Showcase</div>
+    <div class="ov-desc">ผู้ใช้สามารถเลือกคลิกดูท่วงท่า วิดีโอสาธิต และทดลองควบคุมเรียนรู้ได้ทันทีผ่านระบบจำลองเดโมบนเว็บไซต์</div>
+  </div>
 
-<!-- STANCE -->
-<section>
-  <div class="section-header">
-    <span class="section-tag">STANCE SYSTEM</span>
-    <div class="section-line"></div>
+  <!-- กล่องที่ 4: แผนพัฒนาในอนาคต (เปลี่ยนไอคอนเป็นจรวดพุ่งทะยาน/เป้าหมายยั่งยืน) -->
+  <div class="ov-card">
+    <div class="ov-icon">
+      <i class="fa-solid fa-rocket" style="color: var(--thai-gold-base); text-shadow: 0 0 15px rgba(212,175,55,0.4);"></i>
+    </div>
+    <div class="ov-title">Future Expansion</div>
+    <div class="ov-desc">มีแผนพัฒนาต่อยอดสู่ระบบคลังความรู้เต็มรูปแบบ 47 ท่ามวยโคราช และระบบทดสอบความรู้เพื่อประเมินผลในอนาคต</div>
   </div>
-  <h2 class="section-title">Muay Korat Fighting Stances</h2>
-  <div class="overview-grid">
-    <div class="ov-card"><div class="ov-icon">👣</div><div class="ov-title">ย่างสามขุม</div><div class="ov-desc">ท่าพื้นฐานสำคัญของมวยโคราช ใช้สำหรับเคลื่อนที่ เข้าประชิดและสร้างจังหวะโจมตี</div></div>
-    <div class="ov-card"><div class="ov-icon">🛡️</div><div class="ov-title">Defensive Stance</div><div class="ov-desc">ใช้สำหรับป้องกัน หลบหลีก และตอบโต้คู่ต่อสู้</div></div>
-    <div class="ov-card"><div class="ov-icon">⚡</div><div class="ov-title">Aggressive Stance</div><div class="ov-desc">เพิ่มพลังโจมตี เหมาะกับการใช้หมัดหนัก สไตล์มวยโคราช</div></div>
-  </div>
+</div>
 </section>
 
 <!-- FOOTER -->
 <footer>
-  <span class="footer-logo">◈ MUAY KORAT</span>
+  <a href="index.html" class="footer-logo">◈ MUAY <span>KORAT</span></a>
   <span class="footer-text">Muay Korat Project · สำนักวิชาศาสตร์และศิลป์ดิจิทัล · มหาวิทยาลัยเทคโนโลยีสุรนารี · 2026</span>
 </footer>
+
+
+<!-- --- COMPONENTS: POPUP MODAL HTML --- -->
+<div class="motion-modal" id="videoModal">
+  <div class="modal-content">
+    <span class="modal-close" onclick="closeVideoModal()">&times;</span>
+    <div class="modal-video-wrapper">
+      <iframe id="modalIframe" src="" allowfullscreen></iframe>
+    </div>
+    <div class="modal-info">
+      <h3 class="modal-title" id="modalTitle">ชื่อท่ามวย</h3>
+      <p class="modal-desc" id="modalDesc">คำอธิบายท่ามวยยืดหยุ่นปรับเปลี่ยนตามชุดข้อมูล</p>
+    </div>
+  </div>
+</div>
+
+
+<!-- --- JAVASCRIPT CONTROL FOR POPUP MODAL --- -->
+<script>
+  function openVideoModal(title, description, videoUrl) {
+    const modal = document.getElementById('videoModal');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalDesc = document.getElementById('modalDesc');
+    const modalIframe = document.getElementById('modalIframe');
+
+    // ใส่ข้อมูลลงในกล่อง Pop-up
+    modalTitle.innerText = title;
+    modalDesc.innerText = description;
+    // เพิ่ม ?autoplay=1 เพื่อให้เปิดแล้ววิดีโอเล่นออโต้เพิ่มความโปรอลังการ
+    modalIframe.src = videoUrl + "?autoplay=1&rel=0"; 
+
+    // แสดงหน้าต่าง Pop-up
+    modal.classList.add('active');
+  }
+
+  function closeVideoModal() {
+    const modal = document.getElementById('videoModal');
+    const modalIframe = document.getElementById('modalIframe');
+
+    // ซ่อนหน้าต่าง Pop-up
+    modal.classList.remove('active');
+    
+    // รีเซ็ตล้าง URL ของวิดีโอเพื่อสั่งให้วิดีโอหยุดเล่นเสียงเมื่อปิดกล่อง
+    modalIframe.src = "";
+  }
+
+  // ปิดป๊อปอัปอัตโนมัติเมื่อกดพื้นที่สีดำรอบๆ ตัวกล่องวิดีโอ
+  window.onclick = function(event) {
+    const modal = document.getElementById('videoModal');
+    if (event.target == modal) {
+      closeVideoModal();
+    }
+  }
+</script>
 
 </body>
 </html>
