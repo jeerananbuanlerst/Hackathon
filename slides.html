@@ -1,37 +1,46 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Slides</title>
+<title>สไลด์นำเสนอ - MUAY KORAT</title>
 
+<!-- Fonts & FontAwesome Icons -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Sora:wght@300;400;500;600&family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="css/style.css">
-
 </head>
 
 <body>
 
+<!-- NAVBAR พร้อมระบบดรอปดาวน์ -->
 <nav>
-  <a href="index.html" class="nav-logo">◈ <span>PROJECT</span></a>
+  <a href="index.html" class="nav-logo">◈ MUAY<span>KORAT</span></a>
 
   <ul class="nav-links">
-    <li><a href="overview.html">Overview</a></li>
-    <li><a href="slides.html">Slides</a></li>
-    <li><a href="game.html">Play</a></li>
-    <li><a href="team.html">Team</a></li>
+    <li class="dropdown">
+      <a href="#">ภาพรวม ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="overview.html"> เกี่ยวกับ </a></li>
+        <li><a href="marketing.html">การวิเคราะห์ตลาด</a></li>
+        <li><a href="history.html">ตำนานมวยโคราช</a></li>
+        <li><a href="combat.html">ศิลปะการต่อสู้</a></li>
+        <li><a href="training.html">การแต่งกายและการฝึกฝน</a></li>
+      </ul>
+    </li>
+    <li><a href="slides.html" class="gold-text">สไลด์นำเสนอ</a></li>
+    <li><a href="game.html">ลองเล่นเกม</a></li>
+    <li><a href="team.html">ทีมงาน</a></li>
   </ul>
 
-  <a href="game.html" class="nav-cta">▶ PLAY</a>
+  <a href="game.html" class="nav-cta">▶ PLAY GAME </a>
 </nav>
 
-<section id="slides">
+<!-- MAIN CONTENT SECTION -->
+<section id="slides" style="padding-top:140px; max-width: 1200px; margin: 0 auto; padding-left: 20px; padding-right: 20px;">
 
   <div class="section-header">
     <span class="section-tag">02 — PRESENTATION</span>
@@ -40,42 +49,53 @@
 
   <h2 class="section-title">Presentation Slides</h2>
 
-  <p class="section-sub">
-    Muay Korat Game Project Presentation
+  <p class="section-sub" style="max-width: 800px; margin-bottom: 50px;">
+    Muay Korat Game Project Presentation — เอกสารประกอบการนำเสนอโครงงานระบบการเรียนรู้ดิจิทัลเชิงโต้ตอบ มหาวิทยาลัยเทคโนโลยีสุรนารี
   </p>
 
-  <div class="slides-container">
+  <div class="slides-container" style="margin-bottom: 60px;">
 
     <div class="slides-header">
-
       <div class="slides-dots">
         <div class="dot dot-r"></div>
         <div class="dot dot-y"></div>
         <div class="dot dot-g"></div>
       </div>
-
-      <span class="slides-title">
-        PRESENTATION SLIDES
-      </span>
-
-      <span style="font-size:10px;color:var(--muted2);">
-        Canva
-      </span>
-
+      <div class="slides-title"><i class="fa-solid fa-file-powerpoint"></i> PRESENTATION_SLIDES.CANVA</div>
     </div>
 
     <div class="slides-embed">
-
       <iframe
         src="https://www.canva.com/design/DAHLP5RxaII/yln7FP9KHkv-6jmuU1aUNA/view?embed"
         allowfullscreen>
       </iframe>
-
     </div>
 
   </div>
 
 </section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-logo">◈ MUAY KORAT</span>
+  <span class="footer-text">
+   Muay Korat Project · สำนักวิชาศาสตร์และศิลป์ดิจิทัล · มหาวิทยาลัยเทคโนโลยีสุรนารี · 2026
+  </span>
+</footer>
+
+<!-- DROPDOWN SCRIPT -->
+<script>
+  document.querySelectorAll('.dropdown > a').forEach(trigger => {
+    trigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      const menu = this.nextElementSibling;
+      const isOpen = menu.style.opacity === '1';
+      menu.style.opacity = isOpen ? '0' : '1';
+      menu.style.visibility = isOpen ? 'hidden' : 'visible';
+      menu.style.transform = isOpen ? 'translateY(10px)' : 'translateY(0)';
+    });
+  });
+</script>
 
 </body>
 </html>

@@ -3,132 +3,161 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>การแต่งกายและการฝึกฝน</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Sora:wght@300;400;500;600&family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
+<!-- NAVBAR STANDARD -->
 <nav>
-  <a href="index.html" class="nav-logo">◈ <span>PROJECT</span></a>
-
+  <a href="index.html" class="nav-logo">◈ MUAY<span>KORAT</span></a>
   <ul class="nav-links">
-    <li><a href="overview.html">Overview</a></li>
-    <li><a href="slides.html">Slides</a></li>
-    <li><a href="game.html">Play</a></li>
-    <li><a href="team.html">Team</a></li>
+    <li class="dropdown">
+      <a href="#">ภาพรวม ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="overview.html"> เกี่ยวกับ </a></li>
+        <li><a href="marketing.html">การวิเคราะห์ตลาด</a></li>
+        <li><a href="history.html">ตำนานมวยโคราช</a></li>
+        <li><a href="combat.html">ศิลปะการต่อสู้</a></li>
+        <li><a href="training.html">การแต่งกายและการฝึกฝน</a></li>
+      </ul>
+    </li>
+    <li><a href="slides.html">สไลด์นำเสนอ</a></li>
+    <li><a href="game.html">ลองเล่นเกม</a></li>
+    <li><a href="team.html">ทีมงาน</a></li>
   </ul>
-
-  <a href="game.html" class="nav-cta">▶ PLAY</a>
+  <a href="game.html" class="nav-cta">▶ PLAY GAME </a>
 </nav>
 
-<section style="padding-top:120px;">
+<!-- MAIN CONTENT LAYOUT -->
+<section style="padding-top:140px; max-width: 1200px; margin: 0 auto; padding-left: 20px; padding-right: 20px;">
   <div class="section-header">
     <span class="section-tag">03 — APPEARANCE & EQUIPMENT</span>
     <div class="section-line"></div>
   </div>
   <h2 class="section-title">การแต่งกายและอุปกรณ์</h2>
-  <p class="section-sub">
-    อัตลักษณ์อันโดดเด่นที่เป็นทั้งศาสตร์แห่งการโจมตีและการป้องกันตัวอันเป็นเอกเทศของมวยสายอีสาน[cite: 9]
+  <p class="section-sub" style="max-width: 800px; margin-bottom: 40px;">
+    อัตลักษณ์อันโดดเด่นที่เป็นทั้งศาสตร์แห่งการโจมตีและการป้องกันตัวอันเป็นเอกเทศของมวยสายอีสาน
   </p>
 
-  <div class="overview-grid">
+  <div class="overview-grid" style="margin-bottom: 60px;">
     <!-- CARD 1 -->
-    <div class="ov-card">
-      <div class="ov-icon">🧵</div>
-      <div class="ov-title">การคาดเชือก (พันหมัด)</div>
-      <div class="ov-desc">
-        นักมวยโคราชจะพัน <b>"ด้ายดิบ"</b> เส้นหนาไล่ยาวตั้งแต่สันหมัด ข้อมือ ขึ้นไปจนถึงข้อศอก[cite: 9] 
-        ซึ่งเป็นเอกลักษณ์สำคัญที่แตกต่างจากมวยสายอื่นอย่างชัดเจน[cite: 9]
+    <div class="ov-card" style="padding: 30px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px;">
+      <div class="ov-icon" style="margin-bottom: 20px;">
+        <i class="fa-solid fa-scroll" style="color: var(--thai-gold-base); font-size: 32px; display: block; text-shadow: 0 0 12px rgba(212,175,55,0.4);"></i>
+      </div>
+      <div class="ov-title" style="font-family: 'Kanit', sans-serif; font-size: 19px; font-weight: 600; color: #fff; margin-bottom: 12px;">การคาดเชือก (พันหมัด)</div>
+      <div class="ov-desc" style="color: #aaa; font-size: 14px; line-height: 1.7;">
+        นักมวยโคราชจะพัน <b>"ด้ายดิบ"</b> เส้นหนาไล่ยาวตั้งแต่สันหมัด ข้อมือ ขึ้นไปจนถึงข้อศอก
+        ซึ่งเป็นเอกลักษณ์สำคัญที่แตกต่างจากมวยสายอื่นอย่างชัดเจน
       </div>
     </div>
 
     <!-- CARD 2 -->
-    <div class="ov-card">
-      <div class="ov-icon">🎯</div>
-      <div class="ov-title">วัตถุประสงค์การพันเชือก</div>
-      <div class="ov-desc">
-        <ul style="padding-left: 15px; line-height: 1.8;">
-          <li>ช่วยเพิ่มน้ำหนักและแรงปะทะให้หมัดมีความหนักหน่วงทำลายล้างสูงขึ้น[cite: 9]</li>
-          <li>ใช้ท่อนแขนที่พันด้ายหนาเป็นเสมือน "โล่" สกัดรับแรงเตะหรือหมัดศัตรู[cite: 9]</li>
-          <li>ช่วยซัพพอร์ตข้อมือและป้องกันอาการข้อซ้นจากการเหวี่ยงหมัดเต็มแรง[cite: 9]</li>
+    <div class="ov-card" style="padding: 30px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px;">
+      <div class="ov-icon" style="margin-bottom: 20px;">
+        <i class="fa-solid fa-shield-halved" style="color: var(--thai-gold-base); font-size: 32px; display: block; text-shadow: 0 0 12px rgba(212,175,55,0.4);"></i>
+      </div>
+      <div class="ov-title" style="font-family: 'Kanit', sans-serif; font-size: 19px; font-weight: 600; color: #fff; margin-bottom: 12px;">วัตถุประสงค์การพันเชือก</div>
+      <div class="ov-desc" style="color: #aaa; font-size: 14px; line-height: 1.7;">
+        <ul style="padding-left: 15px; line-height: 1.8; color: #ccc;">
+          <li>ช่วยเพิ่มน้ำหนักและแรงปะทะให้หมัดมีความหนักหน่วงทำลายล้างสูงขึ้น</li>
+          <li>ใช้ท่อนแขนที่พันด้ายหนาเป็นเสมือน "โล่" สกัดรับแรงเตะหรือหมัดศัตรู</li>
+          <li>ช่วยซัพพอร์ตข้อมือและป้องกันอาการข้อซ้นจากการเหวี่ยงหมัดเต็มแรง</li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
-<section>
+<section style="max-width: 1200px; margin: 0 auto 60px; padding: 0 20px;">
   <div class="section-header">
     <span class="section-tag">04 — TRADITIONAL TRAINING</span>
     <div class="section-line"></div>
   </div>
   <h2 class="section-title">วิธีการฝึกฝนโบราณ</h2>
-  <p class="section-sub">
-    ภูมิปัญญาไทยโบราณในการปรับสภาพร่างกาย (Body Conditioning) เพื่อสร้างอาวุธที่แข็งแกร่งราวกับเหล็กกล้า[cite: 9]
+  <p class="section-sub" style="max-width: 800px; margin-bottom: 40px;">
+    ภูมิปัญญาไทยโบราณในการปรับสภาพร่างกาย (Body Conditioning) เพื่อสร้างอาวุธที่แข็งแกร่งราวกับเหล็กกล้า
   </p>
 
   <div class="overview-grid">
     <!-- STEP 1 -->
     <div class="ov-card">
-      <div class="ov-icon">🪵</div>
-      <div class="ov-title">01 · เตะต้นกล้วย</div>
-      <div class="ov-desc">
-        ซ้อมหวดหน้าแข้งเข้ากับต้นกล้วยสดที่มีความหนาแน่นและยืดหยุ่นเหมาะสม[cite: 9] 
-        ช่วยเพิ่มความหนาแน่นของกระดูกหน้าแข้งและสร้างกล้ามเนื้อขาให้ทนทานโดยไม่บาดเจ็บภายใน[cite: 9]
+      <div class="ov-icon" style="margin-bottom: 20px;">
+        <i class="fa-solid fa-tree" style="color: var(--thai-gold-base); font-size: 32px; display: block; text-shadow: 0 0 12px rgba(212,175,55,0.4);"></i>
+      </div>
+      <div class="ov-title" style="font-family: 'Kanit', sans-serif; font-size: 19px; font-weight: 600; color: #fff; margin-bottom: 12px;">01 · เตะต้นกล้วย</div>
+      <div class="ov-desc" style="color: #aaa; font-size: 14px; line-height: 1.7;">
+        ซ้อมหวดหน้าแข้งเข้ากับต้นกล้วยสดที่มีความหนาแน่นและยืดหยุ่นเหมาะสม
+        ช่วยเพิ่มความหนาแน่นของกระดูกหน้าแข้งและสร้างกล้ามเนื้อขาให้ทนทานโดยไม่บาดเจ็บภายใน
       </div>
     </div>
 
     <!-- STEP 2 -->
     <div class="ov-card">
-      <div class="ov-icon">🥊</div>
-      <div class="ov-title">02 · ชกกระสอบหนังวัวอัดทราย</div>
-      <div class="ov-desc">
-        ฝึกความแข็งแกร่งของกำปั้นกับกระสอบทรายที่ทำจากหนังวัวเหนียวและอัดแน่นด้วยทรายหยาบ[cite: 9] 
-        ช่วยปรับสภาพกระดูกนิ้วมือ ข้อมือ และท่อนแขนให้ทนต่อแรงกระแทกหนัก ๆ[cite: 9]
+      <div class="ov-icon">
+        <i class="fa-solid fa-bullseye" style="color: var(--thai-gold-base); font-size: 32px; display: block; text-shadow: 0 0 12px rgba(212,175,55,0.4);"></i>
+      </div>
+      <div class="ov-title" style="font-family: 'Kanit', sans-serif; font-size: 19px; font-weight: 600; color: #fff; margin-bottom: 12px;">02 · ชกกระสอบหนังวัวอัดทราย</div>
+      <div class="ov-desc" style="color: #aaa; font-size: 14px; line-height: 1.7;">
+        ฝึกความแข็งแกร่งของกำปั้นกับกระสอบทรายที่ทำจากหนังวัวเหนียวและอัดแน่นด้วยทรายหยาบ
+        ช่วยปรับสภาพกระดูกนิ้วมือ ข้อมือ และท่อนแขนให้ทนต่อแรงกระแทกหนัก ๆ
       </div>
     </div>
 
     <!-- STEP 3 -->
     <div class="ov-card">
-      <div class="ov-icon">⚡</div>
-      <div class="ov-title">03 · อาวุธระดับ "ล้มควาย"</div>
-      <div class="ov-desc">
-        จากการผ่านการฝึกฝนอย่างหนักด้วยวิถีธรรมชาติและวิทยาศาสตร์การกีฬาโบราณ[cite: 9] 
-        หล่อหลอมให้นักมวยโคราชมีหมัดและแข้งที่หนักเป็นพิเศษจนเกิดเป็นฉายาเลื่องชื่อ[cite: 9]
+      <div class="ov-icon">
+        <i class="fa-solid fa-bolt" style="color: var(--thai-gold-base); font-size: 32px; display: block; text-shadow: 0 0 12px rgba(212,175,55,0.4);"></i>
+      </div>
+      <div class="ov-title" style="font-family: 'Kanit', sans-serif; font-size: 19px; font-weight: 600; color: #fff; margin-bottom: 12px;">03 · อาวุธระดับ "ล้มควาย"</div>
+      <div class="ov-desc" style="color: #aaa; font-size: 14px; line-height: 1.7;">
+        จากการผ่านการฝึกฝนอย่างหนักด้วยวิถีธรรมชาติและวิทยาศาสตร์การกีฬาโบราณ
+        หล่อหลอมให้นักมวยโคราชมีหมัดและแข้งที่หนักเป็นพิเศษจนเกิดเป็นฉายาเลื่องชื่อ
       </div>
     </div>
   </div>
 </section>
 
-<section>
+<section style="max-width: 1200px; margin: 0 auto 60px; padding: 0 20px;">
   <div class="section-header">
     <span class="section-tag">05 — KNOWLEDGE BASE</span>
     <div class="section-line"></div>
   </div>
   
   <div class="game-hero-card" style="background: rgba(255,100,100,0.02); border: 1px solid rgba(255,255,255,0.08); text-align: left; padding: 35px;">
-    <h3 style="font-family: 'Orbitron', sans-serif; font-size: 20px; color: #fff; margin-bottom: 12px;">🧠 เกร็ดความรู้การฝึกซ้อม</h3>
-    <p style="color: #bbb; line-height: 1.8; font-size: 14px; margin-bottom: 15px;">
-      นักมวยโคราชโบราณจะเน้นการเตะต้นกล้วยและการชกกระสอบหนังวัวเป็นหัวใจหลัก[cite: 9] 
-      ซึ่งสอดคล้องกับหลักวิทยาศาสตร์การกีฬาในปัจจุบันเรื่องการเพิ่มมวลกระดูกผ่านแรงกดดันซ้ำ ๆ (Wolff's Law)[cite: 9] 
-      ทำให้อาวุธของมวยสายนี้ทรงพลังและแข็งแกร่งกว่าสำนักอื่น ๆ อย่างเห็นได้ชัด[cite: 9]
+    <h3 style="font-family: 'Kanit', sans-serif; font-size: 20px; color: #fff; margin-bottom: 12px;">🧠 เกร็ดความรู้การฝึกซ้อม</h3>
+    <p style="color: #bbb; line-height: 1.8; font-size: 14px; margin-bottom: 15px; font-family: 'Kanit', sans-serif;">
+      นักมวยโคราชโบราณจะเน้นการเตะต้นกล้วยและการชกกระสอบหนังวัวเป็นหัวใจหลัก
+      ซึ่งสอดคล้องกับหลักวิทยาศาสตร์การกีฬาในปัจจุบันเรื่องการเพิ่มมวลกระดูกผ่านแรงกดดันซ้ำ ๆ (Wolff's Law)
+      ทำให้อาวุธของมวยสายนี้ทรงพลังและแข็งแกร่งกว่าสำนักอื่น ๆ อย่างเห็นได้ชัด
     </p>
-    <span style="font-size: 12px; color: #666;">ข้อมูลอ้างอิง: กรมประชาสัมพันธ์ — prd.go.th[cite: 9]</span>
+    <span style="font-size: 12px; color: #666;">ข้อมูลอ้างอิง: กรมประชาสัมพันธ์ — prd.go.th</span>
   </div>
 </section>
 
 <footer>
   <span class="footer-logo">◈ MUAY KORAT</span>
-  <span class="footer-text">Muay Korat Project · สำนักวิชาศาสตร์และศิลป์ดิจิทัล · มหาวิทยาลัยเทคโนโลยีสุรนารี · 2026[cite: 2]</span>
+  <span class="footer-text">Muay Korat Project · สำนักวิชาศาสตร์และศิลป์ดิจิทัล · มหาวิทยาลัยเทคโนโลยีสุรนารี · 2026</span>
 </footer>
 
+<script>
+  document.querySelectorAll('.dropdown > a').forEach(trigger => {
+    trigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      const menu = this.nextElementSibling;
+      const isOpen = menu.style.opacity === '1';
+      menu.style.opacity = isOpen ? '0' : '1';
+      menu.style.visibility = isOpen ? 'hidden' : 'visible';
+      menu.style.transform = isOpen ? 'translateY(10px)' : 'translateY(0)';
+    });
+  });
+</script>
 </body>
 </html>

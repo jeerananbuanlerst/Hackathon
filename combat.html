@@ -3,94 +3,125 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>ศิลปะการต่อสู้</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Sora:wght@300;400;500;600&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Sora:wght@300;400;500;600&family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
+<!-- NAVBAR STANDARD -->
 <nav>
-  <a href="index.html" class="nav-logo">◈ <span>PROJECT</span></a>
-
+  <a href="index.html" class="nav-logo">◈ MUAY<span>KORAT</span></a>
   <ul class="nav-links">
-    <li><a href="overview.html">Overview</a></li>
-    <li><a href="slides.html">Slides</a></li>
-    <li><a href="game.html">Play</a></li>
-    <li><a href="team.html">Team</a></li>
+    <li class="dropdown">
+      <a href="#">ภาพรวม ▾</a>
+      <ul class="dropdown-menu">
+        <li><a href="overview.html"> เกี่ยวกับ </a></li>
+        <li><a href="marketing.html">การวิเคราะห์ตลาด</a></li>
+        <li><a href="history.html">ตำนานมวยโคราช</a></li>
+        <li><a href="combat.html">ศิลปะการต่อสู้</a></li>
+        <li><a href="training.html">การแต่งกายและการฝึกฝน</a></li>
+      </ul>
+    </li>
+    <li><a href="slides.html">สไลด์นำเสนอ</a></li>
+    <li><a href="game.html">ลองเล่นเกม</a></li>
+    <li><a href="team.html">ทีมงาน</a></li>
   </ul>
-
-  <a href="game.html" class="nav-cta">▶ PLAY</a>
+  <a href="game.html" class="nav-cta">▶ PLAY GAME </a>
 </nav>
 
-<section style="padding-top:120px;">
+<!-- MAIN CONTENT LAYOUT -->
+<section style="padding-top:140px; max-width: 1200px; margin: 0 auto; padding-left: 20px; padding-right: 20px;">
   <div class="section-header">
     <span class="section-tag">02 — COMBAT & SKILLS</span>
     <div class="section-line"></div>
   </div>
   <h2 class="section-title">สไตล์การต่อสู้และกระบวนท่า</h2>
-  <p class="section-sub">
+  <p class="section-sub" style="max-width: 800px; margin-bottom: 40px;">
     มีหัวใจหลักคือการ "บุกตะลุย" และ "ทำลายล้าง" — จิตวิญญาณแบบรุกรบ ไม่ยอมถอยหลังง่าย ๆ 
-    เน้นการกดดันคู่ต่อสู้อย่างต่อเนื่องด้วยอาวุธที่หนักหน่วง[cite: 1]
+    เน้นการกดดันคู่ต่อสู้อย่างต่อเนื่องด้วยอาวุธที่หนักหน่วง
   </p>
 
-  <div class="game-hero-card" style="margin-top: 30px; margin-bottom: 50px;">
-    <span style="font-size: 14px; color: var(--accent2); font-family: 'Orbitron', sans-serif; font-weight: 700; letter-spacing: 2px;">⭐ SIGNATURE TECHNIQUE</span>
-    <h2 style="margin-top: 10px;">หมัดเหวี่ยงควาย</h2>
-    <p style="font-size: 16px; color: #ccc; max-width: 800px; margin: 15px auto 0; line-height: 1.8;">
-      การเหวี่ยงหมัดวงกว้างโดยใช้แรงส่งจากไหล่และสะโพก มีพลังทำลายล้างสูงมาก เล่าขานกันว่าสามารถล้มควายได้ในหมัดเดียวหากชกเข้าจุดโฟกัส[cite: 1] 
-      เช่น ขมับ หรือต้นคอ ซึ่งในปัจจุบันถูกประยุกต์ใช้เป็นท่าหมัด <b>Overhand</b> บนเวทีมวยสากลยุคปัจจุบัน[cite: 1]
+  <div class="game-hero-card" style="margin-bottom: 50px; border-left: 4px solid var(--thai-gold-base); background: rgba(212,175,55,0.02);">
+    <span style="font-size: 13px; color: var(--thai-gold-base); font-family: 'Orbitron', sans-serif; font-weight: 700; letter-spacing: 2px; display: flex; align-items: center; gap: 8px;">
+      <i class="fa-solid fa-star-of-life"></i> SIGNATURE TECHNIQUE
+    </span>
+    <h2 style="margin-top: 10px; font-family: 'Kanit', sans-serif;">หมัดเหวี่ยงควาย</h2>
+    <p style="font-size: 15px; color: #ccc; max-width: 850px; margin: 15px 0 0 0; line-height: 1.8; font-family: 'Kanit', sans-serif;">
+      การเหวี่ยงหมัดวงกว้างโดยใช้แรงส่งจากไหล่และสะโพก มีพลังทำลายล้างสูงมาก เล่าขานกันว่าสามารถล้มควายได้ในหมัดเดียวหากชกเข้าจุดโฟกัส
+      เช่น ขมับ หรือต้นคอ ซึ่งในปัจจุบันถูกประยุกต์ใช้เป็นท่าหมัด <b>Overhand</b> บนเวทีมวยสากลยุคปัจจุบัน
     </p>
   </div>
 
   <div class="overview-grid">
     <!-- CARD 1 -->
-    <div class="ov-card">
-      <div class="ov-icon">⚔️</div>
-      <div class="ov-title">บุกตะลุย &amp; ทำลายล้าง</div>
-      <div class="ov-desc">มีจิตวิญญาณแบบรุกรบ ไม่ยอมถอยหลังง่าย ๆ เน้นเดินหน้าบดขยี้และกดดันคู่ต่อสู้อย่างต่อเนื่องเพื่อหาจังหวะเผด็จศึก[cite: 1]</div>
+    <div class="ov-card" style="padding: 30px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px;">
+      <div class="ov-icon" style="margin-bottom: 20px;">
+        <i class="fa-solid fa-swords" style="color: var(--thai-gold-base); font-size: 32px; display: block; text-shadow: 0 0 12px rgba(212,175,55,0.4);"></i>
+      </div>
+      <div class="ov-title" style="font-family: 'Kanit', sans-serif; font-size: 19px; font-weight: 600; color: #fff; margin-bottom: 12px;">บุกตะลุย &amp; ทำลายล้าง</div>
+      <div class="ov-desc" style="color: #aaa; font-size: 14px; line-height: 1.7;">มีจิตวิญญาณแบบรุกรบ ไม่ยอมถอยหลังง่าย ๆ เน้นเดินหน้าบดขยี้และกดดันคู่ต่อสู้อย่างต่อเนื่องเพื่อหาจังหวะเผด็จศึก</div>
     </div>
 
     <!-- CARD 2 -->
     <div class="ov-card">
-      <div class="ov-icon">🦵</div>
-      <div class="ov-title">เตะปู &amp; เตะเหวี่ยง</div>
-      <div class="ov-desc">เน้นการเตะตัดลำตัวและขา โดยเฉพาะ "เตะปู" ที่ใช้การบิดแรงสะโพกและแรงเหวี่ยงจากโมเมนตัมทั้งตัวเพื่อสร้างความเสียหายสูงสุด[cite: 1]</div>
+      <div class="ov-icon" style="margin-bottom: 20px;">
+        <i class="fa-solid fa-boot" style="color: var(--thai-gold-base); font-size: 32px; display: block; text-shadow: 0 0 12px rgba(212,175,55,0.4);"></i>
+      </div>
+      <div class="ov-title" style="font-family: 'Kanit', sans-serif; font-size: 19px; font-weight: 600; color: #fff; margin-bottom: 12px;">เตะปู &amp; เตะเหวี่ยง</div>
+      <div class="ov-desc" style="color: #aaa; font-size: 14px; line-height: 1.7;">เน้นการเตะตัดลำตัวและขา โดยเฉพาะ "เตะปู" ที่ใช้การบิดแรงสะโพกและแรงเหวี่ยงจากโมเมนตัมทั้งตัวเพื่อสร้างความเสียหายสูงสุด</div>
     </div>
 
     <!-- CARD 3 -->
     <div class="ov-card">
-      <div class="ov-icon">🧍</div>
-      <div class="ov-title">ท่ายืนสูง</div>
-      <div class="ov-desc">มักตั้งท่าคุมเชิงค่อนข้างสูง ยกมือข้างหนึ่งสูงเหนือเพื่อป้องกันใบหน้า ส่วนมืออีกข้างตั้งเตรียมพร้อมเหวี่ยงโจมตีสวนกลับทันที[cite: 1]</div>
+      <div class="ov-icon" style="margin-bottom: 20px;">
+        <i class="fa-solid fa-user-ninja" style="color: var(--thai-gold-base); font-size: 32px; display: block; text-shadow: 0 0 12px rgba(212,175,55,0.4);"></i>
+      </div>
+      <div class="ov-title" style="font-family: 'Kanit', sans-serif; font-size: 19px; font-weight: 600; color: #fff; margin-bottom: 12px;">ท่ายืนสูง</div>
+      <div class="ov-desc" style="color: #aaa; font-size: 14px; line-height: 1.7;">มักตั้งท่าคุมเชิงค่อนข้างสูง ยกมือข้างหนึ่งสูงเหนือเพื่อป้องกันใบหน้า ส่วนมืออีกข้างตั้งเตรียมพร้อมเหวี่ยงโจมตีสวนกลับทันที</div>
     </div>
 
     <!-- CARD 4 -->
     <div class="ov-card">
-      <div class="ov-icon">🚶</div>
-      <div class="ov-title">ท่ายักษ์เยื้อง</div>
-      <div class="ov-desc">จังหวะสเต็ปการเดินขยับสลับเท้าเข้าหาคู่ต่อสู้อย่างมั่นคง ดุดัน แฝงไปด้วยรังสีอำมหิตและแรงกดดันเพื่อทำลายสมาธิคู่ต่อสู้[cite: 1]</div>
+      <div class="ov-icon" style="margin-bottom: 20px;">
+        <i class="fa-solid fa-shoe-prints" style="color: var(--thai-gold-base); font-size: 32px; display: block; text-shadow: 0 0 12px rgba(212,175,55,0.4); transform: rotate(-45deg);"></i>
+      </div>
+      <div class="ov-title" style="font-family: 'Kanit', sans-serif; font-size: 19px; font-weight: 600; color: #fff; margin-bottom: 12px;">ท่ายักษ์เยื้อง</div>
+      <div class="ov-desc" style="color: #aaa; font-size: 14px; line-height: 1.7;">จังหวะสเต็ปการเดินขยับสลับเท้าเข้าหาคู่ต่อสู้อย่างมั่นคง ดุดัน แฝงไปด้วยรังสีอำมหิตและแรงกดดันเพื่อทำลายสมาธิคู่ต่อสู้</div>
     </div>
 
     <!-- CARD 5 -->
     <div class="ov-card">
-      <div class="ov-icon">💪</div>
-      <div class="ov-title">ความทนทาน &amp; ปอดใหญ่</div>
-      <div class="ov-desc">ขึ้นชื่อเรื่องระบบหายใจและความอึดทน สามารถรักษาระดับพละกำลังและความเข้มข้นในการโจมตีหนักได้ตลอดทุกยก[cite: 1]</div>
+      <div class="ov-icon" style="margin-bottom: 20px;">
+        <i class="fa-solid fa-heart-pulse" style="color: var(--thai-gold-base); font-size: 32px; display: block; text-shadow: 0 0 12px rgba(212,175,55,0.4);"></i>
+      </div>
+      <div class="ov-title" style="font-family: 'Kanit', sans-serif; font-size: 19px; font-weight: 600; color: #fff; margin-bottom: 12px;">ความทนทาน &amp; ปอดใหญ่</div>
+      <div class="ov-desc" style="color: #aaa; font-size: 14px; line-height: 1.7;">ขึ้นชื่อเรื่องระบบหายใจและความอึดทน สามารถรักษาระดับพละกำลังและความเข้มข้นในการโจมตีหนักได้ตลอดทุกยก</div>
     </div>
   </div>
 </section>
 
 <footer>
   <span class="footer-logo">◈ MUAY KORAT</span>
-  <span class="footer-text">Muay Korat Project · สำนักวิชาศาสตร์และศิลป์ดิจิทัล · มหาวิทยาลัยเทคโนโลยีสุรนารี · 2026[cite: 2]</span>
+  <span class="footer-text">Muay Korat Project · สำนักวิชาศาสตร์และศิลป์ดิจิทัล · มหาวิทยาลัยเทคโนโลยีสุรนารี · 2026</span>
 </footer>
 
+<script>
+  document.querySelectorAll('.dropdown > a').forEach(trigger => {
+    trigger.addEventListener('click', function(e) {
+      e.preventDefault();
+      const menu = this.nextElementSibling;
+      const isOpen = menu.style.opacity === '1';
+      menu.style.opacity = isOpen ? '0' : '1';
+      menu.style.visibility = isOpen ? 'hidden' : 'visible';
+      menu.style.transform = isOpen ? 'translateY(10px)' : 'translateY(0)';
+    });
+  });
+</script>
 </body>
 </html>
