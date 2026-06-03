@@ -56,12 +56,136 @@
     @keyframes scaleUp { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
 
     /* =========================================
-       2. NARRATIVE SECTION STYLE
+       2. NAVIGATION SYSTEM (FIXED & ALIGNED)
+       ========================================= */
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 4%;
+      background: rgba(4, 4, 12, 0.98);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+      position: fixed;
+      top: 0; left: 0; width: 100%;
+      height: 80px; 
+      z-index: 10005; /* ยกระดับขึ้นเหนือกล่องสไลด์มือถือเพื่อไม่ให้ปุ่มปิดโดนทับ */
+      box-sizing: border-box;
+    }
+
+    .nav-left-group { display: flex; align-items: center; gap: 15px; }
+
+    .nav-logo {
+      font-family: 'Orbitron', sans-serif;
+      font-weight: 700; color: #fff; font-size: 20px;
+      text-decoration: none; letter-spacing: 1px;
+    }
+    .nav-logo span { color: #d4af37; }
+
+    .nav-links { display: flex; list-style: none; gap: 24px; margin: 0; padding: 0; }
+    .nav-links a {
+      color: #b0b0bc; text-decoration: none;
+      font-family: 'Kanit', sans-serif; font-size: 15px; transition: color 0.3s;
+    }
+    .nav-links a:hover { color: #d4af37; }
+
+    /* Dropdown Menu (Desktop) */
+    .dropdown { position: relative; }
+    .dropdown-menu {
+      display: none;
+      position: absolute;
+      top: 100%; left: 0;
+      background: #0a0a1a;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+      list-style: none; padding: 10px 0;
+      border-radius: 8px; min-width: 200px;
+    }
+    .dropdown:hover .dropdown-menu { display: block; }
+    .dropdown-menu li a { padding: 8px 20px; display: block; }
+
+    .nav-cta {
+      background: linear-gradient(135deg, #d4af37 0%, #aa8416 100%);
+      color: #04040c; padding: 10px 20px; border-radius: 30px;
+      text-decoration: none; font-family: 'Orbitron', sans-serif;
+      font-weight: 700; font-size: 13px; transition: 0.3s;
+      box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+    }
+    .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(212, 175, 55, 0.4); }
+
+    .hamburger {
+      display: none; flex-direction: column; cursor: pointer; gap: 6px;
+    }
+    .hamburger span {
+      display: block; width: 28px; height: 3px; background: #d4af37;
+      border-radius: 3px; transition: 0.3s ease-in-out;
+    }
+    
+    /* เอฟเฟกต์แปลงร่างปุ่มแฮมเบอร์เกอร์ */
+    .hamburger.active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+    .hamburger.active span:nth-child(2) { opacity: 0; }
+    .hamburger.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+    /* MOBILE OVERLAY DESIGN (ขยับลงมาใต้แถบเมนูหลัก) */
+    .nav-mobile-overlay {
+      position: fixed; 
+      top: 80px; /* ปรับเลื่อนลงมาไม่ให้ทับซ้อนแถบ Navbar ด้านบน */
+      left: -100%; 
+      width: 75%; 
+      max-width: 320px;
+      height: calc(100vh - 80px); /* ป้องกันการยืดทะลุขอบล่างของหน้าจอ */
+      background: #060612; 
+      z-index: 10001;
+      display: flex; flex-direction: column; 
+      padding: 40px 24px; /* รีเซ็ตช่องไฟพรีเมียมภายใน */
+      transition: 0.4s cubic-bezier(0.1, 0.7, 0.1, 1);
+      border-right: 1px solid rgba(212, 175, 55, 0.2);
+      box-sizing: border-box; 
+      overflow-y: auto;
+    }
+    .nav-mobile-overlay.active { left: 0; }
+    
+    .mobile-nav-item {
+      color: #b0b0bc; text-decoration: none; font-size: 17px;
+      font-family: 'Kanit', sans-serif; margin-bottom: 20px;
+      display: flex; justify-content: space-between; align-items: center;
+      cursor: pointer; transition: color 0.3s;
+      border-bottom: 1px solid rgba(255,255,255,0.03);
+      padding-bottom: 8px;
+    }
+    .mobile-nav-item i { font-size: 14px; transition: transform 0.3s ease; }
+    .mobile-nav-item.active { color: #d4af37; }
+    .mobile-nav-item.active i { transform: rotate(180deg); }
+
+    .mobile-dropdown-content {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.3s ease-out;
+      padding-left: 15px; display: flex; flex-direction: column;
+    }
+    .mobile-dropdown-content.open { max-height: 300px; margin-bottom: 15px; }
+
+    .mobile-dropdown-content a {
+      color: #8a8a98; text-decoration: none; font-size: 15px;
+      font-family: 'Kanit', sans-serif; padding: 8px 0;
+    }
+
+    @media (max-width: 992px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+    @media (max-width: 576px) {
+      nav .nav-cta { display: none; }
+    }
+    @media (min-width: 577px) {
+      .nav-mobile-overlay .nav-cta { display: none; }
+    }
+
+    /* =========================================
+       3. CONTENT SECTIONS
        ========================================= */
     .narrative-section {
       background: linear-gradient(180deg, #04040c 0%, #0d0d21 50%, #04040c 100%);
-      padding: 120px 24px;
-      text-align: center;
+      padding: 120px 24px; text-align: center;
       border-top: 1px solid rgba(212, 175, 55, 0.1);
     }
 
@@ -70,14 +194,8 @@
       background: rgba(255, 255, 255, 0.02);
       border-left: 4px solid #d4af37;
       padding: 40px; border-radius: 0 20px 20px 0;
-      text-align: left;
-      backdrop-filter: blur(10px);
+      text-align: left; backdrop-filter: blur(10px);
       box-shadow: 0 20px 40px rgba(0,0,0,0.4);
-    }
-
-    .narrative-tagline-main {
-      font-family: 'Kanit', sans-serif; color: #d4af37;
-      font-size: 38px; font-weight: 700; margin-bottom: 10px;
     }
 
     .accent-gold { color: #d4af37; font-weight: 600; }
@@ -86,6 +204,7 @@
 
 <body>
 
+  <!-- SPLASH SCREEN LAYER -->
   <div id="custom-preloader">
     <div class="preloader-content">
       <div class="preloader-orb"></div>
@@ -96,85 +215,61 @@
     </div>
   </div>
 
-  <ul class="nav-links">
-
-  <li class="dropdown">
-    <a href="#">เกี่ยวกับ ▾</a>
-
-    <ul class="dropdown-menu">
-      <li>
-        <a href="Marketing.html">Marketing</a>
-      </li>
-
-      <li>
-        <a href="history.html">
-          ตำนานมวยโคราช
-        </a>
-      </li>
-
-      <li>
-        <a href="combat.html">
-          ศิลปะการต่อสู้
-        </a>
-      </li>
-
-      <li>
-        <a href="training.html">
-          การแต่งกายและการฝึกฝน
-        </a>
-      </li>
-
-    </ul>
-  </li>
-
-  <li>
-    <a href="slides.html">สไลด์นำเสนอ</a>
-  </li>
-
-  <li>
-    <a href="game.html">ลองเล่นเกม</a>
-  </li>
-
-  <li>
-    <a href="team.html">ทีมงาน</a>
-  </li>
-
-</ul>
-  <a href="game.html" class="nav-cta">▶ PLAY</a>
-</nav>
+  <!-- MAIN NAVIGATION BAR -->
   <nav>
-    <a href="index.html" class="nav-logo">◈ MUAY<span>KORAT</span></a>
-    <ul class="nav-links">
-    <li class="dropdown">
-      <a href="#">ภาพรวม ▾</a>
-      <ul class="dropdown-menu">
-        <li><a href="overview.html"> เกี่ยวกับ </a></li>
-        <li><a href="marketing.html">การวิเคราะห์ตลาด</a></li>
-        <li><a href="history.html">ตำนานมวยโคราช</a></li>
-        <li><a href="combat.html">ศิลปะการต่อสู้</a></li>
-        <li><a href="training.html">การแต่งกายและการฝึกฝน</a></li>
-      </ul>
-    </li>
-    <li><a href="slides.html">สไลด์นำเสนอ</a></li>
-    <li><a href="game.html">ลองเล่นเกม</a></li>
-    <li><a href="team.html">ทีมงาน</a></li>
-  </ul>
+    <div class="nav-left-group">
+      <div class="hamburger" id="hamburgerBtn" onclick="toggleMobileMenu()">
+        <span></span><span></span><span></span>
+      </div>
+      <a href="index.html" class="nav-logo">◈ MUAY<span>KORAT</span></a>
+    </div>
 
-    <a href="game.html" class="nav-cta">▶ PLAY GAME </a>
+    <ul class="nav-links">
+      <li class="dropdown">
+        <a href="#">ภาพรวม ▾</a>
+        <ul class="dropdown-menu">
+          <li><a href="overview.html">เกี่ยวกับ</a></li>
+          <li><a href="marketing.html">การวิเคราะห์ตลาด</a></li>
+          <li><a href="history.html">ตำนานมวยโคราช</a></li>
+          <li><a href="combat.html">ศิลปะการต่อสู้</a></li>
+          <li><a href="training.html">การแต่งกายและการฝึกฝน</a></li>
+        </ul>
+      </li>
+      <li><a href="slides.html">สไลด์นำเสนอ</a></li>
+      <li><a href="game.html">ลองเล่นเกม</a></li>
+      <li><a href="team.html">ทีมงาน</a></li>
+    </ul>
+
+    <a href="game.html" class="nav-cta">▶ PLAY GAME</a>
   </nav>
 
+  <!-- MOBILE NAVIGATION SLIDE OVERLAY -->
+  <div class="nav-mobile-overlay" id="mobileMenu">
+    <div class="mobile-nav-item" onclick="toggleMobileDropdown(this)">
+      <span>ภาพรวม</span><i class="fa-solid fa-chevron-down"></i>
+    </div>
+    <div class="mobile-dropdown-content" id="mobileOverviewDropdown">
+      <a href="overview.html">เกี่ยวกับ</a>
+      <a href="marketing.html">การวิเคราะห์ตลาด</a>
+      <a href="history.html">ตำนานมวยโคราช</a>
+      <a href="combat.html">ศิลปะการต่อสู้</a>
+      <a href="training.html">การแต่งกายและการฝึกฝน</a>
+    </div>
+
+    <a href="slides.html" class="mobile-nav-item" style="justify-content: flex-start;">สไลด์นำเสนอ</a>
+    <a href="game.html" class="mobile-nav-item" style="justify-content: flex-start;">ลองเล่นเกม</a>
+    <a href="team.html" class="mobile-nav-item" style="justify-content: flex-start;">ทีมงาน</a>
+    
+    <a href="game.html" class="nav-cta" style="text-align: center; margin-top: 20px;">▶ PLAY GAME NOW</a>
+  </div>
+
+  <!-- HERO SECTION -->
   <section id="hero">
     <div class="hero-grid-bg"></div>
     <div class="hero-orb"></div>
+    <div class="hero-badge"><i class="fa-solid fa-shield-halved"></i> SENIOR PROJECT · 2026</div>
 
-    <div class="hero-badge">
-      <i class="fa-solid fa-shield-halved"></i> SENIOR PROJECT · 2026
-    </div>
-
-    <h1 style="font-family: 'Orbitron', sans-serif; font-weight: 900;">
-      MUAY<br><span class="accent">KORAT</span>
-    </h1>
-
+    <h1 style="font-family: 'Orbitron', sans-serif; font-weight: 900;">MUAY<br><span class="accent">KORAT</span></h1>
     <p class="hero-tagline" style="font-family: 'Kanit', sans-serif; max-width: 750px;">
       ศาสตร์แห่งการเอาชีวิตรอดของนักรบเมืองด่านหน้า สู่ประสบการณ์การเรียนรู้เชิงโต้ตอบในรูปแบบ Digital Interactive Learning
     </p>
@@ -192,53 +287,65 @@
     </div>
   </section>
 
+  <!-- NARRATIVE SECTION -->
   <section class="narrative-section">
     <span style="color: #555; font-family: 'Orbitron'; letter-spacing: 3px; font-size: 13px;">TRANSMEDIA CONCEPT</span>
-    <h2 class="narrative-tagline-main">“ศิลปะแห่งการเอาชีวิตรอด”</h2>
+    <h2 style="font-family:'Kanit'; color:#d4af37; font-size:38px; font-weight:700; margin-top:10px;">“ศิลปะแห่งการเอาชีวิตรอด”</h2>
     
     <div class="narrative-container">
       <h3 style="color:#fff; font-family:'Kanit'; margin-bottom:15px; display:flex; align-items:center; gap:12px;">
-        <i class="fa-solid fa-mountain-city" style="color:#d4af37;"></i>
-        มวยแห่งเมืองด่าน (The Survival Art of Frontier)
+        <i class="fa-solid fa-mountain-city" style="color:#d4af37;"></i> มวยแห่งเมืองด่าน (The Survival Art of Frontier)
       </h3>
       <p style="font-family:'Kanit'; color:#aaa; font-size:17px; line-height:1.8;">
         ทำไมต้อง <span class="accent-gold">"มวยโคราช"</span>? เพราะนี่คือมวยที่ไม่ได้เกิดมาเพื่อการกีฬา แต่คือศาสตร์การต่อสู้ของ <span class="accent-gold">"เมืองด่านหน้า"</span> 
-        ในยามที่บ้านเมืองมีศึกสงคราม ทุกท่วงท่าถูกออกแบบมาเพื่อการเอาชีวิตรอดที่เด็ดขาดและจริงจัง 
-        เราจึงนำ Narrative นี้มาสร้างเป็น <span class="accent-gold">Digital IP</span> ที่ให้ความรู้สึกที่หนักแน่นกว่ามวยไทยทั่วไป 
-        มุ่งเน้นการส่งต่อคุณค่าทางวัฒนธรรมผ่านเทคโนโลยีที่คนรุ่นใหม่เข้าถึงได้จริง
+        ท่วงท่าถูกออกแบบมาเพื่อความเด็ดขาดจริงจัง เรานำจุดแข็งนี้มาพัฒนาเป็น <span class="accent-gold">Digital IP</span> เพื่อส่งต่อมรดกทางวัฒนธรรมผ่านเทคโนโลยีที่เข้าถึงคนรุ่นใหม่
       </p>
     </div>
   </section>
 
+  <!-- FOOTER -->
   <footer>
     <span class="footer-logo">◈ MUAY KORAT</span>
-    <span class="footer-text">
-      Digital Arts and Sciences · Suranaree University of Technology · 2026
-    </span>
+    <span class="footer-text">Digital Arts and Sciences · Suranaree University of Technology · 2026</span>
   </footer>
 
+  <!-- SCRIPT CONTEXT CONTROL -->
   <script>
-    // 1. ระบบปิด Splash Screen
+    // ปิด Splash Screen เมื่อโหลดองค์ประกอบเสร็จสิ้น
     window.addEventListener('DOMContentLoaded', () => {
-      const preloader = document.getElementById('custom-preloader');
       setTimeout(() => {
+        const preloader = document.getElementById('custom-preloader');
         preloader.style.opacity = '0';
         setTimeout(() => { preloader.style.visibility = 'hidden'; }, 800);
-      }, 2500); // แสดงจอโหลด 2.5 วินาที
+      }, 2500); 
     });
 
-    // 2. ระบบ Navbar Dropdown
-    document.querySelectorAll('.dropdown > a').forEach(trigger => {
-      trigger.addEventListener('click', function(e) {
-        e.preventDefault();
-        const menu = this.nextElementSibling;
-        const isOpen = menu.style.opacity === '1';
-        menu.style.opacity = isOpen ? '0' : '1';
-        menu.style.visibility = isOpen ? 'hidden' : 'visible';
-        menu.style.transform = isOpen ? 'translateY(10px)' : 'translateY(0)';
-      });
-    });
+    // ฟังก์ชันควบคุมแถบเมนูสไลด์บนมือถือ
+    function toggleMobileMenu() {
+      const btn = document.getElementById('hamburgerBtn');
+      const menu = document.getElementById('mobileMenu');
+      btn.classList.toggle('active');
+      menu.classList.toggle('active');
+      
+      if(menu.classList.contains('active')) {
+        document.body.style.overflow = 'hidden';
+      } else {
+        document.body.style.overflow = 'auto';
+        // เคลียร์สถานะการเปิดของ Dropdown ภายในเมื่อปิดเมนูหลัก
+        const dropdown = document.getElementById('mobileOverviewDropdown');
+        const trigger = document.querySelector('.mobile-nav-item');
+        if (dropdown && trigger) {
+          dropdown.classList.remove('open');
+          trigger.classList.remove('active');
+        }
+      }
+    }
+
+    // ฟังก์ชันควบคุมการพับ/กาง Accordion บนมือถือ
+    function toggleMobileDropdown(element) {
+      element.classList.toggle('active');
+      document.getElementById('mobileOverviewDropdown').classList.toggle('open');
+    }
   </script>
-
 </body>
 </html>

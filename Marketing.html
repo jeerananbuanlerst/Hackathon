@@ -8,19 +8,182 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Sora:wght@300;400;500;600&family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
-<!-- เชื่อมต่อ FontAwesome สำหรับไอคอนสไตล์พรีเมียม -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="./css/style.css">
 
 <style>
-  /* --- CSS พิเศษยกระดับหน้านำเสนอแผนการตลาด --- */
+  body {
+    background-color: #04040c;
+    color: #fff;
+    position: relative;
+    overflow-x: hidden;
+    background-image: 
+      linear-gradient(rgba(212, 175, 55, 0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(212, 175, 55, 0.015) 1px, transparent 1px);
+    background-size: 50px 50px;
+    margin: 0;
+  }
+
+  /* --- FIXED NAVBAR WITH HAMBURGER ON LEFT --- */
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 4%;
+    background: rgba(4, 4, 12, 0.98);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+    position: fixed;
+    top: 0; left: 0; width: 100%;
+    height: 80px; 
+    z-index: 10005; /* เพิ่มความสูงของ Layer เพื่อให้อยู่เหนือ Mobile Overlay เสมอ */
+    box-sizing: border-box;
+    gap: 15px;
+  }
+  
+  .nav-left-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .nav-logo {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700; color: #fff; font-size: 20px;
+    text-decoration: none; letter-spacing: 1px;
+  }
+  .nav-logo span { color: #d4af37; }
+  
+  .nav-links {
+    display: flex;
+    list-style: none;
+    gap: 24px;
+    margin: 0; padding: 0;
+  }
+  .nav-links a {
+    color: #b0b0bc; text-decoration: none;
+    font-family: 'Kanit', sans-serif; font-size: 15px;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: #d4af37; }
+  
+  .nav-cta {
+    background: linear-gradient(135deg, #d4af37 0%, #aa8416 100%);
+    color: #04040c; padding: 10px 20px; border-radius: 30px;
+    text-decoration: none; font-family: 'Orbitron', sans-serif;
+    font-weight: 700; font-size: 13px; letter-spacing: 0.5px;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .nav-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+  }
+
+  .dropdown { position: relative; }
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%; left: 0;
+    background: #0a0a1a;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    list-style: none; padding: 10px 0;
+    border-radius: 8px; min-width: 200px;
+  }
+  .dropdown:hover .dropdown-menu { display: block; }
+  .dropdown-menu li a { padding: 8px 20px; display: block; }
+
+  /* Hamburger Menu Style */
+  .hamburger {
+    display: none; flex-direction: column; cursor: pointer; gap: 6px;
+  }
+  .hamburger span {
+    display: block; width: 28px; height: 3px; background: #d4af37;
+    border-radius: 3px; transition: 0.3s ease-in-out;
+  }
+  
+  .hamburger.active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+  /* =========================================================
+      MOBILE OVERLAY SYSTEM (แก้ไขเพื่อแก้ปัญหาตามรูปภาพหน้าจอ)
+     ========================================================= */
+  .nav-mobile-overlay {
+    position: fixed; 
+    top: 80px; /* ปรับให้ขยับลงมาใต้ Navbar พอดี จะได้ไม่บังแฮมเบอร์เกอร์ */
+    left: -100%; 
+    width: 75%; 
+    max-width: 320px;
+    height: calc(100vh - 80px); /* คำนวณความสูงให้พอดีกับพื้นที่ที่เหลือ */
+    background: rgba(6, 6, 18, 0.98); 
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 10001;
+    display: flex; 
+    flex-direction: column; 
+    padding: 40px 24px; /* ลด Padding ด้านบนลงเพราะไม่ติดขอบบนสุดแล้ว */
+    transition: 0.4s cubic-bezier(0.1, 0.7, 0.1, 1);
+    box-shadow: 10px 10px 30px rgba(0,0,0,0.5);
+    border-right: 1px solid rgba(212, 175, 55, 0.15);
+    box-sizing: border-box;
+    overflow-y: auto;
+  }
+  .nav-mobile-overlay.active { left: 0; }
+  
+  .mobile-nav-item {
+    color: #b0b0bc; text-decoration: none; font-size: 17px;
+    font-family: 'Kanit', sans-serif; margin-bottom: 20px;
+    display: flex; justify-content: space-between; align-items: center;
+    cursor: pointer; transition: color 0.3s;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    padding-bottom: 8px;
+  }
+  .mobile-nav-item:hover, .mobile-nav-item.active { color: #d4af37; }
+
+  .mobile-nav-item i {
+    font-size: 14px; transition: transform 0.3s ease;
+  }
+  .mobile-nav-item.active i { transform: rotate(180deg); }
+
+  .mobile-dropdown-content {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    padding-left: 15px; margin-bottom: 0;
+    display: flex; flex-direction: column;
+  }
+  .mobile-dropdown-content.open {
+    max-height: 300px;
+    margin-bottom: 15px;
+  }
+
+  .mobile-dropdown-content a {
+    color: #8a8a98; text-decoration: none; font-size: 15px;
+    font-family: 'Kanit', sans-serif; padding: 8px 0;
+    transition: color 0.3s; border-bottom: none;
+  }
+  .mobile-dropdown-content a:hover { color: #d4af37; }
+
+  /* --- RESPONSIVE MEDIA QUERIES --- */
+  @media (max-width: 992px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+  }
+
+  @media (max-width: 576px) {
+    nav .nav-cta { display: none; }
+  }
+  @media (min-width: 577px) {
+    .nav-mobile-overlay .nav-cta { display: none; }
+  }
+
+  /* --- MARKETING LAYOUT STYLES --- */
   .marketing-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 140px 20px 60px;
+    padding: 160px 20px 60px;
   }
   
-  /* ปรับแต่ง Grid ให้สแกนสายตาง่ายขึ้น */
   .marketing-custom-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -32,7 +195,6 @@
     .marketing-custom-grid { grid-template-columns: 1fr; }
   }
 
-  /* กล่อง USP ไฮไลต์พิเศษให้เด่นกระแทกตากรรมการ */
   .market-highlight-box {
     grid-column: span 2;
     background: linear-gradient(135deg, rgba(212, 175, 55, 0.08) 0%, rgba(8, 8, 22, 0.6) 100%);
@@ -81,9 +243,17 @@
 
 <!-- NAVBAR -->
 <nav>
-  <a href="index.html" class="nav-logo">◈ MUAY<span>KORAT</span></a>
+  <div class="nav-left-group">
+    <!-- ปุ่มแฮมเบอร์เกอร์จัดอยู่ในสถาปัตยกรรมแถบบน ไม่หายไปไหนแน่นอนเมื่อกดดูเมนูย่อย -->
+    <div class="hamburger" id="hamburgerBtn" onclick="toggleMobileMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <a href="index.html" class="nav-logo">◈ MUAY<span>KORAT</span></a>
+  </div>
 
-   <ul class="nav-links">
+  <ul class="nav-links">
     <li class="dropdown">
       <a href="#">ภาพรวม ▾</a>
       <ul class="dropdown-menu">
@@ -99,9 +269,29 @@
     <li><a href="team.html">ทีมงาน</a></li>
   </ul>
 
-
   <a href="game.html" class="nav-cta">▶ PLAY GAME</a>
 </nav>
+
+<!-- MOBILE NAVIGATION OVERLAY -->
+<div class="nav-mobile-overlay" id="mobileMenu">
+  <div class="mobile-nav-item" onclick="toggleMobileDropdown(this)">
+    <span>ภาพรวม</span>
+    <i class="fa-solid fa-chevron-down"></i>
+  </div>
+  <div class="mobile-dropdown-content" id="mobileOverviewDropdown">
+    <a href="overview.html">เกี่ยวกับ</a>
+    <a href="marketing.html">การวิเคราะห์ตลาด</a>
+    <a href="history.html">ตำนานมวยโคราช</a>
+    <a href="combat.html">ศิลปะการต่อสู้</a>
+    <a href="training.html">การแต่งกายและการฝึกฝน</a>
+  </div>
+
+  <a href="slides.html" class="mobile-nav-item" style="justify-content: flex-start;">สไลด์นำเสนอ</a>
+  <a href="game.html" class="mobile-nav-item" style="justify-content: flex-start;">ลองเล่นเกม</a>
+  <a href="team.html" class="mobile-nav-item" style="justify-content: flex-start;">ทีมงาน</a>
+  
+  <a href="game.html" class="nav-cta" style="text-align: center; margin-top: 20px;">▶ PLAY GAME NOW</a>
+</div>
 
 <!-- MAIN CONTENT SECTION -->
 <section class="marketing-container">
@@ -194,7 +384,7 @@
           <li><strong>3D Motion Core Skills:</strong> นำเสนอ 3 ท่าเดโมสำคัญ (ย่างสามขุม, หมัดเหวี่ยงควาย, สาดแข้งหน้า) ด้วยแอนิเมชันเข้าใจง่าย</li>
         </ul>
         <ul>
-          <li><strong>Interactive Popup Experience:</strong> มีหน้าต่างวิดีโอป๊อปอัปโต้ตอบอธิบายชัดเจน</li>
+          <li><strong>Interactive Popup Experience:</strong> มีหน้าต่างวิดีอป๊อปอัปโต้ตอบอธิบายชัดเจน</li>
           <li><strong>All-in-One Web Platform:</strong> รวบรวมข้อมูลสรุปการตลาด สไลด์นำเสนอ และตัวเล่นเกมไว้บนระบบเว็บเดียว สะดวกต่อการขยายผล</li>
         </ul>
       </div>
@@ -205,25 +395,41 @@
 </section>
 
 <!-- FOOTER -->
-<footer>
-  <span class="footer-logo">◈ MUAY KORAT</span>
-  <span class="footer-text">
+<footer style="padding: 40px 20px; border-top: 1px solid rgba(255,255,255,0.05); text-align: center;">
+  <span class="footer-logo" style="text-decoration: none; font-family:'Orbitron'; font-weight:700; color:#fff; font-size:20px; display:block; margin-bottom:15px;">◈ MUAY <span style="color:#d4af37;">KORAT</span></span>
+  <span class="footer-text" style="color:#666; font-size:13px; font-family:'Kanit';">
    Muay Korat Project · สำนักวิชาศาสตร์และศิลป์ดิจิทัล · มหาวิทยาลัยเทคโนโลยีสุรนารี · 2026
   </span>
 </footer>
 
-<!-- DROPDOWN SCRIPT -->
+<!-- JAVASCRIPT FOR MOBILE MENU & RESPONSIVE INTERACTION -->
 <script>
-  document.querySelectorAll('.dropdown > a').forEach(trigger => {
-    trigger.addEventListener('click', function(e) {
-      e.preventDefault();
-      const menu = this.nextElementSibling;
-      const isOpen = menu.style.opacity === '1';
-      menu.style.opacity = isOpen ? '0' : '1';
-      menu.style.visibility = isOpen ? 'hidden' : 'visible';
-      menu.style.transform = isOpen ? 'translateY(10px)' : 'translateY(0)';
-    });
-  });
+  function toggleMobileMenu() {
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    hamburgerBtn.classList.toggle('active');
+    mobileMenu.classList.toggle('active');
+    
+    if (mobileMenu.classList.contains('active')) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+      // รีเซ็ตการพับเก็บ Accordion ย่อยด้านในเมื่อผู้ใช้กดปิดหน้ากากเมนูหลัก
+      const dropdown = document.getElementById('mobileOverviewDropdown');
+      const trigger = document.querySelector('.mobile-nav-item');
+      if (dropdown && trigger) {
+        dropdown.classList.remove('open');
+        trigger.classList.remove('active');
+      }
+    }
+  }
+
+  function toggleMobileDropdown(element) {
+    element.classList.toggle('active');
+    const dropdownContent = document.getElementById('mobileOverviewDropdown');
+    dropdownContent.classList.toggle('open');
+  }
 </script>
 
 </body>
