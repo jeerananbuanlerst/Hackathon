@@ -59,6 +59,7 @@
     font-size: 20px;
     text-decoration: none;
     letter-spacing: 1px;
+    white-space: nowrap; /* ป้องกันโลโก้ตัดบรรทัด */
   }
   .nav-logo span { color: #d4af37; }
   
@@ -90,6 +91,8 @@
     font-size: 13px;
     letter-spacing: 0.5px;
     transition: transform 0.3s, box-shadow 0.3s;
+    white-space: nowrap; /* ป้องกันปุ่มตัดบรรทัดเด็ดขาด */
+    display: inline-block;
   }
   .nav-cta:hover {
     transform: translateY(-2px);
@@ -118,6 +121,7 @@
     flex-direction: column;
     cursor: pointer;
     gap: 6px;
+    flex-shrink: 0; /* ป้องกันการโดนบีบขนาด */
   }
   .hamburger span {
     display: block;
@@ -182,10 +186,14 @@
   }
   .hero-container h1 {
     font-family: 'Orbitron', 'Kanit', sans-serif;
-    font-size: 2.5rem;
+    font-size: 2.2rem; /* ปรับลดลงเล็กน้อยสำหรับจอมือถือเล็กไม่ให้ล้น */
     font-weight: 900;
     line-height: 1.2;
     margin: 20px 0;
+    word-wrap: break-word;
+  }
+  @media (min-width: 576px) {
+    .hero-container h1 { font-size: 2.8rem; }
   }
   @media (min-width: 768px) {
     .hero-container h1 { font-size: 3.8rem; }
@@ -220,29 +228,27 @@
     align-items: center;
     justify-content: center;
     margin-top: 30px;
+    width: 100%;
   }
   @media (min-width: 576px) {
     .hero-actions { flex-direction: row; }
   }
 
-.btn-primary,
-.btn-ghost {
-
-    padding: 14px 20px;
+  .btn-primary, .btn-ghost {
+    padding: 14px 28px;
     border-radius: 12px;
-    font-family: 'Kanit','Orbitron',sans-serif;
+    font-family: 'Kanit', 'Orbitron', sans-serif;
     font-weight: 600;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 15px;
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    transition: all .3s ease;
+    gap: 10px;
+    transition: all 0.3s ease;
     width: 100%;
-    max-width: 100%;
     box-sizing: border-box;
     justify-content: center;
-}
+  }
   @media (min-width: 576px) {
     .btn-primary, .btn-ghost { width: auto; }
   }
@@ -266,7 +272,7 @@
   }
   
   /* --- SECTION UTILITIES --- */
-  section { padding: 60px 20px; }
+  section { padding: 60px 20px; box-sizing: border-box; }
   @media (min-width: 768px) { section { padding: 80px 40px; } }
   
   .section-header {
@@ -288,10 +294,11 @@
   }
   .section-title {
     font-family: 'Orbitron', 'Kanit', sans-serif;
-    font-size: 28px;
+    font-size: 26px; /* ปรับลดเพื่อความพอดีบนจอเล็ก */
     font-weight: 700;
     margin-top: 0;
     margin-bottom: 12px;
+    word-wrap: break-word;
   }
   @media (min-width: 768px) { .section-title { font-size: 36px; } }
   
@@ -374,6 +381,8 @@
     border-radius: 16px;
     border: 1px solid rgba(255, 255, 255, 0.05);
     overflow: hidden;
+    width: 100%;
+    box-sizing: border-box;
   }
   .slides-header {
     display: flex;
@@ -452,13 +461,32 @@
 
   .gold-text { color: #d4af37; }
 
-  /* --- MEDIA QUERY สำหรับ MOBILE NAVIGATION --- */
+  /* --- MEDIA QUERY สำหรับ MOBILE NAVIGATION & FIX BUG --- */
   @media (max-width: 992px) {
     .nav-links { display: none; } 
     .hamburger { display: flex; } /* แสดงแฮมเบอร์เกอร์ */
     
+    /* ปรับลด Padding ของตัว Navbar บนมือถือเพื่อเพิ่มพื้นที่ */
+    nav { padding: 0 3%; }
+    
+    /* ลดขนาดโลโก้ลงเล็กน้อยบนมือถือเพื่อไม่ให้เบียดกัน */
+    .nav-logo { font-size: 16px; gap: 5px; }
+    .nav-left-group { gap: 10px; }
+
+    /* ปรับแต่งปุ่ม PLAY GAME บนมือถือให้มีขนาดกระชับและฟอนต์เล็กลง ไม่ให้ปุ่มแตกหนีขึ้นสไลด์ */
+    .nav-cta {
+      padding: 8px 14px;
+      font-size: 11px;
+    }
+    
     .game-hero-card { padding: 30px 20px !important; }
     .game-hero-card h2 { font-size: 26px !important; }
+  }
+
+  /* เพิ่ม Media Query สำหรับจอมือถือขนาดเล็กมาก (เช่น iPhone SE) */
+  @media (max-width: 360px) {
+    .nav-logo { font-size: 14px; }
+    .nav-cta { padding: 6px 10px; font-size: 10px; }
   }
 </style>
 </head>
@@ -537,13 +565,7 @@
   <h2 class="section-title">Gameplay Demonstration</h2>
   <p class="section-sub">รับชมวิดีโอตัวอย่างเกมเพลย์ ระบบการเล่น และบรรยากาศภายในเกมเพื่อสัมผัสประสบการณ์ดิจิทัลวัฒนธรรมไทย</p>
   
- <div class="slides-container"
-style="
-max-width:850px;
-width:100%;
-margin:40px auto 0;
-box-sizing:border-box;
-">
+  <div class="slides-container" style="max-width: 850px; margin: 40px auto 0;">
     <div class="slides-header">
       <div class="slides-dots">
         <div class="dot" style="background:#ff5f56; width:12px; height:12px; border-radius:50%; display:inline-block; margin-right:6px;"></div>
@@ -559,13 +581,7 @@ box-sizing:border-box;
 </section>
 
 <!-- PLAY GAME (CONNECT TO ITCH.IO) -->
-<section id="playgame"
-style="
-max-width:1200px;
-margin:0 auto;
-padding-left:20px;
-padding-right:20px;
-">
+<section id="playgame" style="max-width: 1200px; margin: 0 auto;">
   <div class="game-hero-card">
     <h2 class="thai-gradient-text mb-3" style="font-size: 36px; font-family:'Orbitron','Kanit'; font-weight:700; margin-top:0;"><i class="fa-brands fa-itch-io"></i> PLAY THE GAME ON ITCH.IO</h2>
     <p style="max-width: 600px; margin: 15px auto 30px; color: #b0b0bc; font-family:'Kanit'; line-height: 1.6; font-size: 15px;">
@@ -587,7 +603,7 @@ padding-right:20px;
   <p class="section-sub">ตัวอย่างทำเนียบท่ามวยและเอกลักษณ์อัตลักษณ์มวยโคราช <span class="gold-text" style="font-weight: 500;">(คลิกที่กล่องเพื่อรับชมวิดีโอสาธิตท่วงท่าจริง)</span></p>
   
   <div class="overview-grid">
-    <!-- ท่ามวยที่ 1: ย่างสามขุม (เพิ่ม Parameter ปลอดภัย ?si= ของวิดีโอที่คุณระบุเรียบร้อย) -->
+    <!-- ท่ามวยที่ 1 -->
     <div class="ov-card clickable-card" onclick="openVideoModal('ย่างสามขุม (Three-Step Stance)', 'ท่าครูที่เป็นพื้นหลังสำคัญที่สุดของมวยโคราช การเดินมวยขยับเท้าเป็นรูปสามเหลี่ยมอย่างมั่นคง ใช้ในการตั้งรับ พลางหลบหลีก และหาจังหวะบุกโจมตีอย่างเด็ดขาด คล่องแคล่วดั่งเสือร้าย', 'https://www.youtube.com/embed/KbE9AEGQr-4?si=ct0qFHiyG1gmIIUn')">
       <span class="click-badge"><i class="fa-solid fa-video"></i> คลิกดูท่ามวย</span>
       <div class="ov-icon">
@@ -597,7 +613,7 @@ padding-right:20px;
       <div class="ov-desc">ท่าพื้นฐานสำคัญของมวยโคราช ใช้สำหรับเคลื่อนที่อย่างมั่นคง หลอกล่อ เข้าประชิดและสร้างจังหวะโจมตีคู่ต่อสู้</div>
     </div>
 
-    <!-- ท่ามวยที่ 2: หมัดเหวี่ยงควาย (แก้ไขให้เรียกใช้วิดีโอระบบเปิดสิทธิ์ฝังเรียบร้อย) -->
+    <!-- ท่ามวยที่ 2 -->
     <div class="ov-card clickable-card" onclick="openVideoModal('หมัดเหวี่ยงควาย (Buffalo Punch)', 'หมัดเหวี่ยงยาววงกว้างอันเป็นเอกลักษณ์เด่นชัดของมวยโคราช ออกแรงเหวี่ยงจากหัวไหล่และสะโพกทะลวงเข้าด้านข้างศีรษะหรือต้นคอคู่ต่อสู้ มีพลังทำลายล้างสูงราวกับควายขวิด', 'https://www.youtube.com/embed/KbE9AEGQr-4?si=ct0qFHiyG1gmIIUn')">
       <span class="click-badge"><i class="fa-solid fa-video"></i> คลิกดูท่ามวย</span>
       <div class="ov-icon">
@@ -607,7 +623,7 @@ padding-right:20px;
       <div class="ov-desc">ท่าโจมตีอันเลื่องชื่อของสายมวยภาคอีสาน เน้นการเหวี่ยงวงกว้างที่ทรงพลังและหนักหน่วงเด็ดขาด</div>
     </div>
 
-    <!-- ท่ามวยที่ 3: สาดแข้งหน้า -->
+    <!-- ท่ามวยที่ 3 -->
     <div class="ov-card clickable-card" onclick="openVideoModal('สาดแข้งหน้า (Front Kick Counter)', 'การตวัดแข้งเตะสกัดเข้าบริเวณชายโครงหรือลำตัวอย่างรวดเร็ว ใช้จังหวะที่คู่ต่อสู้ถลันเข้ามาบุก เพื่อทำลายสมดุลและตัดกำลังอย่างมีศิลปะ', 'https://www.youtube.com/embed/KbE9AEGQr-4?si=ct0qFHiyG1gmIIUn')">
       <span class="click-badge"><i class="fa-solid fa-video"></i> คลิกดูท่ามวย</span>
       <div class="ov-icon">
@@ -618,11 +634,11 @@ padding-right:20px;
     </div>
   </div>
 </section>
+
 <!-- SKILL TREE PROGRESSION -->
 <section style="background: rgba(14, 14, 36, 0.5); border-radius: 24px; margin: 0 20px 50px; max-width: 1200px; padding: 40px 0; text-align: center;">
   <div style="max-width: 900px; margin: 0 auto; padding: 0 20px; display: flex; flex-direction: column; align-items: center;">
     
-    <!-- จัดกึ่งกลางส่วนหัวข้อและเส้นไลน์ไล่เฉดทอง -->
     <div class="section-header" style="justify-content: center; width: 100%; padding: 0;">
       <span class="section-tag">SKILL TREE PROGRESSION</span>
       <div class="section-line" style="background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.3), transparent);"></div>
@@ -631,7 +647,6 @@ padding-right:20px;
     <h2 class="section-title" style="padding: 0; margin: 15px 0 10px; text-align: center; width: 100%;">47 Muay Korat Techniques</h2>
     <p class="section-sub" style="padding: 0; margin: 0 auto 35px; text-align: center; width: 100%;">ระบบพัฒนาและปลดล็อกทักษะตามลำดับสไตล์ RPG ผู้เล่นจะได้ฝึกฝนตั้งแต่ระดับรากฐานก้าวไปสู่แม่ไม้ครูชั้นสูง</p>
     
-    <!-- 🛠️ แก้จุดนี้: บังคับ Grid Layout ให้จัดตำแหน่งยึด Center กึ่งกลางหน้าจอร้อยเปอร์เซ็นต์ ไม่ให้โดน CSS ตัวเก่าดึงไปซ้าย -->
     <div class="skill-grid" style="width: 100%; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; justify-content: center; justify-items: center; align-content: center; padding: 0; margin: 0 auto;">
       
       <div class="skill-box" style="margin: 0; width: 100%; max-width: 240px; box-sizing: border-box;">
@@ -650,7 +665,6 @@ padding-right:20px;
       </div>
       
     </div>
-
   </div>
 </section>
 
@@ -698,12 +712,11 @@ padding-right:20px;
   <span class="footer-text" style="color:#666; font-size:13px; font-family:'Kanit';">Muay Korat Project · สำนักวิชาศาสตร์และศิลป์ดิจิทัล · มหาวิทยาลัยเทคโนโลยีสุรนารี · 2026</span>
 </footer>
 
-<!-- --- COMPONENTS: POPUP MODAL HTML (เพิ่มการตั้งค่าแก้ปัญหาจอดำ Error 153 ดึงภาพปกลื่นๆ) --- -->
+<!-- SYSTEM POPUP MODAL HTML -->
 <div class="motion-modal" id="videoModal">
   <div class="modal-content">
     <span class="modal-close" onclick="closeVideoModal()">&times;</span>
     <div class="modal-video-wrapper">
-      <!-- แนบสิทธิ์ allow และ referrerpolicy ข้ามโดเมนตามมาตรฐานความปลอดภัยใหม่ของ YouTube เพื่อกู้ภาพปกกลับมา -->
       <iframe id="modalIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
     <div class="modal-info">
@@ -741,10 +754,9 @@ padding-right:20px;
     modalTitle.innerText = title;
     modalDesc.innerText = description;
     
-    // ใช้เครื่องหมาย & ต่อท้ายเพื่อประสานพารามิเตอร์ลิงก์ ?si= ให้ไม่ซ้อนพัง และสั่งเบราว์เซอร์บังคับ Mute ป้องกันการ Block เล่นอัตโนมัติ
     modalIframe.src = videoUrl + "&autoplay=1&mute=1&rel=0&modestbranding=1"; 
     modal.classList.add('active');
-    document.body.style.overflow = 'hidden'; /* ล็อกหน้าจอเบื้องหลังไม่ให้เลื่อนเบลอเล่นขณะป็อปอัปทำงาน */
+    document.body.style.overflow = 'hidden';
   }
 
   function closeVideoModal() {
@@ -752,7 +764,7 @@ padding-right:20px;
     const modalIframe = document.getElementById('modalIframe');
 
     modal.classList.remove('active');
-    modalIframe.src = ""; /* ล้างสตรีมมิ่งทิ้งทันทีกดปิด ป้องกันเสียงค้างแอบทำงานเบื้องหลัง */
+    modalIframe.src = ""; 
     document.body.style.overflow = 'auto';
   }
 
