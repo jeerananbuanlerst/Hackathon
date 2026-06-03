@@ -11,72 +11,429 @@
 <link rel="stylesheet" href="css/style.css">
 
 <style>
-  /* --- ส่วนเสริมสไตล์พิเศษเพื่อความสวยงามในหน้าพรีเซนต์ --- */
-  .hero-container {
+  /* --- ส่วนเสริมสไตล์พิเศษเพื่อความสวยงามในหน้าพรีเซนต์ ป้องกันความโล่ง --- */
+  body {
+    background-color: #04040c;
+    color: #fff;
     position: relative;
-    padding: 180px 24px 100px;
-    background: linear-gradient(180deg, rgba(8, 8, 22, 0.4) 0%, #04040c 100%), 
-                url('/Users/aumaum/Desktop/Hackathon/image/IMG_5678.PNG') no-repeat center 20%/cover;
-    background-attachment: fixed;
-    text-align: center;
+    overflow-x: hidden;
+    background-image: 
+      linear-gradient(rgba(212, 175, 55, 0.015) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(212, 175, 55, 0.015) 1px, transparent 1px);
+    background-size: 50px 50px;
+    margin: 0;
+    padding-top: 80px;
+  }
+
+  /* --- FIXED NAVBAR WITH HAMBURGER ON LEFT --- */
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 4%;
+    background: rgba(4, 4, 12, 0.98);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    z-index: 10005; /* ดันให้อยู่เหนือกล่อง Overlay สไลด์มือถือเสมอ */
+    box-sizing: border-box;
+    gap: 15px;
   }
   
-  /* ตัวเลือกคลิกสำหรับท่ามวยในหน้าพรีเซนต์ */
+  /* จัดกลุ่มฝั่งซ้าย (แฮมเบอร์เกอร์ + โลโก้) */
+  .nav-left-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .nav-logo {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    color: #fff;
+    font-size: 20px;
+    text-decoration: none;
+    letter-spacing: 1px;
+  }
+  .nav-logo span { color: #d4af37; }
+  
+  /* Desktop Menu */
+  .nav-links {
+    display: flex;
+    list-style: none;
+    gap: 24px;
+    margin: 0;
+    padding: 0;
+  }
+  .nav-links a {
+    color: #b0b0bc;
+    text-decoration: none;
+    font-family: 'Kanit', sans-serif;
+    font-size: 15px;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: #d4af37; }
+  
+  .nav-cta {
+    background: linear-gradient(135deg, #d4af37 0%, #aa8416 100%);
+    color: #04040c;
+    padding: 10px 20px;
+    border-radius: 30px;
+    text-decoration: none;
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .nav-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+  }
+
+  /* Dropdown Menu (Desktop) */
+  .dropdown { position: relative; }
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%; left: 0;
+    background: #0a0a1a;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    list-style: none;
+    padding: 10px 0;
+    border-radius: 8px;
+    min-width: 200px;
+  }
+  .dropdown:hover .dropdown-menu { display: block; }
+  .dropdown-menu li a { padding: 8px 20px; display: block; }
+
+  /* --- HAMBURGER MENU STYLE --- */
+  .hamburger {
+    display: none; /* ซ่อนบนคอมพิวเตอร์ */
+    flex-direction: column;
+    cursor: pointer;
+    gap: 6px;
+  }
+  .hamburger span {
+    display: block;
+    width: 28px;
+    height: 3px;
+    background: #d4af37;
+    border-radius: 3px;
+    transition: 0.3s ease-in-out;
+  }
+  
+  /* เอฟเฟกต์กากบาท (X) */
+  .hamburger.active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+  /* Mobile Menu Overlay (ขยับลงมาด้านใต้ Navbar หลักเพื่อไม่ให้บังปุ่มแฮมเบอร์เกอร์) */
+  .nav-mobile-overlay {
+    position: fixed;
+    top: 80px; /* เลื่อนลงมาให้พอดีกับความสูงของ Navbar หลัก */
+    left: -100%; /* ซ่อนนอกจอทางซ้าย */
+    width: 75%;
+    max-width: 320px;
+    height: calc(100vh - 80px); /* ลบความสูงบาร์บนออกเพื่อไม่ให้หลุดล้นขอบล่าง */
+    background: #060612;
+    z-index: 10001;
+    display: flex;
+    flex-direction: column;
+    padding: 40px 30px; /* ปรับลดลงให้สมดุลและห่างพื้นที่ด้านบนพอดี */
+    transition: 0.4s cubic-bezier(0.1, 0.7, 0.1, 1);
+    box-shadow: 10px 0 30px rgba(0,0,0,0.6);
+    border-right: 1px solid rgba(212, 175, 55, 0.2);
+    box-sizing: border-box;
+    overflow-y: auto;
+  }
+  .nav-mobile-overlay.active { left: 0; }
+  .nav-mobile-overlay a {
+    color: #b0b0bc;
+    text-decoration: none;
+    font-size: 18px;
+    font-family: 'Kanit', sans-serif;
+    margin-bottom: 25px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    transition: 0.3s;
+  }
+  .nav-mobile-overlay a:hover { color: #d4af37; padding-left: 5px; }
+
+  /* --- HERO CONTAINER RESPONSIVE --- */
+  .hero-container {
+    position: relative;
+    padding: 120px 20px 80px;
+    background: linear-gradient(180deg, rgba(8, 8, 22, 0.5) 0%, #04040c 100%), 
+                url('/Users/aumaum/Desktop/Hackathon/image/IMG_5678.PNG') no-repeat center 20%/cover;
+    background-attachment: scroll;
+    text-align: center;
+  }
+  @media (min-width: 992px) {
+    .hero-container {
+      padding: 180px 24px 120px;
+      background-attachment: fixed;
+    }
+  }
+  .hero-container h1 {
+    font-family: 'Orbitron', 'Kanit', sans-serif;
+    font-size: 2.5rem;
+    font-weight: 900;
+    line-height: 1.2;
+    margin: 20px 0;
+  }
+  @media (min-width: 768px) {
+    .hero-container h1 { font-size: 3.8rem; }
+  }
+  .thai-gradient-text {
+    background: linear-gradient(135deg, #fff 30%, #d4af37 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero-badge {
+    background: rgba(212, 175, 55, 0.1);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    color: #f1e09d;
+    padding: 6px 16px;
+    border-radius: 30px;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 13px;
+  }
+  .hero-tagline {
+    font-family: 'Kanit', sans-serif;
+    color: #b0b0bc;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+  @media (min-width: 768px) {
+    .hero-tagline { font-size: 17px; }
+  }
+  .hero-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+  }
+  @media (min-width: 576px) {
+    .hero-actions { flex-direction: row; }
+  }
+
+  .btn-primary, .btn-ghost {
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-family: 'Kanit', 'Orbitron', sans-serif;
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 15px;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    transition: all 0.3s ease;
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: center;
+  }
+  @media (min-width: 576px) {
+    .btn-primary, .btn-ghost { width: auto; }
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, #d4af37 0%, #b38f1a 100%);
+    color: #04040c;
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(212, 175, 55, 0.4);
+  }
+  .btn-ghost {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+  }
+  .btn-ghost:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+  
+  /* --- SECTION UTILITIES --- */
+  section { padding: 60px 20px; }
+  @media (min-width: 768px) { section { padding: 80px 40px; } }
+  
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 15px;
+  }
+  .section-tag {
+    font-family: 'Orbitron', sans-serif;
+    color: #d4af37;
+    font-size: 12px;
+    letter-spacing: 2px;
+  }
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(212, 175, 55, 0.3), transparent);
+  }
+  .section-title {
+    font-family: 'Orbitron', 'Kanit', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    margin-top: 0;
+    margin-bottom: 12px;
+  }
+  @media (min-width: 768px) { .section-title { font-size: 36px; } }
+  
+  .section-sub {
+    color: #b0b0bc;
+    font-family: 'Kanit', sans-serif;
+    font-size: 15px;
+    margin-top: 0;
+    max-width: 700px;
+    line-height: 1.6;
+  }
+
+  /* --- GRIDS & CARDS RESPONSIVE --- */
+  .overview-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 35px;
+  }
+  @media (min-width: 768px) { .overview-grid { gap: 30px; margin-top: 45px; } }
+
+  .ov-card {
+    background: rgba(10, 10, 26, 0.6);
+    border: 1px solid rgba(212, 175, 55, 0.1);
+    padding: 30px 24px;
+    border-radius: 20px;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    position: relative;
+    box-sizing: border-box;
+  }
+  @media (min-width: 768px) { .ov-card { padding: 40px 30px; } }
+
+  /* คลาสพิเศษสไตล์การ์ดเล่นเกมเดโมป้องกันความโล่งและล้นจอมือถือ */
+  .game-hero-card {
+    background: rgba(10, 10, 26, 0.4); 
+    border: 1px solid rgba(212,175,55,0.2); 
+    padding: 50px 30px; 
+    border-radius: 24px; 
+    text-align: center;
+    box-sizing: border-box;
+  }
+
   .clickable-card {
     cursor: pointer;
     border: 1px solid rgba(212, 175, 55, 0.2);
-    position: relative;
     transition: all 0.3s ease;
   }
   .clickable-card:hover {
-    border-color: var(--thai-gold-base);
-    box-shadow: 0 0 20px rgba(212, 175, 55, 0.3) !important;
+    border-color: #d4af37;
+    box-shadow: 0 0 20px rgba(212, 175, 55, 0.25) !important;
+    transform: translateY(-5px);
   }
   .click-badge {
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 15px; right: 15px;
     font-size: 11px;
-    background: rgba(212, 175, 55, 0.2);
-    color: var(--thai-gold-light);
-    padding: 2px 8px;
-    border-radius: 4px;
-    border: 1px solid rgba(212, 175, 55, 0.3);
+    background: rgba(212, 175, 55, 0.15);
+    color: #f1e09d;
+    padding: 4px 10px;
+    border-radius: 20px;
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    font-family: 'Kanit', sans-serif;
+  }
+  .clickable-card:hover .click-badge { background: #d4af37; color: #04040c; }
+  .ov-icon i { font-size: 32px; }
+  .ov-title {
+    font-family: 'Kanit', sans-serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #fff;
+    margin-top: 15px;
+    margin-bottom: 12px;
+  }
+  .ov-desc { color: #b0b0bc; font-size: 14px; line-height: 1.6; font-family: 'Kanit', sans-serif; }
+
+  /* --- SLIDES & VIDEO BOX BROWSER BAR --- */
+  .slides-container {
+    background: #0f0f25;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    overflow: hidden;
+  }
+  .slides-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px;
+    background: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
   }
 
-  /* --- ระบบ POPUP VIDEO MODAL STYLE --- */
+  /* --- SKILL TREE PROGRESSION RESPONSIVE --- */
+  .skill-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    padding: 20px;
+  }
+  @media (min-width: 768px) { .skill-grid { gap: 20px; padding: 30px; } }
+  .skill-box {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(212, 175, 55, 0.1);
+    border-radius: 12px;
+    padding: 20px 15px;
+    text-align: center;
+    font-family: 'Orbitron', sans-serif;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+  }
+
+  /* --- SYSTEM POPUP VIDEO MODAL STYLE RESPONSIVE --- */
   .motion-modal {
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(4, 4, 12, 0.9);
+    background: rgba(4, 4, 12, 0.95);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     display: flex; align-items: center; justify-content: center;
-    z-index: 10000;
+    z-index: 10010;
     opacity: 0; visibility: hidden;
     transition: all 0.3s ease;
+    padding: 15px;
+    box-sizing: border-box;
   }
-  .motion-modal.active {
-    opacity: 1; visibility: visible;
-  }
+  .motion-modal.active { opacity: 1; visibility: visible; }
   .modal-content {
-    background: var(--bg-surface-l1);
-    border: 1px solid var(--thai-gold-base);
+    background: #0a0a1a;
+    border: 1px solid #d4af37;
     box-shadow: 0 0 50px rgba(212, 175, 55, 0.15);
-    width: 90%; max-width: 800px;
-    border-radius: 16px; overflow: hidden;
+    width: 100%; max-width: 750px;
+    border-radius: 20px; overflow: hidden;
     position: relative;
-    transform: scale(0.85); transition: all 0.3s ease;
+    transform: scale(0.9); transition: all 0.3s ease;
   }
-  .motion-modal.active .modal-content {
-    transform: scale(1);
-  }
+  .motion-modal.active .modal-content { transform: scale(1); }
+  
   .modal-close {
-    position: absolute; top: 15px; right: 20px;
-    font-size: 28px; color: var(--text-secondary);
+    position: absolute; top: 10px; right: 20px;
+    font-size: 38px; color: #888;
     cursor: pointer; transition: 0.2s; z-index: 10;
   }
-  .modal-close:hover { color: var(--thai-red-base); }
+  .modal-close:hover { color: #d4af37; }
+  
   .modal-video-wrapper {
     position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;
     background: #000;
@@ -84,16 +441,41 @@
   .modal-video-wrapper iframe {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;
   }
-  .modal-info { padding: 25px 30px; }
-  .modal-title { color: var(--thai-gold-base); font-size: 24px; margin-bottom: 10px; font-weight: 600; }
-  .modal-desc { color: var(--text-secondary); font-size: 15px; line-height: 1.7; }
+  .modal-info { padding: 20px; }
+  @media (min-width: 768px) { .modal-info { padding: 25px 30px; } }
+  .modal-title { color: #d4af37; font-size: 20px; margin-top:0; margin-bottom: 8px; font-weight: 600; font-family: 'Kanit'; }
+  @media (min-width: 768px) { .modal-title { font-size: 24px; } }
+  .modal-desc { color: #b0b0bc; font-size: 14px; line-height: 1.6; font-family: 'Kanit'; margin-bottom: 0; }
+
+  .gold-text { color: #d4af37; }
+
+  /* --- MEDIA QUERY สำหรับ MOBILE NAVIGATION --- */
+  @media (max-width: 992px) {
+    .nav-links { display: none; } 
+    .hamburger { display: flex; } /* แสดงแฮมเบอร์เกอร์ */
+    
+    .game-hero-card { padding: 30px 20px !important; }
+    .game-hero-card h2 { font-size: 26px !important; }
+  }
 </style>
 </head>
 <body>
 
 <!-- NAVBAR -->
 <nav>
-  <a href="index.html" class="nav-logo">◈ MUAY<span>KORAT</span></a>
+  <!-- ฝั่งซ้าย: รวมแฮมเบอร์เกอร์และโลโก้ไว้ด้วยกัน -->
+  <div class="nav-left-group">
+    <!-- ปุ่ม Hamburger (จะย้ายมาอยู่ซ้ายสุดเมื่อแสดงบนมือถือ) -->
+    <div class="hamburger" id="hamburgerBtn" onclick="toggleMobileMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    
+    <a href="index.html" class="nav-logo">◈ MUAY<span>KORAT</span></a>
+  </div>
+  
+  <!-- เมนูสำหรับหน้าจอคอมพิวเตอร์ -->
   <ul class="nav-links">
     <li class="dropdown">
       <a href="#">ภาพรวม ▾</a>
@@ -110,26 +492,41 @@
     <li><a href="team.html">ทีมงาน</a></li>
   </ul>
 
-  <a href="#playgame" class="nav-cta">▶ PLAY GAME</a>
+  <!-- ฝั่งขวา: ปุ่มเข้าเล่นเกมเดี่ยวๆ บนหน้าจอมือถือ -->
+  <div>
+    <a href="#playgame" class="nav-cta">▶ PLAY GAME</a>
+  </div>
 </nav>
+
+<!-- MOBILE NAVIGATION OVERLAY (สไลด์ออกฝั่งซ้ายใต้บาร์หลักพอดี) -->
+<div class="nav-mobile-overlay" id="mobileMenu">
+  <a href="overview.html" onclick="toggleMobileMenu()">ภาพรวมโครงการ</a>
+  <a href="marketing.html" onclick="toggleMobileMenu()">การวิเคราะห์ตลาด</a>
+  <a href="history.html" onclick="toggleMobileMenu()">ตำนานมวยโคราช</a>
+  <a href="combat.html" onclick="toggleMobileMenu()">ศิลปะการต่อสู้</a>
+  <a href="slides.html" onclick="toggleMobileMenu()">สไลด์นำเสนอ</a>
+  <a href="game.html" onclick="toggleMobileMenu()">ลองเล่นเกม</a>
+  <a href="team.html" onclick="toggleMobileMenu()">ทีมงาน</a>
+  <a href="#playgame" onclick="toggleMobileMenu()" style="color: #d4af37; font-weight: 600;">▶ PLAY GAME NOW</a>
+</div>
 
 <!-- HERO PRESENTATION HEADER -->
 <div class="hero-container">
   <div class="hero-orb"></div>
   <span class="hero-badge"><i class="fa-solid fa-gamepad"></i> 03 — PLAY EXPERIENCE</span>
-  <h1 class="mt-4 mb-4"><span class="thai-gradient-text">Muay Korat</span><br>Interactive Learning Game</h1>
-  <p class="hero-tagline" style="margin: 0 auto 30px;">
+  <h1><span class="thai-gradient-text">Muay Korat</span><br>Interactive Learning Game</h1>
+  <p class="hero-tagline" style="margin: 20px auto 30px; max-width: 800px;">
     เกมเพื่อการเรียนรู้มวยโคราชผ่านระบบ Interactive Learning ที่ผสมผสานองค์ความรู้ด้านศิลปวัฒนธรรมไทย 
     เข้ากับเทคโนโลยีดิจิทัลสมัยใหม่ เพื่อให้ผู้ใช้งานได้เรียนรู้และสืบสานแม่ไม้มวยโคราชอย่างมีส่วนร่วมและสร้างสรรค์
   </p>
-  <div class="hero-actions justify-center">
+  <div class="hero-actions">
     <a href="#playgame" class="btn-primary"><i class="fa-brands fa-itch-io"></i> ลองเล่นเกมเวอร์ชันเดโม</a>
     <a href="#gameplay" class="btn-ghost"><i class="fa-solid fa-play"></i> ชมวิดีโอแนะนำเกม</a>
   </div>
 </div>
 
-<!-- GAMEPLAY DEMONSTRATION (ย้ายขึ้นมาให้กรรมการเห็นง่ายขึ้น) -->
-<section id="gameplay" style="background: var(--bg-thai-indigo);">
+<!-- GAMEPLAY DEMONSTRATION -->
+<section id="gameplay" style="max-width: 1200px; margin: 0 auto;">
   <div class="section-header">
     <span class="section-tag">GAME PREVIEW</span>
     <div class="section-line"></div>
@@ -137,201 +534,203 @@
   <h2 class="section-title">Gameplay Demonstration</h2>
   <p class="section-sub">รับชมวิดีโอตัวอย่างเกมเพลย์ ระบบการเล่น และบรรยากาศภายในเกมเพื่อสัมผัสประสบการณ์ดิจิทัลวัฒนธรรมไทย</p>
   
-  <div class="slides-container">
+  <div class="slides-container" style="max-width: 850px; margin: 40px auto 0;">
     <div class="slides-header">
       <div class="slides-dots">
-        <div class="dot dot-r"></div>
-        <div class="dot dot-y"></div>
-        <div class="dot dot-g"></div>
+        <div class="dot" style="background:#ff5f56; width:12px; height:12px; border-radius:50%; display:inline-block; margin-right:6px;"></div>
+        <div class="dot" style="background:#ffbd2e; width:12px; height:12px; border-radius:50%; display:inline-block; margin-right:6px;"></div>
+        <div class="dot" style="background:#27c93f; width:12px; height:12px; border-radius:50%; display:inline-block;"></div>
       </div>
-      <div class="slides-title"><i class="fa-solid fa-video"></i> MUAY_KORAT_TRAILER.MP4</div>
+      <div class="slides-title" style="font-family:'Orbitron'; font-size:13px; color:#888;"><i class="fa-solid fa-video"></i> MUAY_KORAT_TRAILER.MP4</div>
     </div>
-    <div class="video-box">
-      <!-- ⚠️ เปลี่ยน YOUR_VIDEO_ID เป็นไอดีของวิดีโอ YouTube ของคุณ เช่น dQw4w9WgXcQ -->
-<iframe width="560" height="315" src="https://www.youtube.com/embed/-E8ZHeKInZc" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+    <div class="video-box" style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+      <iframe style="position: absolute; top:0; left:0; width:100%; height:100%; border:none;" src="https://www.youtube.com/embed/-E8ZHeKInZc" title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    </div>
   </div>
 </section>
 
 <!-- PLAY GAME (CONNECT TO ITCH.IO) -->
-<section id="playgame">
-  <div class="game-hero-card text-center glass-effect">
-    <h2 class="thai-gradient-text mb-3" style="font-size: 36px;"><i class="fa-brands fa-itch-io"></i> PLAY THE GAME ON ITCH.IO</h2>
-    <p class="mb-6" style="max-width: 600px; margin: 0 auto 30px; color: var(--text-secondary);">
+<section id="playgame" style="max-width: 1200px; margin: 0 auto;">
+  <div class="game-hero-card">
+    <h2 class="thai-gradient-text mb-3" style="font-size: 36px; font-family:'Orbitron','Kanit'; font-weight:700; margin-top:0;"><i class="fa-brands fa-itch-io"></i> PLAY THE GAME ON ITCH.IO</h2>
+    <p style="max-width: 600px; margin: 15px auto 30px; color: #b0b0bc; font-family:'Kanit'; line-height: 1.6; font-size: 15px;">
       ร่วมทดสอบและเปิดประสบการณ์การฝึกฝนศิลปะการต่อสู้โบราณในรูปแบบเกมจำลองสตรีมมิ่งบนแพลตฟอร์ม Itch.io ได้แล้ววันนี้ รองรับการเล่นผ่านเว็บเบราว์เซอร์
     </p>
-    <!-- ⚠️ เปลี่ยน YOUR_GAME_LINK เป็นลิงก์หน้านิยายหรือหน้าเกมบน itch.io ของคุณ -->
-    <a href="https://yourusername.itch.io/your-game-name" target="_blank" class="btn-primary" style="font-size: 18px; padding: 18px 45px;">
+    <a href="https://itch.io/embed/4632538" target="_blank" class="btn-primary" style="font-size: 16px; padding: 16px 35px; font-family:'Orbitron','Kanit'; width: auto;">
       <i class="fa-solid fa-circle-play"></i> ENTER GAMEPLAY EXPERIENCE
     </a>
   </div>
 </section>
 
-<!-- STANCE SYSTEM & INTERACTIVE POPUP (ไฮไลต์สำคัญของการโชว์กรรมการ) -->
-<section>
+<!-- STANCE SYSTEM & INTERACTIVE POPUP -->
+<section style="max-width: 1200px; margin: 0 auto;">
   <div class="section-header">
     <span class="section-tag">STANCE & TECHNIQUES</span>
     <div class="section-line"></div>
   </div>
   <h2 class="section-title">Muay Korat Core Techniques</h2>
-  <p class="section-sub">ตัวอย่างทำเนียบท่ามวยและเอกลักษณ์อัตลักษณ์มวยโคราช <span class="gold-text">**คลิกที่กล่องเพื่อรับชมวิดีโอตัวอย่างท่าและคำอธิบายประยุกต์**</span></p>
+  <p class="section-sub">ตัวอย่างทำเนียบท่ามวยและเอกลักษณ์อัตลักษณ์มวยโคราช <span class="gold-text" style="font-weight: 500;">(คลิกที่กล่องเพื่อรับชมวิดีโอสาธิตท่วงท่าจริง)</span></p>
   
   <div class="overview-grid">
-  <!-- ท่าที่ 1: ย่างสามขุม (เปลี่ยนเป็นไอคอนรอยเท้าสไตล์เหลี่ยมโมเดิร์น) -->
-  <div class="ov-card clickable-card" onclick="openVideoModal('ย่างสามขุม (Three-Step Stance)', 'ท่าครูที่เป็นพื้นหลังสำคัญที่สุดของมวยโคราช การเดินมวยขยับเท้าเป็นรูปสามเหลี่ยมอย่างมั่นคง ใช้ในการตั้งรับ พลางหลบหลีก และหาจังหวะบุกโจมตีอย่างเด็ดขาด คล่องแคล่วดั่งเสือร้าย', 'https://www.youtube.com/embed/YOUR_VIDEO_ID_1')">
-    <span class="click-badge"><i class="fa-solid fa-video"></i> คลิกดูท่ามวย</span>
-    <div class="ov-icon">
-      <i class="fa-solid fa-shoe-prints" style="color: var(--thai-gold-base); text-shadow: 0 0 15px rgba(212,175,55,0.5); transform: rotate(-45deg); display: inline-block;"></i>
+    <!-- ท่ามวยที่ 1: ย่างสามขุม (เพิ่ม Parameter ปลอดภัย ?si= ของวิดีโอที่คุณระบุเรียบร้อย) -->
+    <div class="ov-card clickable-card" onclick="openVideoModal('ย่างสามขุม (Three-Step Stance)', 'ท่าครูที่เป็นพื้นหลังสำคัญที่สุดของมวยโคราช การเดินมวยขยับเท้าเป็นรูปสามเหลี่ยมอย่างมั่นคง ใช้ในการตั้งรับ พลางหลบหลีก และหาจังหวะบุกโจมตีอย่างเด็ดขาด คล่องแคล่วดั่งเสือร้าย', 'https://www.youtube.com/embed/KbE9AEGQr-4?si=ct0qFHiyG1gmIIUn')">
+      <span class="click-badge"><i class="fa-solid fa-video"></i> คลิกดูท่ามวย</span>
+      <div class="ov-icon">
+        <i class="fa-solid fa-shoe-prints" style="color: #d4af37; text-shadow: 0 0 15px rgba(212,175,55,0.5); transform: rotate(-45deg); display: inline-block;"></i>
+      </div>
+      <div class="ov-title">ย่างสามขุม</div>
+      <div class="ov-desc">ท่าพื้นฐานสำคัญของมวยโคราช ใช้สำหรับเคลื่อนที่อย่างมั่นคง หลอกล่อ เข้าประชิดและสร้างจังหวะโจมตีคู่ต่อสู้</div>
     </div>
-    <div class="ov-title">ย่างสามขุม</div>
-    <div class="ov-desc">ท่าพื้นฐานสำคัญของมวยโคราช ใช้สำหรับเคลื่อนที่อย่างมั่นคง หลอกล่อ เข้าประชิดและสร้างจังหวะโจมตีคู่ต่อสู้</div>
-  </div>
 
-  <!-- ท่าที่ 2: หมัดเหวี่ยงควาย (เปลี่ยนเป็นไอคอนหมัดเหล็กพุ่งทะยานสุดทรงพลัง) -->
-  <div class="ov-card clickable-card" onclick="openVideoModal('หมัดเหวี่ยงควาย (Buffalo Punch)', 'หมัดเหวี่ยงยาววงกว้างอันเป็นเอกลักษณ์เด่นชัดของมวยโคราช ออกแรงเหวี่ยงจากหัวไหล่และสะโพกทะลวงเข้าด้านข้างศีรษะหรือต้นคอคู่ต่อสู้ มีพลังทำลายล้างสูงราวกับควายขวิด', 'https://www.youtube.com/embed/YOUR_VIDEO_ID_2')">
-    <span class="click-badge"><i class="fa-solid fa-video"></i> คลิกดูท่ามวย</span>
-    <div class="ov-icon">
-      <i class="fa-solid fa-hand-fist" style="color: var(--thai-gold-base); text-shadow: 0 0 15px rgba(212,175,55,0.5);"></i>
+    <!-- ท่ามวยที่ 2: หมัดเหวี่ยงควาย (แก้ไขให้เรียกใช้วิดีโอระบบเปิดสิทธิ์ฝังเรียบร้อย) -->
+    <div class="ov-card clickable-card" onclick="openVideoModal('หมัดเหวี่ยงควาย (Buffalo Punch)', 'หมัดเหวี่ยงยาววงกว้างอันเป็นเอกลักษณ์เด่นชัดของมวยโคราช ออกแรงเหวี่ยงจากหัวไหล่และสะโพกทะลวงเข้าด้านข้างศีรษะหรือต้นคอคู่ต่อสู้ มีพลังทำลายล้างสูงราวกับควายขวิด', 'https://www.youtube.com/embed/KbE9AEGQr-4?si=ct0qFHiyG1gmIIUn')">
+      <span class="click-badge"><i class="fa-solid fa-video"></i> คลิกดูท่ามวย</span>
+      <div class="ov-icon">
+        <i class="fa-solid fa-hand-fist" style="color: #d4af37; text-shadow: 0 0 15px rgba(212,175,55,0.5);"></i>
+      </div>
+      <div class="ov-title">หมัดเหวี่ยงควาย</div>
+      <div class="ov-desc">ท่าโจมตีอันเลื่องชื่อของสายมวยภาคอีสาน เน้นการเหวี่ยงวงกว้างที่ทรงพลังและหนักหน่วงเด็ดขาด</div>
     </div>
-    <div class="ov-title">หมัดเหวี่ยงควาย</div>
-    <div class="ov-desc">ท่าโจมตีอันเลื่องชื่อของสายมวยภาคอีสาน เน้นการเหวี่ยงวงกว้างที่ทรงพลังและหนักหน่วงเด็ดขาด</div>
-  </div>
 
-  <!-- ท่าที่ 3: สาดแข้งหน้า (เปลี่ยนเป็นไอคอนนักสู้กำลังเตะ/ป้องกันเวทมนตร์) -->
-  <div class="ov-card clickable-card" onclick="openVideoModal('สาดแข้งหน้า (Front Kick Counter)', 'การตวัดแข้งเตะสกัดเข้าบริเวณชายโครงหรือลำตัวอย่างรวดเร็ว ใช้จังหวะที่คู่ต่อสู้ถลันเข้ามาบุก เพื่อทำลายสมดุลและตัดกำลังอย่างมีศิลปะ', 'https://www.youtube.com/embed/YOUR_VIDEO_ID_3')">
-    <span class="click-badge"><i class="fa-solid fa-video"></i> คลิกดูท่ามวย</span>
-    <div class="ov-icon">
-      <i class="fa-solid fa-child-combatant" style="color: var(--thai-gold-base); text-shadow: 0 0 15px rgba(212,175,55,0.5);"></i>
+    <!-- ท่ามวยที่ 3: สาดแข้งหน้า -->
+    <div class="ov-card clickable-card" onclick="openVideoModal('สาดแข้งหน้า (Front Kick Counter)', 'การตวัดแข้งเตะสกัดเข้าบริเวณชายโครงหรือลำตัวอย่างรวดเร็ว ใช้จังหวะที่คู่ต่อสู้ถลันเข้ามาบุก เพื่อทำลายสมดุลและตัดกำลังอย่างมีศิลปะ', 'https://www.youtube.com/embed/KbE9AEGQr-4?si=ct0qFHiyG1gmIIUn')">
+      <span class="click-badge"><i class="fa-solid fa-video"></i> คลิกดูท่ามวย</span>
+      <div class="ov-icon">
+        <i class="fa-solid fa-child-combatant" style="color: #d4af37; text-shadow: 0 0 15px rgba(212,175,55,0.5);"></i>
+      </div>
+      <div class="ov-title">สาดแข้งหน้า</div>
+      <div class="ov-desc">กลยุทธ์การป้องกันและโต้กลับในเวลาเดียวกัน รวดเร็ว แม่นยำ และสร้างความเสียหายได้อย่างรุนแรง</div>
     </div>
-    <div class="ov-title">สาดแข้งหน้า</div>
-    <div class="ov-desc">กลยุทธ์การป้องกันและโต้กลับในเวลาเดียวกัน รวดเร็ว แม่นยำ และสร้างความเสียหายได้อย่างรุนแรง</div>
   </div>
-</div>
+</section>
+
 <!-- SKILL TREE PROGRESSION -->
-<section style="background: rgba(14, 14, 36, 0.5); border-radius: 24px; margin-bottom: 50px;">
-  <div class="section-header">
+<section style="background: rgba(14, 14, 36, 0.5); border-radius: 24px; margin: 0 20px 50px; max-width: 1200px; padding: 40px 0;">
+  <div class="section-header" style="padding: 0 20px;">
     <span class="section-tag">SKILL TREE PROGRESSION</span>
     <div class="section-line"></div>
   </div>
-  <h2 class="section-title">47 Muay Korat Techniques</h2>
-  <p class="section-sub">ระบบพัฒนาและปลดล็อกทักษะตามลำดับสไตล์ RPG ผู้เล่นจะได้ฝึกฝนตั้งแต่ระดับรากฐานก้าวไปสู่แม่ไม้ครูชั้นสูง</p>
+  <h2 class="section-title" style="padding: 0 20px;">47 Muay Korat Techniques</h2>
+  <p class="section-sub" style="padding: 0 20px;">ระบบพัฒนาและปลดล็อกทักษะตามลำดับสไตล์ RPG ผู้เล่นจะได้ฝึกฝนตั้งแต่ระดับรากฐานก้าวไปสู่แม่ไม้ครูชั้นสูง</p>
   
- <div class="skill-grid">
-  <!-- กล่องที่ 1: Basic Punches -->
-  <div class="skill-box">
-    <i class="fa-solid fa-hand-fist" style="color: var(--thai-gold-base); font-size: 28px; display: block; margin-bottom: 12px; text-shadow: 0 0 10px rgba(212,175,55,0.3);"></i>
-    Basic Punches
+  <div class="skill-grid">
+    <div class="skill-box">
+      <i class="fa-solid fa-hand-fist" style="color: #d4af37; font-size: 28px; display: block; margin-bottom: 12px; text-shadow: 0 0 10px rgba(212,175,55,0.3);"></i>
+      Basic Punches
+    </div>
+    <div class="skill-box">
+      <i class="fa-solid fa-bolt" style="color: #d4af37; font-size: 28px; display: block; margin-bottom: 12px; text-shadow: 0 0 10px rgba(212,175,55,0.3);"></i>
+      Elbow Attack
+    </div>
+    <div class="skill-box">
+      <i class="fa-solid fa-person-running" style="color: #d4af37; font-size: 28px; display: block; margin-bottom: 12px; text-shadow: 0 0 10px rgba(212,175,55,0.3);"></i>
+      Knee Attack
+    </div>
   </div>
-  
-  <!-- กล่องที่ 2: Elbow Attack -->
-  <div class="skill-box">
-    <i class="fa-solid fa-bolt" style="color: var(--thai-gold-base); font-size: 28px; display: block; margin-bottom: 12px; text-shadow: 0 0 10px rgba(212,175,55,0.3);"></i>
-    Elbow Attack
-  </div>
-  
-  <!-- กล่องที่ 3: Knee Attack (เปลี่ยนไอคอนจากรูปคนธรรมดา เป็นรูปคนกำลังเคลื่อนไหวต่อสู้ให้แอคทีฟขึ้น) -->
-  <div class="skill-box">
-    <i class="fa-solid fa-person-running" style="color: var(--thai-gold-base); font-size: 28px; display: block; margin-bottom: 12px; text-shadow: 0 0 10px rgba(212,175,55,0.3);"></i>
-    Knee Attack
-  </div>
-</div>
+</section>
 
 <!-- CORE FEATURES -->
-<section>
+<section style="max-width: 1200px; margin: 0 auto;">
   <div class="section-header">
     <span class="section-tag">CORE FEATURES</span>
     <div class="section-line"></div>
   </div>
   <div class="overview-grid">
-  <!-- กล่องที่ 1: ระบบเดโม 3 ท่าหลัก (เปลี่ยนไอคอนเป็นหมัดชก) -->
-  <div class="ov-card">
-    <div class="ov-icon">
-      <i class="fa-solid fa-hand-fist" style="color: var(--thai-gold-base); text-shadow: 0 0 15px rgba(212,175,55,0.4);"></i>
+    <div class="ov-card">
+      <div class="ov-icon">
+        <i class="fa-solid fa-hand-fist" style="color: #d4af37; text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);"></i>
+      </div>
+      <div class="ov-title">3 Core Muay Korat Skills</div>
+      <div class="ov-desc">ระบบเดโมคัดสรร 3 ท่าเอกลักษณ์สำคัญของมวยโคราช มาให้เรียนรู้ผ่านภาพเคลื่อนไหว 3 มิติ และคำอธิบายที่เข้าใจง่าย</div>
     </div>
-    <div class="ov-title">3 Core Muay Korat Skills</div>
-    <div class="ov-desc">ระบบเดโมคัดสรร 3 ท่าเอกลักษณ์สำคัญของมวยโคราช มาให้เรียนรู้ผ่านภาพเคลื่อนไหว 3 มิติ และคำอธิบายที่เข้าใจง่าย</div>
-  </div>
-  
-  <!-- กล่องที่ 2: อัตลักษณ์แม่ไม้ครู (เปลี่ยนไอคอนเป็นโล่ป้องกัน/ศิลปะการต่อสู้) -->
-  <div class="ov-card">
-    <div class="ov-icon">
-      <i class="fa-solid fa-shield-halved" style="color: var(--thai-gold-base); text-shadow: 0 0 15px rgba(212,175,55,0.4);"></i>
+    <div class="ov-card">
+      <div class="ov-icon">
+        <i class="fa-solid fa-shield-halved" style="color: #d4af37; text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);"></i>
+      </div>
+      <div class="ov-title">Special Master Techniques</div>
+      <div class="ov-desc">นำท่าไม้ครูโบราณ เช่น ย่างสามขุม และหมัดเหวี่ยงควาย มาจำลองเป็นท่าต่อสู้พิเศษ เพื่อชูอัตลักษณ์มวยภาคอีสาน</div>
     </div>
-    <div class="ov-title">Special Master Techniques</div>
-    <div class="ov-desc">นำท่าไม้ครูโบราณ เช่น ย่างสามขุม และหมัดเหวี่ยงควาย มาจำลองเป็นท่าต่อสู้พิเศษ เพื่อชูอัตลักษณ์มวยภาคอีสาน</div>
-  </div>
-  
-  <!-- กล่องที่ 3: ระบบ Interactive (เปลี่ยนไอคอนเป็นจอยเกมคอนโทรลเลอร์) -->
-  <div class="ov-card">
-    <div class="ov-icon">
-      <i class="fa-solid fa-gamepad" style="color: var(--thai-gold-base); text-shadow: 0 0 15px rgba(212,175,55,0.4);"></i>
+    <div class="ov-card">
+      <div class="ov-icon">
+        <i class="fa-solid fa-gamepad" style="color: #d4af37; text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);"></i>
+      </div>
+      <div class="ov-title">Interactive Showcase</div>
+      <div class="ov-desc">ผู้ใช้สามารถเลือกคลิกดูท่วงท่า วิดีโอสาธิต และทดลองควบคุมเรียนรู้ได้ทันทีผ่านระบบจำลองเดโมบนเว็บไซต์</div>
     </div>
-    <div class="ov-title">Interactive Showcase</div>
-    <div class="ov-desc">ผู้ใช้สามารถเลือกคลิกดูท่วงท่า วิดีโอสาธิต และทดลองควบคุมเรียนรู้ได้ทันทีผ่านระบบจำลองเดโมบนเว็บไซต์</div>
-  </div>
-
-  <!-- กล่องที่ 4: แผนพัฒนาในอนาคต (เปลี่ยนไอคอนเป็นจรวดพุ่งทะยาน/เป้าหมายยั่งยืน) -->
-  <div class="ov-card">
-    <div class="ov-icon">
-      <i class="fa-solid fa-rocket" style="color: var(--thai-gold-base); text-shadow: 0 0 15px rgba(212,175,55,0.4);"></i>
+    <div class="ov-card">
+      <div class="ov-icon">
+        <i class="fa-solid fa-rocket" style="color: #d4af37; text-shadow: 0 0 15px rgba(212, 175, 55, 0.4);"></i>
+      </div>
+      <div class="ov-title">Future Expansion</div>
+      <div class="ov-desc">มีแผนพัฒนาต่อยอดสู่ระบบคลังความรู้เต็มรูปแบบ 47 ท่ามวยโคราช และระบบทดสอบความรู้เพื่อประเมินผลในอนาคต</div>
     </div>
-    <div class="ov-title">Future Expansion</div>
-    <div class="ov-desc">มีแผนพัฒนาต่อยอดสู่ระบบคลังความรู้เต็มรูปแบบ 47 ท่ามวยโคราช และระบบทดสอบความรู้เพื่อประเมินผลในอนาคต</div>
   </div>
-</div>
 </section>
 
 <!-- FOOTER -->
-<footer>
-  <a href="index.html" class="footer-logo">◈ MUAY <span>KORAT</span></a>
-  <span class="footer-text">Muay Korat Project · สำนักวิชาศาสตร์และศิลป์ดิจิทัล · มหาวิทยาลัยเทคโนโลยีสุรนารี · 2026</span>
+<footer style="margin-top: 80px; padding: 40px 20px; border-top: 1px solid rgba(255,255,255,0.05); text-align: center;">
+  <a href="index.html" class="footer-logo" style="text-decoration: none; font-family:'Orbitron'; font-weight:700; color:#fff; font-size:20px; display:block; margin-bottom:15px;">◈ MUAY <span style="color:#d4af37;">KORAT</span></a>
+  <span class="footer-text" style="color:#666; font-size:13px; font-family:'Kanit';">Muay Korat Project · สำนักวิชาศาสตร์และศิลป์ดิจิทัล · มหาวิทยาลัยเทคโนโลยีสุรนารี · 2026</span>
 </footer>
 
-
-<!-- --- COMPONENTS: POPUP MODAL HTML --- -->
+<!-- --- COMPONENTS: POPUP MODAL HTML (เพิ่มการตั้งค่าแก้ปัญหาจอดำ Error 153 ดึงภาพปกลื่นๆ) --- -->
 <div class="motion-modal" id="videoModal">
   <div class="modal-content">
     <span class="modal-close" onclick="closeVideoModal()">&times;</span>
     <div class="modal-video-wrapper">
-      <iframe id="modalIframe" src="" allowfullscreen></iframe>
+      <!-- แนบสิทธิ์ allow และ referrerpolicy ข้ามโดเมนตามมาตรฐานความปลอดภัยใหม่ของ YouTube เพื่อกู้ภาพปกกลับมา -->
+      <iframe id="modalIframe" src="" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
     </div>
     <div class="modal-info">
       <h3 class="modal-title" id="modalTitle">ชื่อท่ามวย</h3>
       <p class="modal-desc" id="modalDesc">คำอธิบายท่ามวยยืดหยุ่นปรับเปลี่ยนตามชุดข้อมูล</p>
+      <p style="color:#d4af37; font-size:12px; margin-top:12px; font-family:'Kanit'; opacity: 0.8; line-height: 1.4;">
+        <i class="fa-solid fa-volume-xmark"></i> วิดีโอเล่นอัตโนมัติแบบปิดเสียงตามนโยบายเบราว์เซอร์ โปรดเปิดเสียงที่ตัวเครื่องเล่น YouTube
+      </p>
     </div>
   </div>
 </div>
 
-
-<!-- --- JAVASCRIPT CONTROL FOR POPUP MODAL --- -->
+<!-- --- JAVASCRIPT CONTROL --- -->
 <script>
+  function toggleMobileMenu() {
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    hamburgerBtn.classList.toggle('active');
+    mobileMenu.classList.toggle('active');
+    
+    if (mobileMenu.classList.contains('active')) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }
+
   function openVideoModal(title, description, videoUrl) {
     const modal = document.getElementById('videoModal');
     const modalTitle = document.getElementById('modalTitle');
     const modalDesc = document.getElementById('modalDesc');
     const modalIframe = document.getElementById('modalIframe');
 
-    // ใส่ข้อมูลลงในกล่อง Pop-up
     modalTitle.innerText = title;
     modalDesc.innerText = description;
-    // เพิ่ม ?autoplay=1 เพื่อให้เปิดแล้ววิดีโอเล่นออโต้เพิ่มความโปรอลังการ
-    modalIframe.src = videoUrl + "?autoplay=1&rel=0"; 
-
-    // แสดงหน้าต่าง Pop-up
+    
+    // ใช้เครื่องหมาย & ต่อท้ายเพื่อประสานพารามิเตอร์ลิงก์ ?si= ให้ไม่ซ้อนพัง และสั่งเบราว์เซอร์บังคับ Mute ป้องกันการ Block เล่นอัตโนมัติ
+    modalIframe.src = videoUrl + "&autoplay=1&mute=1&rel=0&modestbranding=1"; 
     modal.classList.add('active');
+    document.body.style.overflow = 'hidden'; /* ล็อกหน้าจอเบื้องหลังไม่ให้เลื่อนเบลอเล่นขณะป็อปอัปทำงาน */
   }
 
   function closeVideoModal() {
     const modal = document.getElementById('videoModal');
     const modalIframe = document.getElementById('modalIframe');
 
-    // ซ่อนหน้าต่าง Pop-up
     modal.classList.remove('active');
-    
-    // รีเซ็ตล้าง URL ของวิดีโอเพื่อสั่งให้วิดีโอหยุดเล่นเสียงเมื่อปิดกล่อง
-    modalIframe.src = "";
+    modalIframe.src = ""; /* ล้างสตรีมมิ่งทิ้งทันทีกดปิด ป้องกันเสียงค้างแอบทำงานเบื้องหลัง */
+    document.body.style.overflow = 'auto';
   }
 
-  // ปิดป๊อปอัปอัตโนมัติเมื่อกดพื้นที่สีดำรอบๆ ตัวกล่องวิดีโอ
   window.onclick = function(event) {
     const modal = document.getElementById('videoModal');
     if (event.target == modal) {
