@@ -13,7 +13,7 @@
 
 <style>
   /* =========================================================
-     🛠️ สไตล์ FIXED NAVBAR & HAMBURGER ถอดจากต้นแบบเพื่อนเป๊ะ ๆ[cite: 2]
+     🛠️ สไตล์ FIXED NAVBAR & HAMBURGER ถอดจากต้นแบบเพื่อนเป๊ะ ๆ[cite: 2, 7]
      ========================================================= */
   nav {
     display: flex;
@@ -156,6 +156,11 @@
   @media (max-width: 992px) {
     .nav-links { display: none; }
     .hamburger { display: flex; }
+    
+    /* บังคับกล่องภาพรวม 4 บล็อกหลัก และ ไทม์ไลน์ ยุบลงแถวเดี่ยวเมื่อเปิดบนมือถือ ป้องกันขอบหลุดล้น */
+    .overview-grid, .history-timeline-container { 
+      grid-template-columns: 1fr !important; 
+    }
   }
 
   @media (max-width: 576px) {
@@ -201,11 +206,80 @@
     font-family: 'Kanit', sans-serif !important;
   }
 
-  .ov-card {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
+  /* รูปแบบกล่องสไตล์การ์ดภาพรวมเสริมเส้นสีทองคำแท้ด้านบนให้ดูโปรสไตล์โมเดิร์นเกม[cite: 13] */
+  .ov-card, .history-timeline-card {
+    background: rgba(10, 10, 26, 0.6) !important;
+    border: 1px solid rgba(212, 175, 55, 0.1) !important;
+    border-radius: 20px !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    position: relative;
+    box-sizing: border-box;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .ov-card:hover, .history-timeline-card:hover {
+    transform: translateY(-5px);
+    border-color: rgba(212, 175, 55, 0.4) !important;
+    background: rgba(15, 15, 38, 0.85) !important;
+    box-shadow: 0 20px 40px rgba(212, 175, 55, 0.08);
+  }
+  .ov-card::before, .history-timeline-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 30px; width: 40px; height: 4px;
+    background: #d4af37;
+    border-radius: 0 0 4px 4px;
+  }
+
+  /* กล่องเลย์เอาต์โครงสร้างไทม์ไลน์ประวัติศาสตร์ชุดใหม่ */
+  .history-timeline-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+  }
+
+  .history-timeline-card {
+    padding: 40px; 
+  }
+
+  .history-timeline-card h3 {
+    font-family: 'Kanit', sans-serif;
+    font-size: 22px;
+    color: #fff;
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+
+  .history-timeline-card h3 span {
+    color: #ffd366;
+  }
+
+  .history-timeline-card p {
+    color: #ccc;
+    font-size: 15px;
+    line-height: 1.8;
+    margin-bottom: 0;
+  }
+
+  .history-timeline-card ul {
+    margin-top: 15px;
+    padding-left: 20px;
+    color: #aaa;
+    font-size: 14px;
+    line-height: 1.8;
+  }
+
+  .history-timeline-card ul li strong {
+    color: #ffd366;
+  }
+
+  .market-sub-section {
+    margin-top: 15px; 
+    background: rgba(255, 255, 255, 0.02); 
+    padding: 12px 15px; 
+    border-radius: 10px; 
+    border: 1px solid rgba(255,255,255,0.03); 
+    width: 100%; 
     box-sizing: border-box;
   }
 
@@ -219,9 +293,10 @@
 
 <body>
 
-<!-- NAVBAR (ปุ่มแฮมเบอร์เกอร์จัดอยู่ในสถาปัตยกรรมแถบบนหน้าสุดตามเพื่อนเป๊ะ ๆ)[cite: 2] -->
+<!-- NAVBAR -->
 <nav>
   <div class="nav-left-group">
+    <!-- แก้ไขสลับฟังก์ชันเรียกใช้ออโต้วงเล็บปิดตามไฟล์ต้นฉบับของเพื่อนเพื่อสิทธิ์สัมผัสที่ถูกต้อง[cite: 2] -->
     <div class="hamburger" id="hamburgerBtn" onclick="toggleMobileMenu()">
       <span></span>
       <span></span>
@@ -249,7 +324,7 @@
   <a href="game.html" class="nav-cta">▶ PLAY GAME</a>
 </nav>
 
-<!-- MOBILE NAVIGATION OVERLAY (ลิ้นชักเลื่อนถอดจากระบบเพื่อน)[cite: 2] -->
+<!-- MOBILE NAVIGATION OVERLAY[cite: 2, 7] -->
 <div class="nav-mobile-overlay" id="mobileMenu">
   <div class="mobile-nav-item" onclick="toggleMobileDropdown(this)">
     <span>ภาพรวม</span>
@@ -286,84 +361,100 @@
 
 <!-- MAIN CONTENT GRID LAYOUT -->
 <section style="max-width: 1200px; margin: -20px auto 0; padding-left: 20px; padding-right: 20px;">
-  <div class="overview-grid">
-    <!-- CARD 1 -->
-    <div class="ov-card" style="padding: 30px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px;">
+  
+  <!-- 🛠️ อัปเดตโครงสร้างระบบการ์ดภาพรวม 4 บล็อกหลัก เรียงแบบ บน 2 ล่าง 2 เสมอกันพรีเมียม[cite: 9] -->
+  <div class="overview-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; margin-top: 35px;">
+    
+    <!-- CARD 1: ฉายา "หมัดหนักโคราช" -->
+    <div class="ov-card" style="padding: 30px; display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-start;">
       <div class="ov-icon" style="margin-bottom: 20px;">
-        <i class="fa-solid fa-hand-fist" style="color: var(--thai-gold-base); font-size: 32px; display: block; text-shadow: 0 0 12px rgba(212,175,55,0.4);"></i>
+        <i class="fa-solid fa-hand-fist" style="color: var(--thai-gold-base, #d4af37); font-size: 32px; display: block; text-shadow: 0 0 12px rgba(212,175,55,0.4);"></i>
       </div>
-      <div class="ov-title" style="font-family: 'Kanit', sans-serif; font-size: 20px; font-weight: 600; color: #fff; margin-bottom: 12px;">ฉายา "หมัดหนักโคราช"</div>
-      <div class="ov-desc" style="color: #aaa; font-size: 14px; line-height: 1.7;">
-        สะท้อนถึงพลังหมัดเหวี่ยงควายและหัวใจนักสู้ของชาวที่ราบสูง
-        ขึ้นชื่อเรื่องความหนักหน่วงและอำนาจทำลายล้างสูง
-        ตามคำเปรียบเปรยโบราณ "หมัดหนักโคราช ฉลาดลพบุรี ท่าดีไชยา ไวกว่าท่าเสา"
+      <div class="ov-title" style="font-family: 'Kanit', sans-serif; font-size: 20px; font-weight: 600; color: #fff; margin-top: 15px; margin-bottom: 12px;">ฉายา "หมัดหนักโคราช"</div>
+      <div class="ov-desc" style="color: #b0b0bc; font-size: 14px; line-height: 1.7; font-family: 'Kanit', sans-serif;">
+        สะท้อนถึงพลังหมัดเหวี่ยงควายและหัวใจนักสู้ของชาวที่ราบสูง ขึ้นชื่อเรื่องความหนักหน่วงและอำนาจทำลายล้างสูง ตามคำเปรียบเปรยโบราณ "หมัดหนักโคราช ฉลาดลพบุรี ท่าดีไชยา ไวกว่าท่าเสา"
       </div>
     </div>
 
-    <!-- CARD 2 -->
-    <div class="ov-card" style="padding: 30px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px;">
+    <!-- CARD 2: ยุคทองสมัย ร.5 -->
+    <div class="ov-card" style="padding: 30px; display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-start;">
       <div class="ov-icon" style="margin-bottom: 20px;">
-        <i class="fa-solid fa-crown" style="color: var(--thai-gold-base); font-size: 32px; display: block; text-shadow: 0 0 12px rgba(212,175,55,0.4);"></i>
+        <i class="fa-solid fa-crown" style="color: var(--thai-gold-base, #d4af37); font-size: 32px; display: block; text-shadow: 0 0 12px rgba(212,175,55,0.4);"></i>
       </div>
-      <div class="ov-title" style="font-family: 'Kanit', sans-serif; font-size: 20px; font-weight: 600; color: #fff; margin-bottom: 12px;">ยุคทองสมัย ร.5</div>
-      <div class="ov-desc" style="color: #aaa; font-size: 14px; line-height: 1.7;">
-        มีชื่อเสียงสูงสุดในสมัยพระบาทสมเด็จพระจุลจอมเกล้าเจ้าอยู่หัว
-        ซึ่งเป็นยุคที่มวยไทยได้รับการส่งเสริมอย่างกว้างขวาง
-        ทำให้นักมวยจากโคราชได้แสดงฝีมือและสร้างชื่อเสียงระดับชาติ
+      <div class="ov-title" style="font-family: 'Kanit', sans-serif; font-size: 20px; font-weight: 600; color: #fff; margin-top: 15px; margin-bottom: 12px;">ยุคทองสมัย ร.5</div>
+      <div class="ov-desc" style="color: #b0b0bc; font-size: 14px; line-height: 1.7; font-family: 'Kanit', sans-serif;">
+        มีชื่อเสียงสูงสุดในสมัยพระบาทสมเด็จพระจุลจอมเกล้าเจ้าอยูู่หัว ซึ่งเป็นยุคที่มวยไทยได้รับการส่งเสริมอย่างกว้างขวาง ทำให้นักมวยจากโคราชได้แสดงฝีมือและสร้างชื่อเสียงระดับชาติ
       </div>
     </div>
 
-    <!-- CARD 3 -->
-    <div class="ov-card" style="padding: 30px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px;">
+    <!-- CARD 3: บุคคลในตำนาน -->
+    <div class="ov-card" style="padding: 30px; display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-start;">
       <div class="ov-icon" style="margin-bottom: 20px;">
-        <i class="fa-solid fa-award" style="color: var(--thai-gold-base); font-size: 32px; display: block; text-shadow: 0 0 12px rgba(212,175,55,0.4);"></i>
+        <i class="fa-solid fa-award" style="color: var(--thai-gold-base, #d4af37); font-size: 32px; display: block; text-shadow: 0 0 12px rgba(212,175,55,0.4);"></i>
       </div>
-      <div class="ov-title" style="font-family: 'Kanit', sans-serif; font-size: 20px; font-weight: 600; color: #fff; margin-bottom: 12px;">บุคคลในตำนาน</div>
-      <div class="ov-desc" style="color: #aaa; font-size: 14px; line-height: 1.7;">
+      <div class="ov-title" style="font-family: 'Kanit', sans-serif; font-size: 20px; font-weight: 600; color: #fff; margin-top: 15px; margin-bottom: 12px;">บุคคลในตำนาน</div>
+      <div class="ov-desc" style="color: #b0b0bc; font-size: 14px; line-height: 1.7; font-family: 'Kanit', sans-serif;">
         <b>"นายทับ จำเกาะ"</b><br>
-        นักมวยจากโคราชผู้สร้างชื่อเสียงจากการเอาชนะคู่ต่อสู้ด้วยหมัดที่หนักหน่วงจนเป็นที่เลื่องลือทั่วแผ่นดิน
-        และได้รับพระราชทานบรรดาศักดิ์
+        นักมวยจากโคราชผู้สร้างชื่อเสียงจากการเอาชนะคู่ต่อสู้ด้วยหมัดที่หนักหน่วงจนเป็นที่เลื่องลือทั่วแผ่นดิน และได้รับพระราชทานบรรดาศักดิ์[cite: 7]
       </div>
     </div>
 
-    <!-- CARD 4 -->
-    <div class="ov-card" style="padding: 30px; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 12px;">
+    <!-- CARD 4: อิทธิพลสู่ปัจจุบัน -->
+    <div class="ov-card" style="padding: 30px; display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-start;">
       <div class="ov-icon" style="margin-bottom: 20px;">
-        <i class="fa-solid fa-fire" style="color: var(--thai-gold-base); font-size: 32px; display: block; text-shadow: 0 0 12px rgba(212,175,55,0.4);"></i>
+        <i class="fa-solid fa-fire" style="color: var(--thai-gold-base, #d4af37); font-size: 32px; display: block; text-shadow: 0 0 12px rgba(212,175,55,0.4);"></i>
       </div>
-      <div class="ov-title" style="font-family: 'Kanit', sans-serif; font-size: 20px; font-weight: 600; color: #fff; margin-bottom: 12px;">อิทธิพลสู่ปัจจุบัน</div>
-      <div class="ov-desc" style="color: #aaa; font-size: 14px; line-height: 1.7;">
-        เป็นรากฐานของนักมวยไทยอาชีพชาวอีสานในยุคนี้ที่ขึ้นชื่อในเรื่องของ:
-        <ul style="margin-top: 10px; padding-left: 15px; color: #ccc;">
-          <li>ความทนทานและปอดใหญ่</li>
-          <li>การใช้อาวุธหนักที่รุนแรง</li>
-          <li>จิตวิญญาณการต่อสู้ที่ไม่ยอมถอยหลังง่าย ๆ</li>
-        </ul>
+      <div class="ov-title" style="font-family: 'Kanit', sans-serif; font-size: 20px; font-weight: 600; color: #fff; margin-top: 15px; margin-bottom: 12px;">อิทธิพลสู่ปัจจุบัน</div>
+      <div class="ov-desc" style="color: #b0b0bc; font-size: 14px; line-height: 1.7; font-family: 'Kanit', sans-serif; width: 100%;">
+        เป็นรากฐานของนักมวยไทยอาชีพชาวอีสานในยุคนี้ที่ขึ้นชื่อในเรื่องของความทนทานและระบบอาวุธหนักที่รุนแรงเด็ดขาด
+        <div class="market-sub-section">
+          <span style="font-size:13px; color:#ccc;"><i class="fa-solid fa-circle-check" style="color:#d4af37; margin-right: 5px;"></i> ความทนทานและปอดใหญ่</span><br style="margin-bottom: 5px;">
+          <span style="font-size:13px; color:#ccc;"><i class="fa-solid fa-circle-check" style="color:#d4af37; margin-right: 5px;"></i> จิตวิญญาณการต่อสู้ที่ไม่ยอมถอยง่ายๆ</span>
+        </div>
       </div>
     </div>
+
   </div>
 </section>
 
+<!-- HISTORICAL TIMELINE SECTION -->
 <section style="max-width: 1200px; margin: 60px auto; padding: 0 20px;">
   <div class="section-header">
-    <span class="section-tag">IDENTITY & ROOTS</span>
+    <span class="section-tag">HISTORICAL TIMELINE</span>
     <div class="section-line"></div>
   </div>
-  <h2 class="section-title custom-game-font" style="font-size: 38px !important;">รากเหง้าภูมิปัญญา <span>4 สายโบราณ</span></h2>
-  <p class="section-sub">
-    มวยไทยโบราณแบ่งออกเป็น 4 สายตามภูมิภาค ได้แก่ มวยโคราช (อีสาน) • มวยท่าเสา (เหนือ) • มวยลพบุรี (กลาง) • มวยไชยา (ใต้)
-  </p>
+  
+  <div class="history-timeline-container">
+    
+    <!-- 1. ยุคต้น -->
+    <div class="history-timeline-card">
+      <div style="font-family: 'Orbitron'; color: #d4af37; letter-spacing: 2px; font-size: 13px; font-weight: 700;"><i class="fa-solid fa-shield-halved" style="text-shadow: 0 0 10px rgba(212,175,55,0.4);"></i> EARLY ERA</div>
+      <h3>ยุคต้น: <span>สายเลือดนักรบเมืองหน้าด่าน (สมัยอยุธยา - ต้นรัตนโกสินทร์)</span></h3>
+      <p>
+        นครราชสีมา (โคราช) มีสถานะเป็น "เมืองหน้าด่านชั้นเอก" มาตั้งแต่สมัยอยุธยา ทำให้ต้องรับมือกับศึกสงครามอยู่เสมอ ชาวเมืองโคราชจึงต้องฝึกฝนการต่อสู้ด้วยอาวุธสั้นควบคู่ไปกับศิลปะมือเปล่าเพื่อปกป้องบ้านเมือง ทำให้ความแข็งแกร่งและวิชาการต่อสู้ถูกฝังรากลึกอยู่ในสายเลือดและวิถีชีวิตของคนโคราชมาหลายชั่วอายุคน
+      </p>
+      <p style="margin-top: 15px; color: #b0b0bc;">
+        เมื่อบ้านเมืองเข้าสู่ความสงบ วิชาการต่อสู้เหล่านี้จึงถูกปรับเปลี่ยนมาเป็นการประลองฝีมือตามงานวัด หรืองานศพ โดยจะใช้ทหารตีฆ้องร้องป่าวประกาศหานักชก เมื่อมีคนสนใจก็จะมาทำการ "เปรียบมวย" (กะขนาดรูปร่างและฝีมือที่ทัดเทียมกันโดยไม่มีการชั่งน้ำหนัก) แล้วจึงกำหนดวันชก
+      </p>
+    </div>
 
-  <div class="game-hero-card" style="margin-top: 30px; text-align: left; background: linear-gradient(135deg, rgba(212,175,55,0.03) 0%, rgba(255,255,255,0.01) 100%); border: 1px solid rgba(212,175,55,0.1); padding: 40px; border-radius: 16px;">
-    <h3 style="font-family: 'Kanit', sans-serif; font-size: 24px; color: #fff; margin-bottom: 15px; display: flex; align-items: center; gap: 12px;">
-      <i class="fa-solid fa-map-location-dot" style="color: var(--thai-gold-base); text-shadow: 0 0 10px rgba(212,175,55,0.3);"></i>
-      จังหวัดนครราชสีมา (ที่ราบสูงอีสาน)
-    </h3>
-    <p style="color: #ccc; line-height: 1.8; font-size: 15px; font-family: 'Kanit', sans-serif;">
-      ดินแดนแห่งความแข็งแกร่งและเมืองหน้าด่านในอดีต หล่อหลอมให้ชาวโคราชมีพละกำลังกายที่ยอดเยี่ยม อดทนสูง
-      เมื่อผสมผสานกับท่าไม้ตายอย่าง <b>"หมัดเหวี่ยงควาย"</b> ที่ใช้แรงส่งจากไหล่และสะโพก
-      จึงกลายเป็นศิลปะการต่อสู้ที่มีเอกลักษณ์และเป็นมรดกสำคัญที่นำมาต่อยอดสู่แพลตฟอร์มเกมดิจิทัลในปัจจุบัน
-    </p>
+    <!-- 2. ยุคทอง -->
+    <div class="history-timeline-card">
+      <div style="font-family: 'Orbitron'; color: #d4af37; letter-spacing: 2px; font-size: 13px; font-weight: 700;"><i class="fa-solid fa-crown" style="text-shadow: 0 0 10px rgba(212,175,55,0.4);"></i> GOLDEN ERA</div>
+      <h3>ยุคทอง: <span>มวยคาดเชือกหน้าพระที่นั่ง (สมัยรัชกาลที่ 5)</span></h3>
+      <p>
+        ยุคนี้ถือเป็นจุดสูงสุดของมวยโคราช เมื่อพระบาทสมเด็จพระจุลจอมเกล้าเจ้าอยู่หัว (รัชกาลที่ 5) ทรงโปรดเกล้าฯ ให้มีการจัดแข่งขันมวยคาดเชือกหน้าพระที่นั่ง โดยให้หัวเมืองต่างๆ คัดเลือกนักมวยฝีมือดีเข้ามาประลองกัน
+      </p>
+      <p style="margin-top: 15px; color: #b0b0bc;">
+        ในยุคนั้น นักมวยจากโคราชภายใต้การสนับสนุนของ พระเหมสมาหาร ได้สร้างชื่อเสียงอย่างมาก จนทำให้นักมวยโคราชชื่อ นายแดง ไทยประเสริฐ โชว์ฝีมือชนะคู่ต่อสู้จนเป็นที่พอพระราชหฤทัย และได้รับพระราชทานบรรดาศักดิ์เป็นขุนหมื่นครูมวย นามว่า "หมื่นชงัดเชิงชก"
+      </p>
+      <ul style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 15px; margin-top: 15px;">
+        <span style="font-size: 13px; color: #888; display: block; margin-bottom: 8px;">หมายเหตุ: ในคราวเดียวกันนั้น มีนักมวยอีก 2 ท่านที่ได้รับบรรดาศักดิ์คือ</span>
+        <li><strong>นายปล่อง จำนงค์ทอง (จากไชยา):</strong> ได้เป็น "หมื่นมวยมีชื่อ"</li>
+        <li><strong>นายกลึง โตสะอาด (จากลพบุรี):</strong> ได้เป็น "หมื่นมือแม่นหมัด"</li>
+      </ul>
+    </div>
+
   </div>
 </section>
 

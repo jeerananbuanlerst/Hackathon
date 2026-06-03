@@ -603,29 +603,39 @@
     </div>
   </div>
 </section>
-
 <!-- SKILL TREE PROGRESSION -->
-<section style="background: rgba(14, 14, 36, 0.5); border-radius: 24px; margin: 0 20px 50px; max-width: 1200px; padding: 40px 0;">
-  <div class="section-header" style="padding: 0 20px;">
-    <span class="section-tag">SKILL TREE PROGRESSION</span>
-    <div class="section-line"></div>
-  </div>
-  <h2 class="section-title" style="padding: 0 20px;">47 Muay Korat Techniques</h2>
-  <p class="section-sub" style="padding: 0 20px;">ระบบพัฒนาและปลดล็อกทักษะตามลำดับสไตล์ RPG ผู้เล่นจะได้ฝึกฝนตั้งแต่ระดับรากฐานก้าวไปสู่แม่ไม้ครูชั้นสูง</p>
-  
-  <div class="skill-grid">
-    <div class="skill-box">
-      <i class="fa-solid fa-hand-fist" style="color: #d4af37; font-size: 28px; display: block; margin-bottom: 12px; text-shadow: 0 0 10px rgba(212,175,55,0.3);"></i>
-      Basic Punches
+<section style="background: rgba(14, 14, 36, 0.5); border-radius: 24px; margin: 0 20px 50px; max-width: 1200px; padding: 40px 0; text-align: center;">
+  <div style="max-width: 900px; margin: 0 auto; padding: 0 20px; display: flex; flex-direction: column; align-items: center;">
+    
+    <!-- จัดกึ่งกลางส่วนหัวข้อและเส้นไลน์ไล่เฉดทอง -->
+    <div class="section-header" style="justify-content: center; width: 100%; padding: 0;">
+      <span class="section-tag">SKILL TREE PROGRESSION</span>
+      <div class="section-line" style="background: linear-gradient(90deg, transparent, rgba(212, 175, 55, 0.3), transparent);"></div>
     </div>
-    <div class="skill-box">
-      <i class="fa-solid fa-bolt" style="color: #d4af37; font-size: 28px; display: block; margin-bottom: 12px; text-shadow: 0 0 10px rgba(212,175,55,0.3);"></i>
-      Elbow Attack
+    
+    <h2 class="section-title" style="padding: 0; margin: 15px 0 10px; text-align: center; width: 100%;">47 Muay Korat Techniques</h2>
+    <p class="section-sub" style="padding: 0; margin: 0 auto 35px; text-align: center; width: 100%;">ระบบพัฒนาและปลดล็อกทักษะตามลำดับสไตล์ RPG ผู้เล่นจะได้ฝึกฝนตั้งแต่ระดับรากฐานก้าวไปสู่แม่ไม้ครูชั้นสูง</p>
+    
+    <!-- 🛠️ แก้จุดนี้: บังคับ Grid Layout ให้จัดตำแหน่งยึด Center กึ่งกลางหน้าจอร้อยเปอร์เซ็นต์ ไม่ให้โดน CSS ตัวเก่าดึงไปซ้าย -->
+    <div class="skill-grid" style="width: 100%; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 20px; justify-content: center; justify-items: center; align-content: center; padding: 0; margin: 0 auto;">
+      
+      <div class="skill-box" style="margin: 0; width: 100%; max-width: 240px; box-sizing: border-box;">
+        <i class="fa-solid fa-hand-fist" style="color: #d4af37; font-size: 28px; display: block; margin-bottom: 12px; text-shadow: 0 0 10px rgba(212,175,55,0.3);"></i>
+        Basic Punches
+      </div>
+      
+      <div class="skill-box" style="margin: 0; width: 100%; max-width: 240px; box-sizing: border-box;">
+        <i class="fa-solid fa-bolt" style="color: #d4af37; font-size: 28px; display: block; margin-bottom: 12px; text-shadow: 0 0 10px rgba(212,175,55,0.3);"></i>
+        Elbow Attack
+      </div>
+      
+      <div class="skill-box" style="margin: 0; width: 100%; max-width: 240px; box-sizing: border-box;">
+        <i class="fa-solid fa-person-running" style="color: #d4af37; font-size: 28px; display: block; margin-bottom: 12px; text-shadow: 0 0 10px rgba(212,175,55,0.3);"></i>
+        Knee Attack
+      </div>
+      
     </div>
-    <div class="skill-box">
-      <i class="fa-solid fa-person-running" style="color: #d4af37; font-size: 28px; display: block; margin-bottom: 12px; text-shadow: 0 0 10px rgba(212,175,55,0.3);"></i>
-      Knee Attack
-    </div>
+
   </div>
 </section>
 
