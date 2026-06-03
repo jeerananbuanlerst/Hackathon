@@ -12,13 +12,187 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Sora:wght@300;400;500;600&family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <link rel="stylesheet" href="css/style.css">
+
+<style>
+  /* =========================================================
+     🛠️ เพิ่มสไตล์ FIXED NAVBAR & HAMBURGER ถอดจากต้นแบบเพื่อน[cite: 2]
+     ========================================================= */
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 4%;
+    background: rgba(4, 4, 12, 0.98);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+    position: fixed;
+    top: 0; left: 0; width: 100%;
+    height: 80px; 
+    z-index: 10005; /* ให้ Layer อยู่เหนือ Mobile Overlay เสมอ[cite: 2] */
+    box-sizing: border-box;
+    gap: 15px;
+  }
+  
+  .nav-left-group {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .nav-logo {
+    font-family: 'Orbitron', sans-serif;
+    font-weight: 700; color: #fff; font-size: 20px;
+    text-decoration: none; letter-spacing: 1px;
+  }
+  .nav-logo span { color: #d4af37; }
+  
+  .nav-links {
+    display: flex;
+    list-style: none;
+    gap: 24px;
+    margin: 0; padding: 0;
+  }
+  .nav-links a {
+    color: #b0b0bc; text-decoration: none;
+    font-family: 'Kanit', sans-serif; font-size: 15px;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: #d4af37; }
+  
+  .nav-cta {
+    background: linear-gradient(135deg, #d4af37 0%, #aa8416 100%);
+    color: #04040c; padding: 10px 20px; border-radius: 30px;
+    text-decoration: none; font-family: 'Orbitron', sans-serif;
+    font-weight: 700; font-size: 13px; letter-spacing: 0.5px;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  .nav-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4);
+  }
+
+  .dropdown { position: relative; }
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%; left: 0;
+    background: #0a0a1a;
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    list-style: none; padding: 10px 0;
+    border-radius: 8px; min-width: 200px;
+  }
+  .dropdown:hover .dropdown-menu { display: block; }
+  .dropdown-menu li a { padding: 8px 20px; display: block; }
+
+  /* Hamburger Menu Style (3 ขีดซ้อน แปลงร่างเป็นกากบาท X)[cite: 2] */
+  .hamburger {
+    display: none; flex-direction: column; cursor: pointer; gap: 6px;
+  }
+  .hamburger span {
+    display: block; width: 28px; height: 3px; background: #d4af37;
+    border-radius: 3px; transition: 0.3s ease-in-out;
+  }
+  
+  .hamburger.active span:nth-child(1) { transform: translateY(9px) rotate(45deg); }
+  .hamburger.active span:nth-child(2) { opacity: 0; }
+  .hamburger.active span:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
+
+  /* MOBILE OVERLAY SYSTEM[cite: 2] */
+  .nav-mobile-overlay {
+    position: fixed; 
+    top: 80px; /* ปรับระดับไม่ให้ทับแถบบน[cite: 2] */
+    left: -100%; 
+    width: 75%; 
+    max-width: 320px;
+    height: calc(100vh - 80px); 
+    background: rgba(6, 6, 18, 0.98); 
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    z-index: 10001;
+    display: flex; 
+    flex-direction: column; 
+    padding: 40px 24px; 
+    transition: 0.4s cubic-bezier(0.1, 0.7, 0.1, 1);
+    box-shadow: 10px 10px 30px rgba(0,0,0,0.5);
+    border-right: 1px solid rgba(212, 175, 55, 0.15);
+    box-sizing: border-box;
+    overflow-y: auto;
+  }
+  .nav-mobile-overlay.active { left: 0; }
+  
+  .mobile-nav-item {
+    color: #b0b0bc; text-decoration: none; font-size: 17px;
+    font-family: 'Kanit', sans-serif; margin-bottom: 20px;
+    display: flex; justify-content: space-between; align-items: center;
+    cursor: pointer; transition: color 0.3s;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    padding-bottom: 8px;
+  }
+  .mobile-nav-item:hover, .mobile-nav-item.active { color: #d4af37; }
+  .mobile-nav-item i { font-size: 14px; transition: transform 0.3s ease; }
+  .mobile-nav-item.active i { transform: rotate(180deg); }
+
+  .mobile-dropdown-content {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    padding-left: 15px; margin-bottom: 0;
+    display: flex; flex-direction: column;
+  }
+  .mobile-dropdown-content.open {
+    max-height: 300px;
+    margin-bottom: 15px;
+  }
+  .mobile-dropdown-content a {
+    color: #8a8a98; text-decoration: none; font-size: 15px;
+    font-family: 'Kanit', sans-serif; padding: 8px 0;
+    transition: color 0.3s; border-bottom: none;
+  }
+  .mobile-dropdown-content a:hover { color: #d4af37; }
+
+  /* RESPONSIVE CONTROL FOR TABLET & MOBILE */
+  @media (max-width: 992px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    
+    /* 📱 🛠️ จุดสำคัญ: สั่งจัดระเบียบตารางรายชื่อทีมงาน ให้หดเลย์เอาต์มาเรียงเดี่ยวแนวตั้ง ไม่เบียดดันกันล้นขอบจอ */
+    .team-grid {
+      display: grid !important;
+      grid-template-columns: 1fr !important; /* เปลี่ยนจากหลายคอลลัมน์มาเป็น 1 คอลลัมน์เต็มจอมือถือ */
+      gap: 20px !important;
+      width: 100% !important;
+    }
+    
+    .member-card {
+      width: 100% !important;
+      box-sizing: border-box !important;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    nav .nav-cta { display: none; }
+  }
+  @media (min-width: 577px) {
+    .nav-mobile-overlay .nav-cta { display: none; }
+  }
+  @media (max-width: 768px) {
+    #team { padding-top: 110px !important; }
+  }
+</style>
 </head>
 
 <body>
 
-<!-- NAVBAR พร้อมระบบดรอปดาวน์ -->
+<!-- NAVBAR (จัดโครงสร้างกลุ่มด้านซ้ายเพื่อฝังปุ่มแฮมเบอร์เกอร์แปลงร่างตามเพื่อน)[cite: 2] -->
 <nav>
-  <a href="index.html" class="nav-logo">◈ MUAY<span>KORAT</span></a>
+  <div class="nav-left-group">
+    <div class="hamburger" id="hamburgerBtn" onclick="toggleMobileMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <a href="index.html" class="nav-logo">◈ MUAY<span>KORAT</span></a>
+  </div>
 
   <ul class="nav-links">
     <li class="dropdown">
@@ -36,8 +210,29 @@
     <li><a href="team.html" class="gold-text">ทีมงาน</a></li>
   </ul>
 
-  <a href="game.html" class="nav-cta">▶ PLAY GAME </a>
+  <a href="game.html" class="nav-cta">▶ PLAY GAME</a>
 </nav>
+
+<!-- MOBILE NAVIGATION OVERLAY (ลิ้นชักสไลด์ตามระบบต้นแบบเพื่อน)[cite: 2] -->
+<div class="nav-mobile-overlay" id="mobileMenu">
+  <div class="mobile-nav-item" onclick="toggleMobileDropdown(this)">
+    <span>ภาพรวม</span>
+    <i class="fa-solid fa-chevron-down"></i>
+  </div>
+  <div class="mobile-dropdown-content" id="mobileOverviewDropdown">
+    <a href="overview.html">เกี่ยวกับ</a>
+    <a href="marketing.html">การวิเคราะห์ตลาด</a>
+    <a href="history.html">ตำนานมวยโคราช</a>
+    <a href="combat.html">ศิลปะการต่อสู้</a>
+    <a href="training.html">การแต่งกายและการฝึกฝน</a>
+  </div>
+
+  <a href="slides.html" class="mobile-nav-item" style="justify-content: flex-start;">สไลด์นำเสนอ</a>
+  <a href="game.html" class="mobile-nav-item" style="justify-content: flex-start;">ลองเล่นเกม</a>
+  <a href="team.html" class="mobile-nav-item" style="justify-content: flex-start;">ทีมงาน</a>
+  
+  <a href="game.html" class="nav-cta" style="text-align: center; margin-top: 20px;">▶ PLAY GAME NOW</a>
+</div>
 
 <!-- MAIN CONTENT SECTION -->
 <section id="team" style="padding-top:140px; max-width: 1200px; margin: 0 auto; padding-left: 20px; padding-right: 20px;">
@@ -123,18 +318,34 @@
   </span>
 </footer>
 
-<!-- DROPDOWN SCRIPT -->
+<!-- JAVASCRIPT FOR MOBILE MENU & RESPONSIVE INTERACTION[cite: 2] -->
 <script>
-  document.querySelectorAll('.dropdown > a').forEach(trigger => {
-    trigger.addEventListener('click', function(e) {
-      e.preventDefault();
-      const menu = this.nextElementSibling;
-      const isOpen = menu.style.opacity === '1';
-      menu.style.opacity = isOpen ? '0' : '1';
-      menu.style.visibility = isOpen ? 'hidden' : 'visible';
-      menu.style.transform = isOpen ? 'translateY(10px)' : 'translateY(0)';
-    });
-  });
+  function toggleMobileMenu() {
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    hamburgerBtn.classList.toggle('active');
+    mobileMenu.classList.toggle('active');
+    
+    if (mobileMenu.classList.contains('active')) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+      // รีเซ็ตการพับเก็บ Accordion ย่อยด้านในเมื่อผู้ใช้กดปิดหน้ากากเมนูหลัก[cite: 2]
+      const dropdown = document.getElementById('mobileOverviewDropdown');
+      const trigger = document.querySelector('.mobile-nav-item');
+      if (dropdown && trigger) {
+        dropdown.classList.remove('open');
+        trigger.classList.remove('active');
+      }
+    }
+  }
+
+  function toggleMobileDropdown(element) {
+    element.classList.toggle('active');
+    const dropdownContent = document.getElementById('mobileOverviewDropdown');
+    dropdownContent.classList.toggle('open');
+  }
 </script>
 
 </body>
