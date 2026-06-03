@@ -225,21 +225,24 @@
     .hero-actions { flex-direction: row; }
   }
 
-  .btn-primary, .btn-ghost {
-    padding: 14px 28px;
+.btn-primary,
+.btn-ghost {
+
+    padding: 14px 20px;
     border-radius: 12px;
-    font-family: 'Kanit', 'Orbitron', sans-serif;
+    font-family: 'Kanit','Orbitron',sans-serif;
     font-weight: 600;
     text-decoration: none;
-    font-size: 15px;
+    font-size: 14px;
     display: inline-flex;
     align-items: center;
-    gap: 10px;
-    transition: all 0.3s ease;
+    gap: 8px;
+    transition: all .3s ease;
     width: 100%;
+    max-width: 100%;
     box-sizing: border-box;
     justify-content: center;
-  }
+}
   @media (min-width: 576px) {
     .btn-primary, .btn-ghost { width: auto; }
   }
@@ -534,7 +537,13 @@
   <h2 class="section-title">Gameplay Demonstration</h2>
   <p class="section-sub">รับชมวิดีโอตัวอย่างเกมเพลย์ ระบบการเล่น และบรรยากาศภายในเกมเพื่อสัมผัสประสบการณ์ดิจิทัลวัฒนธรรมไทย</p>
   
-  <div class="slides-container" style="max-width: 850px; margin: 40px auto 0;">
+ <div class="slides-container"
+style="
+max-width:850px;
+width:100%;
+margin:40px auto 0;
+box-sizing:border-box;
+">
     <div class="slides-header">
       <div class="slides-dots">
         <div class="dot" style="background:#ff5f56; width:12px; height:12px; border-radius:50%; display:inline-block; margin-right:6px;"></div>
@@ -550,7 +559,13 @@
 </section>
 
 <!-- PLAY GAME (CONNECT TO ITCH.IO) -->
-<section id="playgame" style="max-width: 1200px; margin: 0 auto;">
+<section id="playgame"
+style="
+max-width:1200px;
+margin:0 auto;
+padding-left:20px;
+padding-right:20px;
+">
   <div class="game-hero-card">
     <h2 class="thai-gradient-text mb-3" style="font-size: 36px; font-family:'Orbitron','Kanit'; font-weight:700; margin-top:0;"><i class="fa-brands fa-itch-io"></i> PLAY THE GAME ON ITCH.IO</h2>
     <p style="max-width: 600px; margin: 15px auto 30px; color: #b0b0bc; font-family:'Kanit'; line-height: 1.6; font-size: 15px;">
